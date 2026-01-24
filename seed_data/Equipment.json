@@ -239,7 +239,7 @@
   },
   {
     "ItemName": "A3 Clipboard with Medical Emergency & Cardiac Arrest Observation Record Form",
-    "ShortName": "A3 Clipboard with Medical Emergency & Cardiac Arre",
+    "ShortName": "A3 Clipboard with Medical Emergency & Cardiac A...",
     "Category": "Back of Trolley",
     "S4HANACode": "OFFICE MAX",
     "Supplier": "Office Max",
@@ -749,7 +749,7 @@
   },
   {
     "ItemName": "Adrenaline 1mg in 10mL (prefilled syringe or ampoules)",
-    "ShortName": "Adrenaline 1mg in 10mL (prefilled syringe or ampou",
+    "ShortName": "Adrenaline 1mg in 10mL (prefilled syringe or am...",
     "Category": "Drawer 2 - Medication & IV Fluids",
     "S4HANACode": "PHARMACY",
     "Supplier": "Pharmacy",
@@ -1361,7 +1361,7 @@
   },
   {
     "ItemName": "Bag-Valve-Mask Resuscitator with medium face mask (spare)",
-    "ShortName": "Bag-Valve-Mask Resuscitator with medium face mask ",
+    "ShortName": "Bag-Valve-Mask w/ medium (spare)",
     "Category": "Drawer 4 - PPE & Extra Equipment",
     "S4HANACode": "CELS",
     "Supplier": "CELS",
@@ -1395,7 +1395,7 @@
   },
   {
     "ItemName": "Paediatric Bag-Valve-Mask Resuscitator with Toddler face mask",
-    "ShortName": "Paediatric Bag-Valve-Mask Resuscitator with Toddle",
+    "ShortName": "Paediatric Bag-Valve-Mask w/ Toddler",
     "Category": "Paediatric Resuscitation Box",
     "S4HANACode": "10054728",
     "Supplier": "CELS",
@@ -1480,7 +1480,7 @@
   },
   {
     "ItemName": "Infant/Child 0-25kg reduced energy defibrillator pads (Bright Pink)",
-    "ShortName": "Infant/Child 0-25kg reduced energy defibrillator p",
+    "ShortName": "Infant/Child 0-25kg reduced energy defibrillato...",
     "Category": "Paediatric Resuscitation Box",
     "S4HANACode": "CELS",
     "Supplier": "CELS",
@@ -1497,7 +1497,7 @@
   },
   {
     "ItemName": "Quick-Combo RTS 0-15kg defibrillator pads (Salmon Pink)",
-    "ShortName": "Quick-Combo RTS 0-15kg defibrillator pads (Salmon ",
+    "ShortName": "Quick-Combo RTS 0-15kg defibrillator pads (Salm...",
     "Category": "Paediatric Resuscitation Box",
     "S4HANACode": "CELS",
     "Supplier": "CELS",
