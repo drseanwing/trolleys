@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "ServiceLine",
+  "description": "Reference data list containing RBWH service lines/directorates",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Name",
+      "type": "Text",
+      "required": true,
+      "maxLength": 100,
+      "description": "Full name of the service line"
+    },
+    {
+      "internalName": "Abbreviation",
+      "displayName": "Abbreviation",
+      "type": "Text",
+      "required": true,
+      "maxLength": 10,
+      "description": "Short code (IMS, S&P, etc.)"
+    },
+    {
+      "internalName": "IsActive",
+      "displayName": "Is Active",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": true,
+      "description": "Soft delete flag - indicates if service line is currently active"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Items",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "Abbreviation", "IsActive"],
+      "sortField": "Title",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Active Only",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Abbreviation"],
+      "filter": "[IsActive] = 1",
+      "sortField": "Title",
+      "sortDirection": "Ascending"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "Abbreviation",
+        "formula": "=LEN([Abbreviation])<=10",
+        "message": "Abbreviation must be 10 characters or less"
+      }
+    ]
+  }
+}

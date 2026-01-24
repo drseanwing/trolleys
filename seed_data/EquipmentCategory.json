@@ -1,0 +1,50 @@
+[
+  {
+    "CategoryName": "Top of Trolley",
+    "SortOrder": 1,
+    "Description": "Equipment and documents on top of the resuscitation trolley",
+    "IsActive": true
+  },
+  {
+    "CategoryName": "Side of Trolley",
+    "SortOrder": 2,
+    "Description": "Equipment attached to the side of the trolley",
+    "IsActive": true
+  },
+  {
+    "CategoryName": "Back of Trolley",
+    "SortOrder": 3,
+    "Description": "Equipment attached to the back of the trolley",
+    "IsActive": true
+  },
+  {
+    "CategoryName": "Drawer 1 - IV Equipment",
+    "SortOrder": 4,
+    "Description": "Intravenous access equipment and supplies",
+    "IsActive": true
+  },
+  {
+    "CategoryName": "Drawer 2 - Medication & IV Fluids",
+    "SortOrder": 5,
+    "Description": "Emergency medications and intravenous fluids",
+    "IsActive": true
+  },
+  {
+    "CategoryName": "Drawer 3 - Airway Equipment",
+    "SortOrder": 6,
+    "Description": "Airway management equipment and supplies",
+    "IsActive": true
+  },
+  {
+    "CategoryName": "Drawer 4 - PPE & Extra Equipment",
+    "SortOrder": 7,
+    "Description": "Personal protective equipment and additional supplies",
+    "IsActive": true
+  },
+  {
+    "CategoryName": "Paediatric Resuscitation Box",
+    "SortOrder": 8,
+    "Description": "Optional paediatric-specific resuscitation equipment",
+    "IsActive": true
+  }
+]

@@ -1,0 +1,113 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "LocationChangeLog",
+  "description": "Audit trail for changes to trolley location records",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Change Reference",
+      "type": "Text",
+      "required": true,
+      "maxLength": 50,
+      "description": "Auto-generated change reference"
+    },
+    {
+      "internalName": "Location",
+      "displayName": "Location",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Location",
+      "lookupField": "Title",
+      "description": "Location record that was changed"
+    },
+    {
+      "internalName": "ChangeType",
+      "displayName": "Change Type",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Created",
+        "Updated",
+        "Deactivated",
+        "Reactivated"
+      ],
+      "description": "Type of change made"
+    },
+    {
+      "internalName": "ChangeDateTime",
+      "displayName": "Change Date/Time",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateTime",
+      "description": "When the change was made"
+    },
+    {
+      "internalName": "ChangedBy",
+      "displayName": "Changed By",
+      "type": "User",
+      "required": true,
+      "description": "User who made the change"
+    },
+    {
+      "internalName": "FieldsChanged",
+      "displayName": "Fields Changed",
+      "type": "Text",
+      "required": false,
+      "maxLength": 500,
+      "description": "List of fields that were modified"
+    },
+    {
+      "internalName": "OldValues",
+      "displayName": "Old Values",
+      "type": "Note",
+      "required": false,
+      "maxLength": 2000,
+      "description": "Previous values (JSON format)"
+    },
+    {
+      "internalName": "NewValues",
+      "displayName": "New Values",
+      "type": "Note",
+      "required": false,
+      "maxLength": 2000,
+      "description": "New values (JSON format)"
+    },
+    {
+      "internalName": "ChangeReason",
+      "displayName": "Change Reason",
+      "type": "Note",
+      "required": false,
+      "maxLength": 500,
+      "description": "Reason for the change (especially for deactivation)"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Changes",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "Location", "ChangeType", "ChangeDateTime", "ChangedBy"],
+      "sortField": "ChangeDateTime",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "By Location",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "ChangeType", "ChangeDateTime", "ChangedBy", "FieldsChanged"],
+      "groupByField": "Location",
+      "sortField": "ChangeDateTime",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Recent Changes",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Location", "ChangeType", "ChangeDateTime", "ChangedBy"],
+      "filter": "[ChangeDateTime] >= [Today] - 30",
+      "sortField": "ChangeDateTime",
+      "sortDirection": "Descending"
+    }
+  ]
+}

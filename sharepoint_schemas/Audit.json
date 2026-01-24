@@ -1,0 +1,221 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "Audit",
+  "description": "Main audit records for resuscitation trolley audits",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Audit Reference",
+      "type": "Text",
+      "required": true,
+      "maxLength": 50,
+      "description": "Auto-generated audit reference (AUD-YYYY-NNNN)"
+    },
+    {
+      "internalName": "Location",
+      "displayName": "Location",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Location",
+      "lookupField": "Title",
+      "description": "Trolley location being audited"
+    },
+    {
+      "internalName": "AuditPeriod",
+      "displayName": "Audit Period",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "AuditPeriod",
+      "lookupField": "Title",
+      "description": "Audit period this audit belongs to"
+    },
+    {
+      "internalName": "AuditType",
+      "displayName": "Audit Type",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Comprehensive",
+        "SpotCheck",
+        "FollowUp"
+      ],
+      "defaultValue": "Comprehensive",
+      "description": "Type of audit being conducted"
+    },
+    {
+      "internalName": "AuditorName",
+      "displayName": "Auditor Name",
+      "type": "Text",
+      "required": true,
+      "maxLength": 100,
+      "description": "Name of person conducting the audit"
+    },
+    {
+      "internalName": "AuditorEmail",
+      "displayName": "Auditor Email",
+      "type": "Text",
+      "required": false,
+      "maxLength": 100,
+      "description": "Contact email for the auditor"
+    },
+    {
+      "internalName": "StartedDateTime",
+      "displayName": "Started Date/Time",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateTime",
+      "description": "When the audit was started"
+    },
+    {
+      "internalName": "CompletedDateTime",
+      "displayName": "Completed Date/Time",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateTime",
+      "description": "When the audit was submitted"
+    },
+    {
+      "internalName": "SubmissionStatus",
+      "displayName": "Submission Status",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Draft",
+        "Submitted",
+        "Verified"
+      ],
+      "defaultValue": "Draft",
+      "description": "Current status of the audit submission"
+    },
+    {
+      "internalName": "OverallCompliance",
+      "displayName": "Overall Compliance",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Calculated overall compliance percentage"
+    },
+    {
+      "internalName": "DocumentationScore",
+      "displayName": "Documentation Score",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Documentation subscore percentage"
+    },
+    {
+      "internalName": "EquipmentScore",
+      "displayName": "Equipment Score",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Equipment subscore percentage"
+    },
+    {
+      "internalName": "ConditionScore",
+      "displayName": "Condition Score",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Condition subscore percentage"
+    },
+    {
+      "internalName": "ChecksScore",
+      "displayName": "Routine Checks Score",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Routine checks subscore percentage"
+    },
+    {
+      "internalName": "RequiresFollowUp",
+      "displayName": "Requires Follow Up",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": false,
+      "description": "True if issues were identified requiring follow up"
+    },
+    {
+      "internalName": "FollowUpNotes",
+      "displayName": "Follow Up Notes",
+      "type": "Note",
+      "required": false,
+      "maxLength": 1000,
+      "description": "Actions required based on audit findings"
+    },
+    {
+      "internalName": "VerifiedBy",
+      "displayName": "Verified By",
+      "type": "User",
+      "required": false,
+      "description": "Person who verified the audit"
+    },
+    {
+      "internalName": "VerifiedDateTime",
+      "displayName": "Verified Date/Time",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateTime",
+      "description": "When the audit was verified"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Audits",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "Location", "AuditType", "AuditorName", "StartedDateTime", "SubmissionStatus", "OverallCompliance"],
+      "sortField": "StartedDateTime",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Submitted Audits",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Location", "AuditType", "CompletedDateTime", "OverallCompliance"],
+      "filter": "[SubmissionStatus] = 'Submitted'",
+      "sortField": "CompletedDateTime",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Draft Audits",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Location", "AuditorName", "StartedDateTime"],
+      "filter": "[SubmissionStatus] = 'Draft'",
+      "sortField": "StartedDateTime",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "By Location",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "AuditType", "CompletedDateTime", "OverallCompliance"],
+      "groupByField": "Location",
+      "sortField": "CompletedDateTime",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Requires Follow Up",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Location", "FollowUpNotes", "CompletedDateTime"],
+      "filter": "[RequiresFollowUp] = 1"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "OverallCompliance",
+        "formula": "=OR(ISBLANK([OverallCompliance]),AND([OverallCompliance]>=0,[OverallCompliance]<=100))",
+        "message": "Compliance must be between 0 and 100"
+      }
+    ]
+  }
+}

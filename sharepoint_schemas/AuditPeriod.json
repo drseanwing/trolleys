@@ -1,0 +1,134 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "AuditPeriod",
+  "description": "Configuration list for audit periods defining expected check counts",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Period Name",
+      "type": "Text",
+      "required": true,
+      "maxLength": 50,
+      "description": "Display name for the period (e.g., 'March 2024', 'April 2024')"
+    },
+    {
+      "internalName": "Year",
+      "displayName": "Year",
+      "type": "Number",
+      "required": true,
+      "minimum": 2020,
+      "maximum": 2100,
+      "description": "Calendar year"
+    },
+    {
+      "internalName": "Month",
+      "displayName": "Month",
+      "type": "Number",
+      "required": true,
+      "minimum": 1,
+      "maximum": 12,
+      "description": "Month number (1-12)"
+    },
+    {
+      "internalName": "StartDate",
+      "displayName": "Start Date",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateOnly",
+      "description": "First day of the audit period"
+    },
+    {
+      "internalName": "EndDate",
+      "displayName": "End Date",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateOnly",
+      "description": "Last day of the audit period"
+    },
+    {
+      "internalName": "WorkingDays",
+      "displayName": "Working Days",
+      "type": "Calculated",
+      "formula": "=NETWORKDAYS([StartDate],[EndDate])",
+      "outputType": "Number",
+      "description": "Business days in the period (calculated)"
+    },
+    {
+      "internalName": "TotalDays",
+      "displayName": "Total Days",
+      "type": "Calculated",
+      "formula": "=[EndDate]-[StartDate]+1",
+      "outputType": "Number",
+      "description": "Calendar days in the period (calculated)"
+    },
+    {
+      "internalName": "AuditDeadline",
+      "displayName": "Audit Deadline",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateOnly",
+      "description": "Submission deadline for audits"
+    },
+    {
+      "internalName": "IsActive",
+      "displayName": "Is Active",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": false,
+      "description": "Indicates if this is the current active audit period"
+    },
+    {
+      "internalName": "ExpectedOutsideChecks24_7",
+      "displayName": "Expected Outside Checks (24/7)",
+      "type": "Number",
+      "required": false,
+      "description": "Expected daily outside checks for 24/7 locations in this period"
+    },
+    {
+      "internalName": "ExpectedInsideChecks",
+      "displayName": "Expected Inside Checks",
+      "type": "Number",
+      "required": false,
+      "description": "Expected weekly inside checks in this period"
+    },
+    {
+      "internalName": "CreatedBy",
+      "displayName": "Created By",
+      "type": "User",
+      "required": false,
+      "description": "Admin who created the period"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Periods",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "Year", "Month", "StartDate", "EndDate", "AuditDeadline", "IsActive"],
+      "sortField": "StartDate",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Active Period",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "StartDate", "EndDate", "AuditDeadline", "WorkingDays"],
+      "filter": "[IsActive] = 1"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "EndDate",
+        "formula": "=[EndDate]>=[StartDate]",
+        "message": "End Date must be on or after Start Date"
+      },
+      {
+        "field": "Month",
+        "formula": "=AND([Month]>=1,[Month]<=12)",
+        "message": "Month must be between 1 and 12"
+      }
+    ]
+  }
+}

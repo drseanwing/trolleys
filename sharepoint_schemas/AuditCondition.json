@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "AuditCondition",
+  "description": "Physical condition checks of the resuscitation trolley",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Title",
+      "type": "Text",
+      "required": false,
+      "maxLength": 50,
+      "description": "Auto-populated based on parent audit"
+    },
+    {
+      "internalName": "Audit",
+      "displayName": "Audit",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Audit",
+      "lookupField": "Title",
+      "description": "Parent audit record"
+    },
+    {
+      "internalName": "IsClean",
+      "displayName": "Is Clean",
+      "type": "Boolean",
+      "required": true,
+      "description": "Is the trolley clean and dust free?"
+    },
+    {
+      "internalName": "IsWorkingOrder",
+      "displayName": "Is Working Order",
+      "type": "Boolean",
+      "required": true,
+      "description": "Is the trolley in good working order?"
+    },
+    {
+      "internalName": "IssueType",
+      "displayName": "Issue Type",
+      "type": "Choice",
+      "required": false,
+      "choices": [
+        "Wheels",
+        "Handle",
+        "Drawers",
+        "Locks",
+        "Other"
+      ],
+      "description": "Type of mechanical issue (if any)"
+    },
+    {
+      "internalName": "IssueDescription",
+      "displayName": "Issue Description",
+      "type": "Note",
+      "required": false,
+      "maxLength": 500,
+      "description": "Details of any issues found"
+    },
+    {
+      "internalName": "RubberBandsUsed",
+      "displayName": "Rubber Bands Used",
+      "type": "Boolean",
+      "required": true,
+      "description": "Are rubber bands used (inappropriate practice)?"
+    },
+    {
+      "internalName": "O2TubingCorrect",
+      "displayName": "O2 Tubing Correct",
+      "type": "Boolean",
+      "required": true,
+      "description": "Is green O2 tubing correctly attached to BVM?"
+    },
+    {
+      "internalName": "InhaloCylinderOK",
+      "displayName": "INHALO Cylinder OK",
+      "type": "Boolean",
+      "required": true,
+      "description": "Is the INHALO cylinder pressure adequate?"
+    },
+    {
+      "internalName": "ConditionScore",
+      "displayName": "Condition Score",
+      "type": "Calculated",
+      "formula": "=(IF([IsClean],1,0)+IF([IsWorkingOrder],1,0)+IF(NOT([RubberBandsUsed]),1,0)+IF([O2TubingCorrect],1,0)+IF([InhaloCylinderOK],1,0))/5*100",
+      "outputType": "Number",
+      "description": "Calculated condition score percentage"
+    },
+    {
+      "internalName": "ConditionNotes",
+      "displayName": "Condition Notes",
+      "type": "Note",
+      "required": false,
+      "maxLength": 500,
+      "description": "Additional observations about trolley condition"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Items",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Audit", "IsClean", "IsWorkingOrder", "RubberBandsUsed", "O2TubingCorrect", "InhaloCylinderOK", "ConditionScore"],
+      "sortField": "Created",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Issues Found",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Audit", "IssueType", "IssueDescription"],
+      "filter": "[IsWorkingOrder] = 0"
+    }
+  ]
+}

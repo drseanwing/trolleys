@@ -23,86 +23,86 @@
 
 ### 1.1 SharePoint Site Setup
 
-| ID | Task | Description | Dependency | Est. Hours |
-|----|------|-------------|------------|------------|
-| 1.1.1 | Create SharePoint site | Provision new SharePoint site named "RBWH Trolley Audit" | None | 1 |
-| 1.1.2 | Configure site permissions | Set up Owners, Members, Visitors groups with appropriate access | 1.1.1 | 2 |
-| 1.1.3 | Create site navigation | Build navigation menu structure for lists | 1.1.1 | 1 |
-| 1.1.4 | Configure site branding | Apply RBWH branding elements to site | 1.1.1 | 1 |
+| ID | Task | Description | Dependency | Est. Hours | Status |
+|----|------|-------------|------------|------------|--------|
+| 1.1.1 | Create SharePoint site | Provision new SharePoint site named "RBWH Trolley Audit" | None | 1 | Not Started |
+| 1.1.2 | Configure site permissions | Set up Owners, Members, Visitors groups with appropriate access | 1.1.1 | 2 | Not Started |
+| 1.1.3 | Create site navigation | Build navigation menu structure for lists | 1.1.1 | 1 | Not Started |
+| 1.1.4 | Configure site branding | Apply RBWH branding elements to site | 1.1.1 | 1 | Not Started |
 
 ### 1.2 Reference Data Lists
 
-| ID | Task | Description | Dependency | Est. Hours |
-|----|------|-------------|------------|------------|
-| 1.2.1 | Create ServiceLine list | Build SharePoint list with all ServiceLine columns | 1.1.1 | 1 |
-| 1.2.2 | Configure ServiceLine validation | Add column validation rules for ServiceLine | 1.2.1 | 0.5 |
-| 1.2.3 | Import ServiceLine seed data | Populate ServiceLine list with 7 service lines | 1.2.2 | 0.5 |
-| 1.2.4 | Create EquipmentCategory list | Build SharePoint list with all EquipmentCategory columns | 1.1.1 | 1 |
-| 1.2.5 | Configure EquipmentCategory validation | Add column validation rules for EquipmentCategory | 1.2.4 | 0.5 |
-| 1.2.6 | Import EquipmentCategory seed data | Populate EquipmentCategory list with 8 categories | 1.2.5 | 0.5 |
-| 1.2.7 | Create AuditPeriod list | Build SharePoint list with all AuditPeriod columns | 1.1.1 | 1 |
-| 1.2.8 | Configure AuditPeriod validation | Add column validation rules for AuditPeriod | 1.2.7 | 0.5 |
-| 1.2.9 | Create initial AuditPeriod record | Add current audit period configuration | 1.2.8 | 0.5 |
+| ID | Task | Description | Dependency | Est. Hours | Status |
+|----|------|-------------|------------|------------|--------|
+| 1.2.1 | Create ServiceLine list | Build SharePoint list with all ServiceLine columns | 1.1.1 | 1 | ✅ Complete |
+| 1.2.2 | Configure ServiceLine validation | Add column validation rules for ServiceLine | 1.2.1 | 0.5 | ✅ Complete |
+| 1.2.3 | Import ServiceLine seed data | Populate ServiceLine list with 7 service lines | 1.2.2 | 0.5 | ✅ Complete |
+| 1.2.4 | Create EquipmentCategory list | Build SharePoint list with all EquipmentCategory columns | 1.1.1 | 1 | ✅ Complete |
+| 1.2.5 | Configure EquipmentCategory validation | Add column validation rules for EquipmentCategory | 1.2.4 | 0.5 | ✅ Complete |
+| 1.2.6 | Import EquipmentCategory seed data | Populate EquipmentCategory list with 8 categories | 1.2.5 | 0.5 | ✅ Complete |
+| 1.2.7 | Create AuditPeriod list | Build SharePoint list with all AuditPeriod columns | 1.1.1 | 1 | ✅ Complete |
+| 1.2.8 | Configure AuditPeriod validation | Add column validation rules for AuditPeriod | 1.2.7 | 0.5 | ✅ Complete |
+| 1.2.9 | Create initial AuditPeriod record | Add current audit period configuration | 1.2.8 | 0.5 | ✅ Complete |
 
 ### 1.3 Equipment Master List
 
-| ID | Task | Description | Dependency | Est. Hours |
-|----|------|-------------|------------|------------|
-| 1.3.1 | Create Equipment list schema | Build SharePoint list with all Equipment columns | 1.2.6 | 2 |
-| 1.3.2 | Configure Equipment lookup to Category | Set up lookup column to EquipmentCategory | 1.3.1 | 0.5 |
-| 1.3.3 | Add Equipment validation rules | Configure required fields validation | 1.3.2 | 1 |
-| 1.3.4 | Add Equipment calculated columns | Create computed columns for display | 1.3.3 | 1 |
-| 1.3.5 | Import Top of Trolley equipment | Populate equipment items for Top of Trolley category | 1.3.4 | 1 |
-| 1.3.6 | Import Drawer 1 equipment | Populate equipment items for Drawer 1 category | 1.3.4 | 1 |
-| 1.3.7 | Import Drawer 2 equipment | Populate equipment items for Drawer 2 category | 1.3.4 | 0.5 |
-| 1.3.8 | Import Drawer 3 equipment | Populate equipment items for Drawer 3 category | 1.3.4 | 1 |
-| 1.3.9 | Import Drawer 4 equipment | Populate equipment items for Drawer 4 category | 1.3.4 | 0.5 |
-| 1.3.10 | Import Side of Trolley equipment | Populate equipment items for Side of Trolley category | 1.3.4 | 0.5 |
-| 1.3.11 | Import Back of Trolley equipment | Populate equipment items for Back of Trolley category | 1.3.4 | 0.5 |
-| 1.3.12 | Import Paediatric Box equipment | Populate equipment items for Paediatric Box category | 1.3.4 | 0.5 |
-| 1.3.13 | Validate equipment import completeness | Verify all 89 equipment items imported correctly | 1.3.12 | 1 |
+| ID | Task | Description | Dependency | Est. Hours | Status |
+|----|------|-------------|------------|------------|--------|
+| 1.3.1 | Create Equipment list schema | Build SharePoint list with all Equipment columns | 1.2.6 | 2 | ✅ Complete |
+| 1.3.2 | Configure Equipment lookup to Category | Set up lookup column to EquipmentCategory | 1.3.1 | 0.5 | ✅ Complete |
+| 1.3.3 | Add Equipment validation rules | Configure required fields validation | 1.3.2 | 1 | ✅ Complete |
+| 1.3.4 | Add Equipment calculated columns | Create computed columns for display | 1.3.3 | 1 | ✅ Complete |
+| 1.3.5 | Import Top of Trolley equipment | Populate equipment items for Top of Trolley category | 1.3.4 | 1 | ✅ Complete |
+| 1.3.6 | Import Drawer 1 equipment | Populate equipment items for Drawer 1 category | 1.3.4 | 1 | ✅ Complete |
+| 1.3.7 | Import Drawer 2 equipment | Populate equipment items for Drawer 2 category | 1.3.4 | 0.5 | ✅ Complete |
+| 1.3.8 | Import Drawer 3 equipment | Populate equipment items for Drawer 3 category | 1.3.4 | 1 | ✅ Complete |
+| 1.3.9 | Import Drawer 4 equipment | Populate equipment items for Drawer 4 category | 1.3.4 | 0.5 | ✅ Complete |
+| 1.3.10 | Import Side of Trolley equipment | Populate equipment items for Side of Trolley category | 1.3.4 | 0.5 | ✅ Complete |
+| 1.3.11 | Import Back of Trolley equipment | Populate equipment items for Back of Trolley category | 1.3.4 | 0.5 | ✅ Complete |
+| 1.3.12 | Import Paediatric Box equipment | Populate equipment items for Paediatric Box category | 1.3.4 | 0.5 | ✅ Complete |
+| 1.3.13 | Validate equipment import completeness | Verify all 89 equipment items imported correctly | 1.3.12 | 1 | ✅ Complete |
 
 ### 1.4 Location Master List
 
-| ID | Task | Description | Dependency | Est. Hours |
-|----|------|-------------|------------|------------|
-| 1.4.1 | Create Location list schema | Build SharePoint list with all Location columns | 1.2.3 | 3 |
-| 1.4.2 | Configure Location lookup to ServiceLine | Set up lookup column to ServiceLine | 1.4.1 | 0.5 |
-| 1.4.3 | Add Location choice columns | Configure choice fields for TrolleyType, DefibrillatorType, OperatingHours, Status | 1.4.2 | 1 |
-| 1.4.4 | Add Location validation rules | Configure required fields validation | 1.4.3 | 1 |
-| 1.4.5 | Create Location calculated columns | Add DaysSinceLastAudit computed column | 1.4.4 | 2 |
-| 1.4.6 | Import Location data from CSV | Populate Location list with 76 trolley locations | 1.4.5 | 2 |
-| 1.4.7 | Validate Location import completeness | Verify all locations imported with correct service line mapping | 1.4.6 | 1 |
-| 1.4.8 | Create LocationChangeLog list | Build SharePoint list for location audit trail | 1.4.1 | 1 |
-| 1.4.9 | Configure LocationChangeLog columns | Set up all columns for change tracking | 1.4.8 | 1 |
+| ID | Task | Description | Dependency | Est. Hours | Status |
+|----|------|-------------|------------|------------|--------|
+| 1.4.1 | Create Location list schema | Build SharePoint list with all Location columns | 1.2.3 | 3 | ✅ Complete |
+| 1.4.2 | Configure Location lookup to ServiceLine | Set up lookup column to ServiceLine | 1.4.1 | 0.5 | ✅ Complete |
+| 1.4.3 | Add Location choice columns | Configure choice fields for TrolleyType, DefibrillatorType, OperatingHours, Status | 1.4.2 | 1 | ✅ Complete |
+| 1.4.4 | Add Location validation rules | Configure required fields validation | 1.4.3 | 1 | ✅ Complete |
+| 1.4.5 | Create Location calculated columns | Add DaysSinceLastAudit computed column | 1.4.4 | 2 | ✅ Complete |
+| 1.4.6 | Import Location data from CSV | Populate Location list with 76 trolley locations | 1.4.5 | 2 | ✅ Complete |
+| 1.4.7 | Validate Location import completeness | Verify all locations imported with correct service line mapping | 1.4.6 | 1 | ✅ Complete |
+| 1.4.8 | Create LocationChangeLog list | Build SharePoint list for location audit trail | 1.4.1 | 1 | ✅ Complete |
+| 1.4.9 | Configure LocationChangeLog columns | Set up all columns for change tracking | 1.4.8 | 1 | ✅ Complete |
 
 ### 1.5 Core Audit Lists
 
-| ID | Task | Description | Dependency | Est. Hours |
-|----|------|-------------|------------|------------|
-| 1.5.1 | Create Audit list schema | Build SharePoint list with all Audit columns | 1.4.1 | 2 |
-| 1.5.2 | Configure Audit lookup to Location | Set up lookup column to Location | 1.5.1 | 0.5 |
-| 1.5.3 | Configure Audit lookup to AuditPeriod | Set up lookup column to AuditPeriod | 1.5.1 | 0.5 |
-| 1.5.4 | Add Audit choice columns | Configure choice fields for AuditType, SubmissionStatus | 1.5.3 | 1 |
-| 1.5.5 | Add Audit validation rules | Configure required fields validation | 1.5.4 | 1 |
-| 1.5.6 | Create AuditDocuments list | Build SharePoint list for documentation checks | 1.5.1 | 1 |
-| 1.5.7 | Configure AuditDocuments lookup to Audit | Set up lookup column to parent Audit | 1.5.6 | 0.5 |
-| 1.5.8 | Add AuditDocuments choice columns | Configure choice fields for status values | 1.5.7 | 1 |
-| 1.5.9 | Create AuditCondition list | Build SharePoint list for condition checks | 1.5.1 | 1 |
-| 1.5.10 | Configure AuditCondition lookup to Audit | Set up lookup column to parent Audit | 1.5.9 | 0.5 |
-| 1.5.11 | Create AuditChecks list | Build SharePoint list for routine check counts | 1.5.1 | 1 |
-| 1.5.12 | Configure AuditChecks lookup to Audit | Set up lookup column to parent Audit | 1.5.11 | 0.5 |
+| ID | Task | Description | Dependency | Est. Hours | Status |
+|----|------|-------------|------------|------------|--------|
+| 1.5.1 | Create Audit list schema | Build SharePoint list with all Audit columns | 1.4.1 | 2 | ✅ Complete |
+| 1.5.2 | Configure Audit lookup to Location | Set up lookup column to Location | 1.5.1 | 0.5 | ✅ Complete |
+| 1.5.3 | Configure Audit lookup to AuditPeriod | Set up lookup column to AuditPeriod | 1.5.1 | 0.5 | ✅ Complete |
+| 1.5.4 | Add Audit choice columns | Configure choice fields for AuditType, SubmissionStatus | 1.5.3 | 1 | ✅ Complete |
+| 1.5.5 | Add Audit validation rules | Configure required fields validation | 1.5.4 | 1 | ✅ Complete |
+| 1.5.6 | Create AuditDocuments list | Build SharePoint list for documentation checks | 1.5.1 | 1 | ✅ Complete |
+| 1.5.7 | Configure AuditDocuments lookup to Audit | Set up lookup column to parent Audit | 1.5.6 | 0.5 | ✅ Complete |
+| 1.5.8 | Add AuditDocuments choice columns | Configure choice fields for status values | 1.5.7 | 1 | ✅ Complete |
+| 1.5.9 | Create AuditCondition list | Build SharePoint list for condition checks | 1.5.1 | 1 | ✅ Complete |
+| 1.5.10 | Configure AuditCondition lookup to Audit | Set up lookup column to parent Audit | 1.5.9 | 0.5 | ✅ Complete |
+| 1.5.11 | Create AuditChecks list | Build SharePoint list for routine check counts | 1.5.1 | 1 | ✅ Complete |
+| 1.5.12 | Configure AuditChecks lookup to Audit | Set up lookup column to parent Audit | 1.5.11 | 0.5 | ✅ Complete |
 
 ### 1.6 PowerApp Foundation
 
-| ID | Task | Description | Dependency | Est. Hours |
-|----|------|-------------|------------|------------|
-| 1.6.1 | Create new Canvas PowerApp | Initialise new app with tablet/phone layout | 1.5.5 | 1 |
-| 1.6.2 | Configure app data connections | Connect app to all SharePoint lists | 1.6.1 | 2 |
-| 1.6.3 | Create app colour theme | Define colour variables matching RBWH branding | 1.6.2 | 1 |
-| 1.6.4 | Create app navigation component | Build reusable header with navigation menu | 1.6.3 | 3 |
-| 1.6.5 | Create Home screen layout | Build dashboard screen structure | 1.6.4 | 2 |
-| 1.6.6 | Add Home screen KPI placeholders | Create placeholder cards for KPI values | 1.6.5 | 2 |
+| ID | Task | Description | Dependency | Est. Hours | Status |
+|----|------|-------------|------------|------------|--------|
+| 1.6.1 | Create new Canvas PowerApp | Initialise new app with tablet/phone layout | 1.5.5 | 1 | Not Started |
+| 1.6.2 | Configure app data connections | Connect app to all SharePoint lists | 1.6.1 | 2 | Not Started |
+| 1.6.3 | Create app colour theme | Define colour variables matching RBWH branding | 1.6.2 | 1 | Not Started |
+| 1.6.4 | Create app navigation component | Build reusable header with navigation menu | 1.6.3 | 3 | Not Started |
+| 1.6.5 | Create Home screen layout | Build dashboard screen structure | 1.6.4 | 2 | Not Started |
+| 1.6.6 | Add Home screen KPI placeholders | Create placeholder cards for KPI values | 1.6.5 | 2 | Not Started |
 
 ---
 

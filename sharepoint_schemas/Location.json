@@ -1,0 +1,229 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "Location",
+  "description": "Master register of all resuscitation trolley locations across RBWH campus",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Department Name",
+      "type": "Text",
+      "required": true,
+      "maxLength": 100,
+      "enforceUniqueValues": true,
+      "description": "Official department name - must be unique"
+    },
+    {
+      "internalName": "DisplayName",
+      "displayName": "Display Name",
+      "type": "Text",
+      "required": true,
+      "maxLength": 50,
+      "description": "Short display name for dropdowns and reports"
+    },
+    {
+      "internalName": "ServiceLine",
+      "displayName": "Service Line",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "ServiceLine",
+      "lookupField": "Title",
+      "description": "Link to parent service line/directorate"
+    },
+    {
+      "internalName": "Building",
+      "displayName": "Building",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "James Mayne Building",
+        "Ned Hanlon Building",
+        "Joyce Tweddell Building",
+        "Mental Health Block",
+        "HIRF Building",
+        "STARS Building",
+        "Offsite"
+      ],
+      "description": "Physical building where trolley is located"
+    },
+    {
+      "internalName": "Level",
+      "displayName": "Level",
+      "type": "Text",
+      "required": true,
+      "maxLength": 20,
+      "description": "Floor level (Ground, L3, Level 5, etc.)"
+    },
+    {
+      "internalName": "SpecificLocation",
+      "displayName": "Specific Location",
+      "type": "Text",
+      "required": false,
+      "maxLength": 100,
+      "description": "Room or bay details within the department"
+    },
+    {
+      "internalName": "TrolleyType",
+      "displayName": "Trolley Type",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Standard",
+        "Emergency",
+        "Other"
+      ],
+      "defaultValue": "Standard",
+      "description": "Type of resuscitation trolley"
+    },
+    {
+      "internalName": "HasPaedBox",
+      "displayName": "Has Paediatric Box",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": false,
+      "description": "Indicates if trolley requires paediatric equipment box"
+    },
+    {
+      "internalName": "DefibrillatorType",
+      "displayName": "Defibrillator Type",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "LIFEPAK_1000_AED",
+        "LIFEPAK_20_20e"
+      ],
+      "defaultValue": "LIFEPAK_1000_AED",
+      "description": "Type of defibrillator at this location"
+    },
+    {
+      "internalName": "OperatingHours",
+      "displayName": "Operating Hours",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "24_7",
+        "Weekday_Business",
+        "Weekday_Extended"
+      ],
+      "defaultValue": "Weekday_Business",
+      "description": "Staffing pattern for expected check calculations"
+    },
+    {
+      "internalName": "ExpectedDailyChecks",
+      "displayName": "Expected Daily Checks",
+      "type": "Calculated",
+      "formula": "=IF([OperatingHours]=\"24_7\",3,IF([OperatingHours]=\"Weekday_Extended\",2,1))",
+      "outputType": "Number",
+      "description": "Expected outside checks per day based on operating hours"
+    },
+    {
+      "internalName": "Status",
+      "displayName": "Status",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Active",
+        "Inactive",
+        "Pending"
+      ],
+      "defaultValue": "Active",
+      "description": "Current status of the trolley location"
+    },
+    {
+      "internalName": "DecommissionedDate",
+      "displayName": "Decommissioned Date",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateOnly",
+      "description": "Date when trolley was taken out of service"
+    },
+    {
+      "internalName": "LastAuditDate",
+      "displayName": "Last Audit Date",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateOnly",
+      "description": "Date of most recent completed audit"
+    },
+    {
+      "internalName": "LastAuditCompliance",
+      "displayName": "Last Audit Compliance",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Compliance percentage from most recent audit"
+    },
+    {
+      "internalName": "DaysSinceLastAudit",
+      "displayName": "Days Since Last Audit",
+      "type": "Calculated",
+      "formula": "=IF(ISBLANK([LastAuditDate]),999,DATEDIF([LastAuditDate],TODAY(),\"D\"))",
+      "outputType": "Number",
+      "description": "Number of days since last audit (999 if never audited)"
+    },
+    {
+      "internalName": "Notes",
+      "displayName": "Notes",
+      "type": "Note",
+      "required": false,
+      "maxLength": 500,
+      "description": "Special requirements or notes about this location"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Locations",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "ServiceLine", "Building", "Level", "Status", "LastAuditDate", "DaysSinceLastAudit"],
+      "sortField": "Title",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Active Locations",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "ServiceLine", "Building", "Level", "LastAuditDate", "DaysSinceLastAudit"],
+      "filter": "[Status] = 'Active'",
+      "sortField": "DaysSinceLastAudit",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Overdue Audits",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "ServiceLine", "Building", "LastAuditDate", "DaysSinceLastAudit"],
+      "filter": "AND([Status] = 'Active', [DaysSinceLastAudit] > 180)",
+      "sortField": "DaysSinceLastAudit",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "By Service Line",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "ServiceLine", "Building", "Level", "Status"],
+      "groupByField": "ServiceLine",
+      "sortField": "Title",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Building",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "ServiceLine", "Level", "Status"],
+      "groupByField": "Building",
+      "sortField": "Level",
+      "sortDirection": "Ascending"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "LastAuditCompliance",
+        "formula": "=OR(ISBLANK([LastAuditCompliance]),AND([LastAuditCompliance]>=0,[LastAuditCompliance]<=100))",
+        "message": "Compliance must be between 0 and 100"
+      }
+    ]
+  }
+}
