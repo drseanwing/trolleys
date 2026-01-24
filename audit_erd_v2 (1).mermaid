@@ -1,0 +1,249 @@
+erDiagram
+    %% Reference Data
+    ServiceLine ||--o{ Location : "contains"
+    ServiceLine {
+        guid ServiceLineId PK
+        string Name
+        string Abbreviation
+        string ContactEmail
+        boolean IsActive
+    }
+    
+    EquipmentCategory ||--o{ Equipment : "groups"
+    EquipmentCategory {
+        guid CategoryId PK
+        string CategoryName
+        int SortOrder
+        string Description
+    }
+    
+    Equipment {
+        guid EquipmentId PK
+        guid CategoryId FK
+        string ItemName
+        string ShortName
+        string S4HANACode
+        string Supplier
+        int StandardQuantity
+        boolean IsStandardItem
+        boolean IsPaediatricItem
+        boolean IsAlteredAirwayItem
+        choice RequiredForDefibType
+        boolean RequiresExpiryCheck
+        boolean CriticalItem
+        boolean IsActive
+    }
+    
+    %% Location Management
+    Location ||--o{ Audit : "receives"
+    Location ||--o{ Issue : "has"
+    Location ||--o{ LocationChangeLog : "tracks"
+    Location ||--o{ LocationEquipment : "configures"
+    Location {
+        guid LocationId PK
+        guid ServiceLineId FK
+        string DepartmentName
+        string DisplayName
+        string Building
+        string Level
+        choice TrolleyType
+        choice DefibrillatorType
+        choice OperatingHours
+        boolean HasPaediatricBox
+        boolean HasAlteredAirway
+        boolean HasSpecialtyMeds
+        datetime LastAuditDate
+        guid LastAuditId FK
+        decimal LastAuditCompliance
+        int DaysSinceLastAudit
+        int AuditPriorityScore
+        choice Status
+        datetime StatusChangeDate
+        string StatusChangeReason
+    }
+    
+    LocationEquipment {
+        guid LocationEquipmentId PK
+        guid LocationId FK
+        guid EquipmentId FK
+        boolean IsRequired
+        int CustomQuantity
+        string Notes
+    }
+    
+    Equipment ||--o{ LocationEquipment : "customised in"
+    
+    LocationChangeLog {
+        guid ChangeLogId PK
+        guid LocationId FK
+        choice ChangeType
+        string FieldChanged
+        string OldValue
+        string NewValue
+        string ChangeReason
+        string ChangedBy
+        datetime ChangedDate
+    }
+    
+    %% Audit Management
+    AuditPeriod ||--o{ Audit : "defines"
+    AuditPeriod {
+        guid PeriodId PK
+        string PeriodName
+        choice PeriodType
+        int Year
+        date StartDate
+        date EndDate
+        date AuditDeadline
+        boolean IsActive
+    }
+    
+    Audit ||--|| AuditDocuments : "has"
+    Audit ||--|| AuditCondition : "has"
+    Audit ||--|| AuditChecks : "has"
+    Audit ||--o{ AuditEquipment : "contains"
+    Audit ||--o{ Issue : "discovers"
+    Audit {
+        guid AuditId PK
+        guid LocationId FK
+        guid PeriodId FK
+        choice AuditType
+        guid TriggeredByIssueId FK
+        string AuditorName
+        datetime StartedDateTime
+        datetime CompletedDateTime
+        choice SubmissionStatus
+        decimal OverallCompliance
+        decimal DocumentScore
+        decimal EquipmentScore
+        decimal ConditionScore
+        decimal CheckScore
+        boolean RequiresFollowUp
+        date FollowUpDueDate
+    }
+    
+    AuditDocuments {
+        guid AuditDocId PK
+        guid AuditId FK
+        choice CheckRecordStatus
+        choice CheckGuidelinesStatus
+        boolean BLSPosterPresent
+        choice EquipmentListStatus
+    }
+    
+    AuditCondition {
+        guid AuditCondId PK
+        guid AuditId FK
+        boolean IsClean
+        boolean IsWorkingOrder
+        choice IssueType
+        string IssueDescription
+        boolean RubberBandsUsed
+        boolean O2TubingCorrect
+        boolean InhaloCylinderOK
+    }
+    
+    AuditChecks {
+        guid AuditCheckId PK
+        guid AuditId FK
+        int OutsideCheckCount
+        int InsideCheckCount
+        int ExpectedOutside
+        int ExpectedInside
+        boolean CountNotAvailable
+        decimal OutsideCompliance
+        decimal InsideCompliance
+    }
+    
+    AuditEquipment {
+        guid AuditEquipId PK
+        guid AuditId FK
+        guid EquipmentId FK
+        boolean IsPresent
+        int QuantityFound
+        int QuantityExpected
+        boolean ExpiryOK
+        string ItemNotes
+    }
+    
+    Equipment ||--o{ AuditEquipment : "checked in"
+    
+    %% Issue and Corrective Action Management
+    Issue ||--o{ CorrectiveAction : "resolved by"
+    Issue ||--o{ IssueComment : "discussed in"
+    Issue {
+        guid IssueId PK
+        guid LocationId FK
+        guid AuditId FK
+        string IssueNumber
+        choice IssueCategory
+        choice Severity
+        string Title
+        string Description
+        guid EquipmentId FK
+        string ReportedBy
+        datetime ReportedDate
+        string AssignedTo
+        datetime AssignedDate
+        date TargetResolutionDate
+        choice Status
+        string ResolutionSummary
+        datetime ResolvedDate
+        string VerifiedBy
+        datetime ClosedDate
+        int ReopenCount
+        int EscalationLevel
+        guid LinkedFollowUpAuditId FK
+    }
+    
+    Equipment ||--o{ Issue : "referenced in"
+    
+    CorrectiveAction {
+        guid ActionId PK
+        guid IssueId FK
+        int ActionNumber
+        choice ActionType
+        string Description
+        string ActionTakenBy
+        datetime ActionDate
+        string OutcomeDescription
+        boolean OutcomeSuccessful
+        boolean EvidenceAttached
+        string EvidenceURL
+    }
+    
+    IssueComment {
+        guid CommentId PK
+        guid IssueId FK
+        string CommentText
+        string CommentBy
+        datetime CommentDate
+        boolean IsInternal
+    }
+    
+    %% Random Audit Selection
+    RandomAuditSelection ||--o{ RandomAuditSelectionItem : "contains"
+    RandomAuditSelection {
+        guid SelectionId PK
+        date WeekStartDate
+        date WeekEndDate
+        datetime GeneratedDate
+        string GeneratedBy
+        string SelectionCriteria
+        boolean IsActive
+    }
+    
+    RandomAuditSelectionItem {
+        guid SelectionItemId PK
+        guid SelectionId FK
+        guid LocationId FK
+        int SelectionRank
+        int PriorityScore
+        int DaysSinceAudit
+        choice AuditStatus
+        guid AuditId FK
+        string SkipReason
+    }
+    
+    Location ||--o{ RandomAuditSelectionItem : "selected in"
+    Audit ||--o| RandomAuditSelectionItem : "completes"

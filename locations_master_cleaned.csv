@@ -1,0 +1,77 @@
+Service Line,DEPARTMENT,Location,ServiceLineFull,Building,EstimatedOperatingHours,HasPaedBox
+S&P,4C Burns Unit,Level 4 James Mayne,Surgical & Perioperative Services,James Mayne Building,Weekday_Business,False
+CCS,5C beds 1-18,Level 5 Joyce Twedell,Cancer Care Services,Joyce Tweddell Building,24/7,False
+CCS,5C beds 19-22,Level 5 Joyce Twedell,Cancer Care Services,Joyce Tweddell Building,24/7,False
+IMS/WNBS,6A North (including Gynae),Level 6 Ned Hanlon,Internal Medicine Services / Women's & Newborn Services,Ned Hanlon Building,24/7,False
+CCS,6A South,Level 6 Ned Hanlon,Cancer Care Services,Ned Hanlon Building,24/7,False
+WNBS,6B North,Level 6 Ned Hanlon,Women's & Newborn Services,Ned Hanlon Building,24/7,False
+WNBs,6B South,Level 6 Ned Hanlon,Women's & Newborn Services,Ned Hanlon Building,24/7,False
+S&P,7A North,Level 7 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+S&P,7A South,Level 7 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+IMS,7B North,Level 7 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,24/7,False
+IMS,7B South/Epicentre,Level 7 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,24/7,False
+IMS,7B West,Level 7 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,24/7,False
+S&P,8A North,Level 8 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+S&P,8A South,Level 8 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+S&P,8B North,Level 8 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+S&P,8B South,Level 8 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+S&P,9A North,Level 9 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+S&P,9A South,Level 9 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+IMS,9B North,Level 9 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,24/7,False
+IMS,9B South,Level 9 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,24/7,False
+WNBS,Birth Suite,Level 5 Ned Hanlon,Women's & Newborn Services,Ned Hanlon Building,24/7,True
+CCS,Cancer Care Satellite Clinic- Northlakes,Offsite,Cancer Care Services,Offsite,Weekday_Business,False
+IMS,Cardiology OPD,Level 3 James Mayne,Internal Medicine Services,James Mayne Building,Weekday_Business,False
+IMS,Cath lab 2,Level 3 James Mayne,Internal Medicine Services,James Mayne Building,Weekday_Business,False
+IMS,Cath Lab entry,Level 3 James Mayne,Internal Medicine Services,James Mayne Building,Weekday_Business,False
+IMS,Cath Lab procedure room 1,Level 3 James Mayne,Internal Medicine Services,James Mayne Building,24/7,False
+IMS,CCU  Pod 2,Level 3 James Mayne,Internal Medicine Services,James Mayne Building,24/7,False
+IMS,CCU Pod 1,Level 3 James Mayne,Internal Medicine Services,James Mayne Building,24/7,False
+IMS,ED- GA DEM Short Stay,Ground Floor James Mayne,Internal Medicine Services,James Mayne Building,24/7,False
+IMS,ED-Cold,Ground Floor James Mayne,Internal Medicine Services,James Mayne Building,24/7,False
+S&P,ENT OPD,Level 8 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,Weekday_Business,False
+IMS,Gastroenterology Clinic,Level 9 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,Weekday_Business,False
+WNBS,Gynae Outpatients Clinic,Ground Floor Ned Hanlon,Women's & Newborn Services,Ned Hanlon Building,Weekday_Business,False
+MH,Herston Alcohol and Drug Service,Next to Joyce Tweddell,Mental Health,Joyce Tweddell Building,Weekday_Business,False
+IMS,HIRF Clinic Trolley,L3 HIRF building,Internal Medicine Services,HIRF Building,Weekday_Business,False
+CC&CSS,Hyperbaric,Ground Floor Ned Hanlon,Critical Care & Clinical Support Services,Ned Hanlon Building,Weekday_Business,False
+IMS,Internal Medicine Day Treatment Unit,Level 2 Ned Hanlon Building,Internal Medicine Services,Ned Hanlon Building,24/7,False
+IMS,Kallangur Dialysis Unit,Offsite,Internal Medicine Services,Offsite,Weekday_Business,False
+WNBS,Maternal/Foetal Medicine,Level 6 Ned Hanlon,Women's & Newborn Services,Ned Hanlon Building,24/7,False
+WNBS,Maternity Outpatients,Ground Floor Ned Hanlon,Women's & Newborn Services,Ned Hanlon Building,Weekday_Business,True
+MH,Medical Imaging,Level 3 Ned Hanlon,Mental Health,Ned Hanlon Building,24/7,False
+MH,MH ECT Clinic,MH Block,Mental Health,Mental Health Block,Weekday_Business,False
+MH,MH F Floor,MH Block,Mental Health,Mental Health Block,Weekday_Business,False
+MH,MH G Floor,MH Block,Mental Health,Mental Health Block,Weekday_Business,False
+MH,MH H Floor,MH Block,Mental Health,Mental Health Block,Weekday_Business,False
+MH,MH I Floor,MH Block,Mental Health,Mental Health Block,Weekday_Business,False
+S&P,Minor Procedures Unit,Level 1 Outpatients James Mayne,Surgical & Perioperative Services,James Mayne Building,24/7,False
+IMS,Neurology OPD,Level 7 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,Weekday_Business,False
+IMS,Neuroscience Clinical Research Suit (Rm 336),L3 HIRF Building,Internal Medicine Services,HIRF Building,Weekday_Business,False
+IMS,Neurosurgery OPD,L3 HIRF building,Internal Medicine Services,HIRF Building,Weekday_Business,False
+IMS,Northlakes Dialysis Unit,Offsite,Internal Medicine Services,Offsite,24/7,False
+IMS,Nuclear Medicine general,Level 3 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,24/7,False
+IMS,Nuclear Medicine stress testroom,Level 3 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,24/7,False
+WNBS,Obstetric Review Centre,Level 5 Ned Hanlon,Women's & Newborn Services,Ned Hanlon Building,Weekday_Business,True
+CCS,Oncology Day procedure Unit,Level 4 Joyce Twedell,Cancer Care Services,Joyce Tweddell Building,24/7,False
+CCS,Oncology day treatment unit,Level 4 Joyce Twedell,Cancer Care Services,Joyce Tweddell Building,Weekday_Business,False
+S&P,Opthalmology Clinical,Level 8 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,Weekday_Business,False
+S&P,Ortho OPD,Level 7 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,Weekday_Business,False
+S&P,PACU - Level 5,Level 5 James Mayne,Surgical & Perioperative Services,James Mayne Building,24/7,False
+AH,Physio reception (shared with transit lounge),Level 2 Ned Hanlon Building,Allied Health,Ned Hanlon Building,24/7,False
+CC&CSS,Private Practice,Level 1 Outpatients James Mayne,Critical Care & Clinical Support Services,James Mayne Building,Weekday_Business,False
+CC&CSS,PTCM Pain Centre (STARS),L3 STARS,Critical Care & Clinical Support Services,STARS Building,Weekday_Business,False
+IMS,Queensland Adult Specialist Immunisation Service,Level 4 James Mayne,Internal Medicine Services,James Mayne Building,Weekday_Business,False
+CCS,Radiation Oncology,Level 3 Joyce Tweddell,Cancer Care Services,Joyce Tweddell Building,Weekday_Business,False
+IMS,Redcliffe Dialysis Unit,Offsite,Internal Medicine Services,Offsite,24/7,False
+IMS,Renal Unit,Level 9 Ned Hanlon,Internal Medicine Services,Ned Hanlon Building,Weekday_Business,False
+IMS,Rheumatology/Dermatology OPD,L3 STARS,Internal Medicine Services,STARS Building,Weekday_Business,False
+CC&CSS,SOS OPD,L1 JMB,Critical Care & Clinical Support Services,James Mayne Building,Weekday_Business,False
+WNBS,Special Care Nursery,L5 NHB,Women's & Newborn Services,Ned Hanlon Building,24/7,True
+IMS,Stafford Renal Unit,Offsite,Internal Medicine Services,Offsite,Weekday_Business,False
+S&P,Surgical Day Care Unit (23 hour unit) in PACU Level 4,Level 4 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,24/7,False
+IMS,Thoracic,Level 3 James Mayne,Internal Medicine Services,James Mayne Building,Weekday_Business,False
+S&P,Urology Clinic - now on Level 1,Level 1 Outpatients James Mayne,Surgical & Perioperative Services,James Mayne Building,Weekday_Business,False
+S&P,Vascular OPD,Level 8 Ned Hanlon,Surgical & Perioperative Services,Ned Hanlon Building,Weekday_Business,False
+IMS,Wattelbrae,Level 6 Joyce Twedell,Internal Medicine Services,Joyce Tweddell Building,Weekday_Business,False
+IMS,Wattlebrae OPD Clinic,Level 6 Joyce Twedell,Internal Medicine Services,Joyce Tweddell Building,Weekday_Business,False

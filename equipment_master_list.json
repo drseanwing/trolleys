@@ -1,0 +1,609 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Top of Trolley",
+      "sort_order": 1,
+      "items": [
+        {
+          "name": "Bag-Valve-Mask Resuscitator with medium face mask",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Box of gloves (medium)",
+          "code": "10019022",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Razor",
+          "code": "10015626",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Alcohol foam antiseptic handrub",
+          "code": "PHARMACY",
+          "qty": 1,
+          "supplier": "Pharmacy"
+        },
+        {
+          "name": "Quick-Combo defibrillator pads (attached)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS",
+          "notes": "LIFEPAK 1000 AED"
+        },
+        {
+          "name": "Quick-Combo defibrillator pads (spare)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS",
+          "notes": "LIFEPAK 1000 AED"
+        },
+        {
+          "name": "Quick-Combo defibrillator pads (attached)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS",
+          "notes": "LIFEPAK 20/20e"
+        },
+        {
+          "name": "Quick-Combo defibrillator pads (spare)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS",
+          "notes": "LIFEPAK 20/20e"
+        },
+        {
+          "name": "Monitoring leads (attached)",
+          "code": "-",
+          "qty": 1,
+          "supplier": "CELS",
+          "notes": "LIFEPAK 20/20e only"
+        },
+        {
+          "name": "Packs cardiac monitoring electrodes",
+          "code": "10065768",
+          "qty": 2,
+          "supplier": "Ward Stock",
+          "notes": "LIFEPAK 20/20e only"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Side of Trolley",
+      "sort_order": 2,
+      "items": [
+        {
+          "name": "Small sharps container",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Portable suction device",
+          "code": "-",
+          "qty": 1,
+          "supplier": "Optional",
+          "notes": "Optionally purchased by clinical area"
+        },
+        {
+          "name": "Oxygen cylinder",
+          "code": "PATIENT SUPPORT",
+          "qty": 1,
+          "supplier": "Patient Support"
+        },
+        {
+          "name": "Small rubbish bin with bag",
+          "code": "-",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Back of Trolley",
+      "sort_order": 3,
+      "items": [
+        {
+          "name": "A3 Clipboard with Medical Emergency & Cardiac Arrest Observation Record Form",
+          "code": "OFFICE MAX",
+          "qty": 1,
+          "supplier": "Office Max"
+        },
+        {
+          "name": "CPR Board",
+          "code": "-",
+          "qty": 1,
+          "supplier": "-"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Drawer 1 - IV Equipment",
+      "sort_order": 4,
+      "items": [
+        {
+          "name": "Basic dressing pack",
+          "code": "10030783",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Roll Hypafix tape",
+          "code": "10030863",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Non-disposable tourniquets",
+          "code": "10015455",
+          "qty": 2,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Pair of scissors",
+          "code": "10033521",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Gauze squares",
+          "code": "10016701",
+          "qty": 10,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "BD Eclipse blood collection vacutainer",
+          "code": "10050883",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "10 mL 0.9% Sodium Chloride",
+          "code": "PHARMACY",
+          "qty": 10,
+          "supplier": "Pharmacy"
+        },
+        {
+          "name": "Arterial blood gas syringe",
+          "code": "10017629",
+          "qty": 2,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Blood tubes - EDTA (purple cap)",
+          "code": "PATHOLOGY",
+          "qty": 2,
+          "supplier": "Pathology"
+        },
+        {
+          "name": "Blood tubes - Urea & Electrolyte (gold cap)",
+          "code": "PATHOLOGY",
+          "qty": 2,
+          "supplier": "Pathology"
+        },
+        {
+          "name": "Blood tubes - Citrate (blue & black cap)",
+          "code": "PATHOLOGY",
+          "qty": 2,
+          "supplier": "Pathology"
+        },
+        {
+          "name": "Blood tubes - Cross Match Blood (pink cap)",
+          "code": "PATHOLOGY",
+          "qty": 1,
+          "supplier": "Pathology"
+        },
+        {
+          "name": "Needles 21G",
+          "code": "10015436",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Needles 23G",
+          "code": "10015382",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Needles 25G",
+          "code": "10030719",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Needles Blunt Fill",
+          "code": "10018166",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Soluprep antiseptic swab stick",
+          "code": "10061615",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Smartsite Care fusion bung",
+          "code": "10001047",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Soluprep antiseptic wipe",
+          "code": "10010444",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "BD Connect",
+          "code": "10030386",
+          "qty": 2,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Instyle Autoguard Blood Control cannula 14G",
+          "code": "10017009",
+          "qty": 2,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Instyle Autoguard Blood Control cannula 16G",
+          "code": "10067706",
+          "qty": 2,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Instyle Autoguard Blood Control cannula 18G",
+          "code": "10045811",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Instyle Autoguard Blood Control cannula 20G",
+          "code": "10045810",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Peripheral IV dressing",
+          "code": "10049402",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "BD Syringe Luer-Lock 5 mL",
+          "code": "10030391",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "BD Syringe Luer-Lock 10 mL",
+          "code": "10007615",
+          "qty": 10,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "BD Syringe Luer-Lock 30 mL",
+          "code": "10001902",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Drawer 2 - Medication & IV Fluids",
+      "sort_order": 5,
+      "items": [
+        {
+          "name": "Adrenaline 1mg in 10mL (prefilled syringe or ampoules)",
+          "code": "PHARMACY",
+          "qty": 6,
+          "supplier": "Pharmacy",
+          "requires_expiry_check": true
+        },
+        {
+          "name": "5% Dextrose in H2O 1000 ml",
+          "code": "PHARMACY",
+          "qty": 1,
+          "supplier": "Pharmacy"
+        },
+        {
+          "name": "0.9% Sodium Chloride 1000 ml",
+          "code": "PHARMACY",
+          "qty": 2,
+          "supplier": "Pharmacy"
+        },
+        {
+          "name": "IV giving set - Free-flow",
+          "code": "10001191",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "IV giving set - B-Braun",
+          "code": "10065543",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Drawer 3 - Airway Equipment",
+      "sort_order": 6,
+      "items": [
+        {
+          "name": "Oropharyngeal airway size 3",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Oropharyngeal airway size 4",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Oropharyngeal airway size 5",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Nasopharyngeal airway size 6",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Nasopharyngeal airway size 7",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "i-gel Laryngeal mask airway size 3",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "i-gel Laryngeal mask airway size 4",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "i-gel Laryngeal mask airway size 5",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Hudson mask",
+          "code": "10021649",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Non rebreather mask",
+          "code": "10045819",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Oxygen tubing",
+          "code": "10015403",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Oxygen tubing connector",
+          "code": "10060796",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Y suction catheter 14FG",
+          "code": "10032480",
+          "qty": 2,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Y suction catheter 12FG",
+          "code": "10030790",
+          "qty": 2,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Yankaeur suction catheter",
+          "code": "10015422",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Magills forceps",
+          "code": "10038452",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Lubricant sachet",
+          "code": "PHARMACY",
+          "qty": 2,
+          "supplier": "Pharmacy"
+        },
+        {
+          "name": "20 ml syringe",
+          "code": "10001010",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Small adult face mask (resuscitator)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Large adult face mask (resuscitator)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "HME Viral Filter",
+          "code": "10032730",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Paediatric face mask (size 1)",
+          "code": "10060765",
+          "qty": 1,
+          "supplier": "Ward Stock",
+          "notes": "Altered airway equipment"
+        },
+        {
+          "name": "Catheter mount tube",
+          "code": "10000521",
+          "qty": 1,
+          "supplier": "Ward Stock",
+          "notes": "Altered airway equipment"
+        },
+        {
+          "name": "Suction-safe Swivel Y connector",
+          "code": "10015260",
+          "qty": 1,
+          "supplier": "Ward Stock",
+          "notes": "Altered airway equipment"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Drawer 4 - PPE & Extra Equipment",
+      "sort_order": 7,
+      "items": [
+        {
+          "name": "Box of masks",
+          "code": "10062799",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Goggles",
+          "code": "10031219",
+          "qty": 2,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Box of gloves - small",
+          "code": "10038020",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Box of gloves - medium",
+          "code": "10019022",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Box of gloves - large",
+          "code": "10038019",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Plastic waste bag",
+          "code": "-",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Kidney dishes",
+          "code": "-",
+          "qty": 5,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Bag-Valve-Mask Resuscitator with medium face mask (spare)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Checklist signature log and information folder",
+          "code": "-",
+          "qty": 1,
+          "supplier": "-"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Paediatric Resuscitation Box",
+      "sort_order": 8,
+      "is_paediatric": true,
+      "items": [
+        {
+          "name": "Paediatric Bag-Valve-Mask Resuscitator with Toddler face mask",
+          "code": "10054728",
+          "qty": 1,
+          "supplier": "CELS"
+        },
+        {
+          "name": "Disposable face mask (Infant 0)",
+          "code": "000252952",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Paediatric Non-Rebreather mask",
+          "code": "10060733",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Y suction catheter size 8FG",
+          "code": "10032481",
+          "qty": 1,
+          "supplier": "Ward Stock"
+        },
+        {
+          "name": "Infant Bag-Valve-Mask with Neonate face mask",
+          "code": "10054100",
+          "qty": 1,
+          "supplier": "CELS",
+          "notes": "Departments that see Neonates only"
+        },
+        {
+          "name": "Infant/Child 0-25kg reduced energy defibrillator pads (Bright Pink)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS",
+          "notes": "LIFEPAK 1000 AED"
+        },
+        {
+          "name": "Quick-Combo RTS 0-15kg defibrillator pads (Salmon Pink)",
+          "code": "CELS",
+          "qty": 1,
+          "supplier": "CELS",
+          "notes": "LIFEPAK 20/20e - Hyperbaric Medicine Only"
+        }
+      ]
+    }
+  ]
+}
