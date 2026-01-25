@@ -1,0 +1,141 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "AuditEquipment",
+  "description": "Item-level equipment check results from audits",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Title",
+      "type": "Text",
+      "required": false,
+      "maxLength": 150,
+      "description": "Equipment item name (from Equipment lookup)"
+    },
+    {
+      "internalName": "Audit",
+      "displayName": "Audit",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Audit",
+      "lookupField": "Title",
+      "description": "Parent audit record"
+    },
+    {
+      "internalName": "Equipment",
+      "displayName": "Equipment",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Equipment",
+      "lookupField": "Title",
+      "description": "Equipment item being checked"
+    },
+    {
+      "internalName": "IsPresent",
+      "displayName": "Is Present",
+      "type": "Boolean",
+      "required": true,
+      "description": "Was the item found on the trolley?"
+    },
+    {
+      "internalName": "QuantityFound",
+      "displayName": "Quantity Found",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "description": "Actual count of items found"
+    },
+    {
+      "internalName": "QuantityExpected",
+      "displayName": "Quantity Expected",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "description": "Expected count from Equipment.StandardQuantity"
+    },
+    {
+      "internalName": "QuantityVariance",
+      "displayName": "Quantity Variance",
+      "type": "Calculated",
+      "formula": "=[QuantityFound]-[QuantityExpected]",
+      "outputType": "Number",
+      "description": "Difference between found and expected"
+    },
+    {
+      "internalName": "IsCompliant",
+      "displayName": "Is Compliant",
+      "type": "Calculated",
+      "formula": "=[QuantityFound]>=[QuantityExpected]",
+      "outputType": "Boolean",
+      "description": "True if quantity meets or exceeds expected"
+    },
+    {
+      "internalName": "ExpiryChecked",
+      "displayName": "Expiry Checked",
+      "type": "Boolean",
+      "required": false,
+      "description": "Was the expiry date checked (if applicable)?"
+    },
+    {
+      "internalName": "ExpiryOK",
+      "displayName": "Expiry OK",
+      "type": "Boolean",
+      "required": false,
+      "description": "Is the item within expiry date?"
+    },
+    {
+      "internalName": "SizeChecked",
+      "displayName": "Sizes Checked",
+      "type": "Text",
+      "required": false,
+      "maxLength": 50,
+      "description": "Which sizes were found (e.g., '3, 4, 5')"
+    },
+    {
+      "internalName": "ItemNotes",
+      "displayName": "Item Notes",
+      "type": "Text",
+      "required": false,
+      "maxLength": 200,
+      "description": "Issues or comments about this item"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Items",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Audit", "Equipment", "IsPresent", "QuantityFound", "QuantityExpected", "IsCompliant"],
+      "sortField": "Equipment",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Audit",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Equipment", "IsPresent", "QuantityFound", "QuantityExpected", "IsCompliant"],
+      "groupByField": "Audit"
+    },
+    {
+      "name": "Non-Compliant Items",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Audit", "Equipment", "QuantityFound", "QuantityExpected", "QuantityVariance", "ItemNotes"],
+      "filter": "[IsCompliant] = 0"
+    },
+    {
+      "name": "Missing Items",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Audit", "Equipment", "ItemNotes"],
+      "filter": "[IsPresent] = 0"
+    },
+    {
+      "name": "Expiry Issues",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Audit", "Equipment", "ExpiryOK", "ItemNotes"],
+      "filter": "AND([ExpiryChecked] = 1, [ExpiryOK] = 0)"
+    }
+  ]
+}

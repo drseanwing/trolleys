@@ -1,0 +1,14 @@
+[
+  {
+    "PeriodName": "January 2026",
+    "Year": 2026,
+    "Month": 1,
+    "StartDate": "2026-01-01",
+    "EndDate": "2026-01-31",
+    "AuditDeadline": "2026-02-14",
+    "IsActive": true,
+    "ExpectedOutsideChecks24_7": 93,
+    "ExpectedInsideChecks": 4,
+    "Notes": "Initial audit period for new system"
+  }
+]

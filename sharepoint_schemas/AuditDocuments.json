@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "AuditDocuments",
+  "description": "Documentation checks as part of trolley audits",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Title",
+      "type": "Text",
+      "required": false,
+      "maxLength": 50,
+      "description": "Auto-populated based on parent audit"
+    },
+    {
+      "internalName": "Audit",
+      "displayName": "Audit",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Audit",
+      "lookupField": "Title",
+      "description": "Parent audit record"
+    },
+    {
+      "internalName": "CheckRecordStatus",
+      "displayName": "Check Record Status",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Current",
+        "Old",
+        "None"
+      ],
+      "description": "Status of the check record documentation"
+    },
+    {
+      "internalName": "CheckGuidelinesStatus",
+      "displayName": "Checking Guidelines Status",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Current",
+        "Old",
+        "None"
+      ],
+      "description": "Status of the checking guidelines documentation"
+    },
+    {
+      "internalName": "BLSPosterPresent",
+      "displayName": "BLS Poster Present",
+      "type": "Boolean",
+      "required": true,
+      "description": "Is the BLS poster present?"
+    },
+    {
+      "internalName": "EquipmentListStatus",
+      "displayName": "Equipment List Status",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Current",
+        "Old",
+        "None"
+      ],
+      "description": "Status of the equipment list documentation"
+    },
+    {
+      "internalName": "DocumentScore",
+      "displayName": "Documentation Score",
+      "type": "Calculated",
+      "formula": "=(IF([CheckRecordStatus]=\"Current\",1,IF([CheckRecordStatus]=\"Old\",0.5,0))+IF([CheckGuidelinesStatus]=\"Current\",1,IF([CheckGuidelinesStatus]=\"Old\",0.5,0))+IF([BLSPosterPresent],1,0)+IF([EquipmentListStatus]=\"Current\",1,IF([EquipmentListStatus]=\"Old\",0.5,0)))/4*100",
+      "outputType": "Number",
+      "description": "Calculated documentation score percentage"
+    },
+    {
+      "internalName": "DocumentNotes",
+      "displayName": "Document Notes",
+      "type": "Note",
+      "required": false,
+      "maxLength": 500,
+      "description": "Additional comments about documentation"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Items",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Audit", "CheckRecordStatus", "CheckGuidelinesStatus", "BLSPosterPresent", "EquipmentListStatus", "DocumentScore"],
+      "sortField": "Created",
+      "sortDirection": "Descending"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "Internal Medicine Services",
+    "Abbreviation": "IMS",
+    "IsActive": true
+  },
+  {
+    "Name": "Surgical & Perioperative Services",
+    "Abbreviation": "S&P",
+    "IsActive": true
+  },
+  {
+    "Name": "Cancer Care Services",
+    "Abbreviation": "CCS",
+    "IsActive": true
+  },
+  {
+    "Name": "Women's & Newborn Services",
+    "Abbreviation": "WNBS",
+    "IsActive": true
+  },
+  {
+    "Name": "Critical Care & Clinical Support Services",
+    "Abbreviation": "CC&CSS",
+    "IsActive": true
+  },
+  {
+    "Name": "Mental Health",
+    "Abbreviation": "MH",
+    "IsActive": true
+  },
+  {
+    "Name": "Allied Health",
+    "Abbreviation": "AH",
+    "IsActive": true
+  }
+]

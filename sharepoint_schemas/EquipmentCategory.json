@@ -1,0 +1,68 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "EquipmentCategory",
+  "description": "Reference data list containing trolley equipment categories/sections",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Category Name",
+      "type": "Text",
+      "required": true,
+      "maxLength": 50,
+      "description": "Name of the equipment category (Top of Trolley, Drawer 1, etc.)"
+    },
+    {
+      "internalName": "SortOrder",
+      "displayName": "Sort Order",
+      "type": "Number",
+      "required": true,
+      "minimum": 1,
+      "description": "Display order for the category in the equipment checklist"
+    },
+    {
+      "internalName": "Description",
+      "displayName": "Description",
+      "type": "Text",
+      "required": false,
+      "maxLength": 200,
+      "description": "Optional notes about the category"
+    },
+    {
+      "internalName": "IsActive",
+      "displayName": "Is Active",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": true,
+      "description": "Soft delete flag"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Items",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "SortOrder", "Description", "IsActive"],
+      "sortField": "SortOrder",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Active Categories",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "SortOrder", "Description"],
+      "filter": "[IsActive] = 1",
+      "sortField": "SortOrder",
+      "sortDirection": "Ascending"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "SortOrder",
+        "formula": "=[SortOrder]>0",
+        "message": "Sort Order must be a positive number"
+      }
+    ]
+  }
+}

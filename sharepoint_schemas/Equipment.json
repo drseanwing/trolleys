@@ -1,0 +1,216 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "Equipment",
+  "description": "Master equipment list containing all items required on resuscitation trolleys",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Item Name",
+      "type": "Text",
+      "required": true,
+      "maxLength": 150,
+      "description": "Full item description"
+    },
+    {
+      "internalName": "ShortName",
+      "displayName": "Short Name",
+      "type": "Text",
+      "required": true,
+      "maxLength": 50,
+      "description": "Abbreviated name for display in checklists"
+    },
+    {
+      "internalName": "Category",
+      "displayName": "Category",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "EquipmentCategory",
+      "lookupField": "Title",
+      "description": "Link to equipment category/section"
+    },
+    {
+      "internalName": "S4HANACode",
+      "displayName": "S/4HANA Code",
+      "type": "Text",
+      "required": false,
+      "maxLength": 20,
+      "description": "Ordering code from procurement system"
+    },
+    {
+      "internalName": "Supplier",
+      "displayName": "Supplier",
+      "type": "Choice",
+      "required": false,
+      "choices": [
+        "CELS",
+        "Pharmacy",
+        "Ward Stock",
+        "Pathology",
+        "Patient Support",
+        "Office Max",
+        "Optional",
+        "Other"
+      ],
+      "description": "Source for restocking"
+    },
+    {
+      "internalName": "StandardQuantity",
+      "displayName": "Standard Quantity",
+      "type": "Number",
+      "required": true,
+      "minimum": 1,
+      "description": "Expected count on trolley"
+    },
+    {
+      "internalName": "UnitOfMeasure",
+      "displayName": "Unit of Measure",
+      "type": "Choice",
+      "required": false,
+      "choices": [
+        "each",
+        "box",
+        "pack",
+        "roll",
+        "sachet"
+      ],
+      "defaultValue": "each",
+      "description": "How item is counted"
+    },
+    {
+      "internalName": "IsPaediatric",
+      "displayName": "Is Paediatric",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": false,
+      "description": "True if item is only for paediatric box"
+    },
+    {
+      "internalName": "RequiresExpiryCheck",
+      "displayName": "Requires Expiry Check",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": false,
+      "description": "True if item has expiration date to verify"
+    },
+    {
+      "internalName": "DefibrillatorType",
+      "displayName": "Defibrillator Type",
+      "type": "Choice",
+      "required": false,
+      "choices": [
+        "LIFEPAK_1000_AED",
+        "LIFEPAK_20_20e",
+        "Both",
+        "N/A"
+      ],
+      "defaultValue": "N/A",
+      "description": "If applicable, which defibrillator type this item is for"
+    },
+    {
+      "internalName": "SortOrder",
+      "displayName": "Sort Order",
+      "type": "Number",
+      "required": false,
+      "description": "Display order within category"
+    },
+    {
+      "internalName": "IsActive",
+      "displayName": "Is Active",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": true,
+      "description": "Currently required on trolleys"
+    },
+    {
+      "internalName": "EffectiveDate",
+      "displayName": "Effective Date",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateOnly",
+      "description": "When item was added to equipment list"
+    },
+    {
+      "internalName": "RetiredDate",
+      "displayName": "Retired Date",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateOnly",
+      "description": "When item was removed from equipment list"
+    },
+    {
+      "internalName": "Notes",
+      "displayName": "Notes",
+      "type": "Note",
+      "required": false,
+      "maxLength": 500,
+      "description": "Special instructions or notes"
+    },
+    {
+      "internalName": "IsCritical",
+      "displayName": "Is Critical",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": false,
+      "description": "True for critical items that must never be missing"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Equipment",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "Category", "StandardQuantity", "Supplier", "IsActive"],
+      "sortField": "Category",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Category",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "StandardQuantity", "Supplier", "S4HANACode"],
+      "groupByField": "Category",
+      "filter": "[IsActive] = 1",
+      "sortField": "SortOrder",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Adult Equipment Only",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Category", "StandardQuantity", "Supplier"],
+      "filter": "AND([IsActive] = 1, [IsPaediatric] = 0)",
+      "groupByField": "Category"
+    },
+    {
+      "name": "Paediatric Equipment",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "StandardQuantity", "Supplier"],
+      "filter": "AND([IsActive] = 1, [IsPaediatric] = 1)"
+    },
+    {
+      "name": "Expiry Check Required",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Category", "Supplier"],
+      "filter": "AND([IsActive] = 1, [RequiresExpiryCheck] = 1)"
+    },
+    {
+      "name": "Critical Items",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Category", "StandardQuantity"],
+      "filter": "AND([IsActive] = 1, [IsCritical] = 1)"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "StandardQuantity",
+        "formula": "=[StandardQuantity]>=1",
+        "message": "Standard Quantity must be at least 1"
+      }
+    ]
+  }
+}
