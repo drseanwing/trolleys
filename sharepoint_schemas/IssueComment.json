@@ -1,0 +1,103 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "IssueComment",
+  "description": "Comments and audit trail for issue tracking and discussion",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Comment Text",
+      "type": "Note",
+      "required": true,
+      "maxLength": 2000,
+      "description": "The comment or note content"
+    },
+    {
+      "internalName": "IssueId",
+      "displayName": "IssueId",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Issue",
+      "lookupField": "IssueNumber",
+      "description": "Link to the parent issue"
+    },
+    {
+      "internalName": "CommentBy",
+      "displayName": "CommentBy",
+      "type": "Text",
+      "required": true,
+      "maxLength": 100,
+      "description": "Name or email of person who added the comment"
+    },
+    {
+      "internalName": "CommentDate",
+      "displayName": "CommentDate",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateTime",
+      "defaultValue": "[Today]",
+      "description": "When the comment was added"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Comments",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": [
+        "Title",
+        "IssueId",
+        "CommentBy",
+        "CommentDate"
+      ],
+      "sortField": "CommentDate",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Issue",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "Title",
+        "CommentBy",
+        "CommentDate"
+      ],
+      "groupByField": "IssueId",
+      "sortField": "CommentDate",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Recent Comments",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "Title",
+        "IssueId",
+        "CommentBy",
+        "CommentDate"
+      ],
+      "filter": "[CommentDate]>=TODAY()-7",
+      "sortField": "CommentDate",
+      "sortDirection": "Descending"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "Title",
+        "formula": "LEN([Title])>0",
+        "message": "Comment cannot be empty"
+      },
+      {
+        "field": "CommentBy",
+        "formula": "LEN([CommentBy])>0",
+        "message": "Must specify who added this comment"
+      },
+      {
+        "field": "CommentDate",
+        "formula": "LEN(TEXT([CommentDate],''))>0",
+        "message": "Comment date is required"
+      }
+    ]
+  }
+}

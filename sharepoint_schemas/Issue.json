@@ -1,0 +1,296 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "Issue",
+  "description": "Issue tracking list for audit findings and trolley problems",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Issue Title",
+      "type": "Text",
+      "required": true,
+      "maxLength": 200,
+      "description": "Brief description of the issue"
+    },
+    {
+      "internalName": "IssueNumber",
+      "displayName": "Issue Number",
+      "type": "Text",
+      "required": false,
+      "maxLength": 20,
+      "description": "Auto-generated issue number (ISS-YYYY-NNNN format)"
+    },
+    {
+      "internalName": "Description",
+      "displayName": "Description",
+      "type": "Note",
+      "required": true,
+      "maxLength": 2000,
+      "description": "Detailed description of the issue"
+    },
+    {
+      "internalName": "Category",
+      "displayName": "Category",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Equipment",
+        "Documentation",
+        "Condition",
+        "Process"
+      ],
+      "defaultValue": "Equipment",
+      "description": "Category of the issue"
+    },
+    {
+      "internalName": "Severity",
+      "displayName": "Severity",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "defaultValue": "Medium",
+      "description": "Severity level of the issue"
+    },
+    {
+      "internalName": "Status",
+      "displayName": "Status",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Open",
+        "Assigned",
+        "In_Progress",
+        "Pending_Verification",
+        "Resolved",
+        "Closed"
+      ],
+      "defaultValue": "Open",
+      "description": "Current status of the issue"
+    },
+    {
+      "internalName": "LocationId",
+      "displayName": "LocationId",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Location",
+      "lookupField": "Title",
+      "description": "Link to trolley location"
+    },
+    {
+      "internalName": "AuditId",
+      "displayName": "AuditId",
+      "type": "Lookup",
+      "required": false,
+      "lookupList": "Audit",
+      "lookupField": "Title",
+      "description": "Link to audit that identified issue (optional)"
+    },
+    {
+      "internalName": "EquipmentId",
+      "displayName": "EquipmentId",
+      "type": "Lookup",
+      "required": false,
+      "lookupList": "Equipment",
+      "lookupField": "Title",
+      "description": "Link to specific equipment item (if applicable)"
+    },
+    {
+      "internalName": "ReportedBy",
+      "displayName": "ReportedBy",
+      "type": "Text",
+      "required": true,
+      "maxLength": 100,
+      "description": "Name of person reporting the issue"
+    },
+    {
+      "internalName": "ReportedDate",
+      "displayName": "ReportedDate",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateTime",
+      "defaultValue": "[Today]",
+      "description": "When the issue was first reported"
+    },
+    {
+      "internalName": "AssignedTo",
+      "displayName": "AssignedTo",
+      "type": "User",
+      "required": false,
+      "description": "Person responsible for resolving the issue"
+    },
+    {
+      "internalName": "AssignedDate",
+      "displayName": "AssignedDate",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateTime",
+      "description": "When the issue was assigned"
+    },
+    {
+      "internalName": "ResolvedDate",
+      "displayName": "ResolvedDate",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateTime",
+      "description": "When the issue was marked as resolved"
+    },
+    {
+      "internalName": "ClosedDate",
+      "displayName": "ClosedDate",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateTime",
+      "description": "When the issue was closed"
+    },
+    {
+      "internalName": "EscalationLevel",
+      "displayName": "EscalationLevel",
+      "type": "Choice",
+      "required": false,
+      "choices": [
+        "None",
+        "Level1",
+        "Level2",
+        "Level3"
+      ],
+      "defaultValue": "None",
+      "description": "Escalation level for the issue"
+    },
+    {
+      "internalName": "EscalatedTo",
+      "displayName": "EscalatedTo",
+      "type": "User",
+      "required": false,
+      "description": "Person responsible if escalated"
+    },
+    {
+      "internalName": "ReopenCount",
+      "displayName": "ReopenCount",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "defaultValue": 0,
+      "description": "Number of times issue has been reopened"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Issues",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": [
+        "IssueNumber",
+        "Title",
+        "Category",
+        "Severity",
+        "Status",
+        "LocationId",
+        "AssignedTo",
+        "ReportedDate"
+      ],
+      "sortField": "ReportedDate",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Open Issues",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "IssueNumber",
+        "Title",
+        "Severity",
+        "LocationId",
+        "AssignedTo",
+        "ReportedDate"
+      ],
+      "filter": "AND([Status]<>'Closed',[Status]<>'Resolved')",
+      "sortField": "Severity",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Status",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "IssueNumber",
+        "Title",
+        "Category",
+        "Severity",
+        "LocationId"
+      ],
+      "groupByField": "Status",
+      "sortField": "Severity",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Critical Issues",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "IssueNumber",
+        "Title",
+        "LocationId",
+        "AssignedTo",
+        "ReportedDate"
+      ],
+      "filter": "[Severity]='Critical'",
+      "sortField": "ReportedDate",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Location",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "IssueNumber",
+        "Title",
+        "Severity",
+        "Status",
+        "ReportedDate"
+      ],
+      "groupByField": "LocationId",
+      "sortField": "ReportedDate",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Aging Issues",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "IssueNumber",
+        "Title",
+        "Severity",
+        "LocationId",
+        "Status",
+        "ReportedDate"
+      ],
+      "filter": "AND([Status]<>'Closed',[ReportedDate]<TODAY()-30)",
+      "sortField": "ReportedDate",
+      "sortDirection": "Ascending"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "Title",
+        "formula": "LEN([Title])>0",
+        "message": "Issue title cannot be empty"
+      },
+      {
+        "field": "Description",
+        "formula": "LEN([Description])>0",
+        "message": "Issue description is required"
+      },
+      {
+        "field": "ReportedDate",
+        "formula": "LEN(TEXT([ReportedDate],''))>0",
+        "message": "Report date is required"
+      }
+    ]
+  }
+}

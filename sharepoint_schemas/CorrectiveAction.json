@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "CorrectiveAction",
+  "description": "Corrective actions taken to resolve issues identified during audits",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Action Title",
+      "type": "Text",
+      "required": true,
+      "maxLength": 150,
+      "description": "Brief description of the corrective action"
+    },
+    {
+      "internalName": "IssueId",
+      "displayName": "IssueId",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Issue",
+      "lookupField": "IssueNumber",
+      "description": "Link to the parent issue"
+    },
+    {
+      "internalName": "ActionType",
+      "displayName": "ActionType",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Replacement",
+        "Repair",
+        "Restock",
+        "Training",
+        "Process Change",
+        "Other"
+      ],
+      "defaultValue": "Other",
+      "description": "Type of corrective action taken"
+    },
+    {
+      "internalName": "Description",
+      "displayName": "Description",
+      "type": "Note",
+      "required": false,
+      "maxLength": 1000,
+      "description": "Detailed description of the action taken"
+    },
+    {
+      "internalName": "ActionDate",
+      "displayName": "ActionDate",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateTime",
+      "defaultValue": "[Today]",
+      "description": "When the corrective action was taken"
+    },
+    {
+      "internalName": "ActionBy",
+      "displayName": "ActionBy",
+      "type": "Text",
+      "required": true,
+      "maxLength": 100,
+      "description": "Name or email of person who performed the action"
+    },
+    {
+      "internalName": "CompletedDate",
+      "displayName": "CompletedDate",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateTime",
+      "description": "When the action was completed (if different from ActionDate)"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Actions",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": [
+        "Title",
+        "IssueId",
+        "ActionType",
+        "ActionDate",
+        "ActionBy",
+        "CompletedDate"
+      ],
+      "sortField": "ActionDate",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "By Issue",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "Title",
+        "ActionType",
+        "ActionDate",
+        "ActionBy"
+      ],
+      "groupByField": "IssueId",
+      "sortField": "ActionDate",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Action Type",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "Title",
+        "IssueId",
+        "ActionDate",
+        "ActionBy"
+      ],
+      "groupByField": "ActionType",
+      "sortField": "ActionDate",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "Pending Completion",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "Title",
+        "IssueId",
+        "ActionType",
+        "ActionDate",
+        "ActionBy"
+      ],
+      "filter": "ISBLANK([CompletedDate])",
+      "sortField": "ActionDate",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Completed Actions",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "Title",
+        "IssueId",
+        "ActionType",
+        "ActionDate",
+        "CompletedDate"
+      ],
+      "filter": "NOT(ISBLANK([CompletedDate]))",
+      "sortField": "CompletedDate",
+      "sortDirection": "Descending"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "Title",
+        "formula": "LEN([Title])>0",
+        "message": "Action title cannot be empty"
+      },
+      {
+        "field": "ActionBy",
+        "formula": "LEN([ActionBy])>0",
+        "message": "Must specify who performed this action"
+      },
+      {
+        "field": "ActionDate",
+        "formula": "LEN(TEXT([ActionDate],''))>0",
+        "message": "Action date is required"
+      }
+    ]
+  }
+}

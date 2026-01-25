@@ -56,7 +56,7 @@ trolleys/
 
 ### Phases 2-4
 
-Phases 2-4 tasks are pending. See `RBWH_Trolley_Audit_Task_List.md` for full details.
+All phases now have complete implementation guides ready. See the Implementation Guides section below for the full index of 18 guides covering all 165 tasks.
 
 ## SharePoint List Schemas
 
@@ -114,33 +114,50 @@ The `seed_data/` directory contains JSON files ready for import into SharePoint 
 
 ## Implementation Guides
 
-Detailed step-by-step guides are available for manual implementation tasks that must be performed in the SharePoint/PowerApps UI:
+Comprehensive step-by-step guides covering all 165 tasks across 4 phases. Each guide provides detailed instructions for manual implementation in SharePoint/PowerApps UI.
 
-### Available Guides
+### Complete Guide Index
 
-1. **Phase 1.1: SharePoint Site Setup** (`implementation_guides/phase1_1_sharepoint_site_setup.md`)
-   - Create SharePoint site with Communication template
-   - Configure site permissions (Owners, Members, Visitors)
-   - Set up site navigation structure
-   - Apply RBWH branding and theme colors
-   - Estimated time: 5 hours
+| Guide | Tasks Covered | Description |
+|-------|---------------|-------------|
+| **phase1_1_sharepoint_site_setup.md** | 1.1.1-1.1.4 | SharePoint site provisioning, permissions, navigation, branding |
+| **phase1_6_powerapp_foundation.md** | 1.6.1-1.6.6 | Canvas app setup, data connections, theme, navigation, Home screen |
+| **phase2_1_trolley_management_screens.md** | 2.1.1-2.1.18 | Trolley list, detail, add/edit screens with filters |
+| **phase2_2_trolley_management_flows.md** | 2.2.1-2.2.8 | Power Automate flows for trolley CRUD operations |
+| **phase2_3_audit_entry_screens.md** | 2.3.1-2.3.22 | Audit selection, documentation, condition, routine checks |
+| **phase2_4_equipment_checklist.md** | 2.4.1-2.4.13 | Equipment checklist with scoring and validation |
+| **phase2_5_audit_submission.md** | 2.5.1-2.5.15 | Review screen, compliance scoring, submission flows |
+| **phase2_6_issue_management_lists.md** | 2.6.1-2.6.11 | Issue, CorrectiveAction, IssueComment list schemas |
+| **phase2_7_issue_management_screens.md** | 2.7.1-2.7.20 | Issue list, detail, add screens with status workflow |
+| **phase2_8_issue_workflow_flows.md** | 2.8.1-2.8.11 | Issue lifecycle flows: create, assign, resolve, escalate |
+| **phase2_9_random_selection.md** | 2.9.1-2.9.17 | Weekly random audit selection algorithm and screens |
+| **phase3_1_dashboard_kpis.md** | 3.1.1-3.1.9 | Dashboard KPI calculations and display |
+| **phase3_2_power_bi_reports.md** | 3.2.1-3.2.16 | Power BI workspace, reports, embedding |
+| **phase3_3_historical_data_migration.md** | 3.3.1-3.3.11 | 2023/2024 data migration scripts and validation |
+| **phase4_1_notifications.md** | 4.1.1-4.1.10 | Email templates and notification flows |
+| **phase4_2_advanced_features.md** | 4.2.1-4.2.8 | Offline mode, custom equipment, photo attachments |
+| **phase4_3_testing.md** | 4.3.1-4.3.10 | Test plan, test cases, UAT, defect management |
+| **phase4_4_deployment.md** | 4.4.1-4.4.8 | User guides, training, go-live checklist |
 
-2. **Phase 1.6: PowerApp Foundation** (`implementation_guides/phase1_6_powerapp_foundation.md`)
-   - Create new Canvas PowerApp with tablet/phone layout
-   - Configure data connections to all 11 SharePoint lists
-   - Create RBWH color theme and reusable components
-   - Build navigation header and Home screen
-   - Add KPI placeholder cards
-   - Estimated time: 11 hours
+### Implementation Coverage Summary
+
+- **Phase 1 (Foundation)**: 47 tasks - 2 guides covering site setup and app foundation
+- **Phase 2 (Core Functionality)**: 106 tasks - 8 guides covering trolleys, audits, issues, workflows
+- **Phase 3 (Reporting & Analytics)**: 36 tasks - 3 guides covering dashboards, Power BI, data migration
+- **Phase 4 (Advanced Features & Launch)**: 36 tasks - 4 guides covering notifications, features, testing, deployment
+
+**Total: 18 guides covering all 165 implementation tasks**
 
 ### Using the Guides
 
 Each guide includes:
 - Prerequisites and required permissions
-- Detailed step-by-step instructions with screenshots descriptions
+- Detailed step-by-step instructions with UI navigation
 - Configuration values ready to copy/paste
-- Validation checkpoints
-- Troubleshooting tips
+- Formula examples for calculated columns and Power Fx
+- Validation checkpoints after each major section
+- Troubleshooting tips for common issues
+- Time estimates per task
 
 ## Next Steps
 
