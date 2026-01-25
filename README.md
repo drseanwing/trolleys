@@ -24,12 +24,15 @@ trolleys/
 │   ├── AuditCondition.json                 # Physical condition checks schema
 │   ├── AuditChecks.json                    # Routine check counts schema
 │   └── AuditEquipment.json                 # Equipment item checks schema
-└── seed_data/                              # Import-ready data files
-    ├── ServiceLine.json                    # 7 service lines
-    ├── EquipmentCategory.json              # 8 equipment categories
-    ├── AuditPeriod.json                    # Initial audit period
-    ├── Equipment.json                      # 89 equipment items
-    └── Location.json                       # 76 trolley locations
+├── seed_data/                              # Import-ready data files
+│   ├── ServiceLine.json                    # 7 service lines
+│   ├── EquipmentCategory.json              # 8 equipment categories
+│   ├── AuditPeriod.json                    # Initial audit period
+│   ├── Equipment.json                      # 89 equipment items
+│   └── Location.json                       # 76 trolley locations
+└── implementation_guides/                  # Step-by-step implementation guides
+    ├── phase1_1_sharepoint_site_setup.md   # SharePoint site setup guide
+    └── phase1_6_powerapp_foundation.md     # PowerApp foundation guide
 ```
 
 ## Implementation Progress
@@ -38,14 +41,18 @@ trolleys/
 
 | Section | Tasks | Completed | Status |
 |---------|-------|-----------|--------|
-| 1.1 SharePoint Site Setup | 4 | 0 | Not Started |
+| 1.1 SharePoint Site Setup | 4 | 0 | 📋 Guide Ready |
 | 1.2 Reference Data Lists | 9 | 9 | ✅ Complete |
 | 1.3 Equipment Master List | 13 | 13 | ✅ Complete |
 | 1.4 Location Master List | 9 | 9 | ✅ Complete |
 | 1.5 Core Audit Lists | 12 | 12 | ✅ Complete |
-| 1.6 PowerApp Foundation | 6 | 0 | Not Started |
+| 1.6 PowerApp Foundation | 6 | 0 | 📋 Guide Ready |
 
 **Phase 1 Progress: 43/47 tasks (91%)**
+
+**Implementation Guides Available:**
+- Tasks 1.1.1-1.1.4: See `implementation_guides/phase1_1_sharepoint_site_setup.md`
+- Tasks 1.6.1-1.6.6: See `implementation_guides/phase1_6_powerapp_foundation.md`
 
 ### Phases 2-4
 
@@ -105,12 +112,42 @@ The `seed_data/` directory contains JSON files ready for import into SharePoint 
 3. **Power Apps**: Import directly through canvas app data connections
 4. **Manual**: Copy/paste into SharePoint list grid view
 
+## Implementation Guides
+
+Detailed step-by-step guides are available for manual implementation tasks that must be performed in the SharePoint/PowerApps UI:
+
+### Available Guides
+
+1. **Phase 1.1: SharePoint Site Setup** (`implementation_guides/phase1_1_sharepoint_site_setup.md`)
+   - Create SharePoint site with Communication template
+   - Configure site permissions (Owners, Members, Visitors)
+   - Set up site navigation structure
+   - Apply RBWH branding and theme colors
+   - Estimated time: 5 hours
+
+2. **Phase 1.6: PowerApp Foundation** (`implementation_guides/phase1_6_powerapp_foundation.md`)
+   - Create new Canvas PowerApp with tablet/phone layout
+   - Configure data connections to all 11 SharePoint lists
+   - Create RBWH color theme and reusable components
+   - Build navigation header and Home screen
+   - Add KPI placeholder cards
+   - Estimated time: 11 hours
+
+### Using the Guides
+
+Each guide includes:
+- Prerequisites and required permissions
+- Detailed step-by-step instructions with screenshots descriptions
+- Configuration values ready to copy/paste
+- Validation checkpoints
+- Troubleshooting tips
+
 ## Next Steps
 
-1. **Create SharePoint Site** (Task 1.1.1) - Requires Microsoft 365 admin access
-2. **Provision Lists** - Use schemas to create SharePoint lists
-3. **Import Seed Data** - Populate reference data lists
-4. **Begin PowerApp Development** (Phase 1.6) - Create canvas app
+1. **Create SharePoint Site** (Task 1.1.1) - Follow `implementation_guides/phase1_1_sharepoint_site_setup.md`
+2. **Provision Lists** - Use schemas to create SharePoint lists (Tasks 1.2-1.5 already complete)
+3. **Import Seed Data** - Populate reference data lists (already complete)
+4. **Begin PowerApp Development** (Phase 1.6) - Follow `implementation_guides/phase1_6_powerapp_foundation.md`
 
 ## Key Features
 

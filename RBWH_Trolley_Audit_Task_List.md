@@ -21,14 +21,16 @@
 
 ## Phase 1: Foundation (Weeks 1-4)
 
+**Note:** Implementation guides are available in the `implementation_guides/` folder for tasks marked as 📋 Guide Ready.
+
 ### 1.1 SharePoint Site Setup
 
 | ID | Task | Description | Dependency | Est. Hours | Status |
 |----|------|-------------|------------|------------|--------|
-| 1.1.1 | Create SharePoint site | Provision new SharePoint site named "RBWH Trolley Audit" | None | 1 | Not Started |
-| 1.1.2 | Configure site permissions | Set up Owners, Members, Visitors groups with appropriate access | 1.1.1 | 2 | Not Started |
-| 1.1.3 | Create site navigation | Build navigation menu structure for lists | 1.1.1 | 1 | Not Started |
-| 1.1.4 | Configure site branding | Apply RBWH branding elements to site | 1.1.1 | 1 | Not Started |
+| 1.1.1 | Create SharePoint site | Provision new SharePoint site named "RBWH Trolley Audit" | None | 1 | 📋 Guide Ready |
+| 1.1.2 | Configure site permissions | Set up Owners, Members, Visitors groups with appropriate access | 1.1.1 | 2 | 📋 Guide Ready |
+| 1.1.3 | Create site navigation | Build navigation menu structure for lists | 1.1.1 | 1 | 📋 Guide Ready |
+| 1.1.4 | Configure site branding | Apply RBWH branding elements to site | 1.1.1 | 1 | 📋 Guide Ready |
 
 ### 1.2 Reference Data Lists
 
@@ -97,12 +99,12 @@
 
 | ID | Task | Description | Dependency | Est. Hours | Status |
 |----|------|-------------|------------|------------|--------|
-| 1.6.1 | Create new Canvas PowerApp | Initialise new app with tablet/phone layout | 1.5.5 | 1 | Not Started |
-| 1.6.2 | Configure app data connections | Connect app to all SharePoint lists | 1.6.1 | 2 | Not Started |
-| 1.6.3 | Create app colour theme | Define colour variables matching RBWH branding | 1.6.2 | 1 | Not Started |
-| 1.6.4 | Create app navigation component | Build reusable header with navigation menu | 1.6.3 | 3 | Not Started |
-| 1.6.5 | Create Home screen layout | Build dashboard screen structure | 1.6.4 | 2 | Not Started |
-| 1.6.6 | Add Home screen KPI placeholders | Create placeholder cards for KPI values | 1.6.5 | 2 | Not Started |
+| 1.6.1 | Create new Canvas PowerApp | Initialise new app with tablet/phone layout | 1.5.5 | 1 | 📋 Guide Ready |
+| 1.6.2 | Configure app data connections | Connect app to all SharePoint lists | 1.6.1 | 2 | 📋 Guide Ready |
+| 1.6.3 | Create app colour theme | Define colour variables matching RBWH branding | 1.6.2 | 1 | 📋 Guide Ready |
+| 1.6.4 | Create app navigation component | Build reusable header with navigation menu | 1.6.3 | 3 | 📋 Guide Ready |
+| 1.6.5 | Create Home screen layout | Build dashboard screen structure | 1.6.4 | 2 | 📋 Guide Ready |
+| 1.6.6 | Add Home screen KPI placeholders | Create placeholder cards for KPI values | 1.6.5 | 2 | 📋 Guide Ready |
 
 ---
 
