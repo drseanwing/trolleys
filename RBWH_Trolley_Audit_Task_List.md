@@ -11,11 +11,11 @@
 
 | Phase | Task Count | Estimated Duration |
 |-------|------------|-------------------|
-| Phase 1: Foundation | 47 tasks | Weeks 1-4 |
-| Phase 2: Core Features | 58 tasks | Weeks 5-8 |
-| Phase 3: Reporting | 32 tasks | Weeks 9-12 |
-| Phase 4: Enhancement | 28 tasks | Weeks 13-16 |
-| **Total** | **165 tasks** | **16 weeks** |
+| Phase 1: Foundation | 53 tasks | Weeks 1-4 |
+| Phase 2: Core Features | 135 tasks | Weeks 5-8 |
+| Phase 3: Reporting | 36 tasks | Weeks 9-12 |
+| Phase 4: Enhancement | 36 tasks | Weeks 13-16 |
+| **Total** | **260 tasks** | **16 weeks** |
 
 ---
 

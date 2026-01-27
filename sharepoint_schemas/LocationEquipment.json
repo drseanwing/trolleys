@@ -1,0 +1,171 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "LocationEquipment",
+  "description": "Location-specific equipment customizations (overrides standard equipment quantities)",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Override Reference",
+      "type": "Text",
+      "required": true,
+      "maxLength": 100,
+      "description": "Auto-generated reference (Location-Equipment format)"
+    },
+    {
+      "internalName": "Location",
+      "displayName": "Location",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Location",
+      "lookupField": "Title",
+      "description": "Trolley location for this override"
+    },
+    {
+      "internalName": "Equipment",
+      "displayName": "Equipment",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Equipment",
+      "lookupField": "Title",
+      "description": "Equipment item being overridden"
+    },
+    {
+      "internalName": "OverrideType",
+      "displayName": "Override Type",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "CustomQuantity",
+        "NotRequired",
+        "AdditionalItem"
+      ],
+      "defaultValue": "CustomQuantity",
+      "description": "Type of override: custom quantity, not required at location, or additional item"
+    },
+    {
+      "internalName": "CustomQuantity",
+      "displayName": "Custom Quantity",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "description": "Override quantity for this location (null = use standard)"
+    },
+    {
+      "internalName": "OverrideReason",
+      "displayName": "Override Reason",
+      "type": "Note",
+      "required": true,
+      "maxLength": 500,
+      "description": "Justification for the equipment override"
+    },
+    {
+      "internalName": "ApprovedBy",
+      "displayName": "Approved By",
+      "type": "User",
+      "required": false,
+      "description": "Person who approved this override"
+    },
+    {
+      "internalName": "ApprovalDate",
+      "displayName": "Approval Date",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateOnly",
+      "description": "Date override was approved"
+    },
+    {
+      "internalName": "EffectiveDate",
+      "displayName": "Effective Date",
+      "type": "DateTime",
+      "required": true,
+      "dateTimeFormat": "DateOnly",
+      "description": "Date from which override is effective"
+    },
+    {
+      "internalName": "ExpiryDate",
+      "displayName": "Expiry Date",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateOnly",
+      "description": "Date when override expires (null = permanent)"
+    },
+    {
+      "internalName": "IsActive",
+      "displayName": "Is Active",
+      "type": "Calculated",
+      "formula": "=IF(AND([EffectiveDate]<=TODAY(),OR(ISBLANK([ExpiryDate]),[ExpiryDate]>=TODAY())),TRUE,FALSE)",
+      "outputType": "Boolean",
+      "description": "Whether override is currently active"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Overrides",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "Location", "Equipment", "OverrideType", "CustomQuantity", "IsActive"],
+      "sortField": "Location",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Active Overrides",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Location", "Equipment", "OverrideType", "CustomQuantity", "OverrideReason"],
+      "filter": "=AND([EffectiveDate]<=TODAY(),OR(ISBLANK([ExpiryDate]),[ExpiryDate]>=TODAY()))",
+      "sortField": "Location",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Location",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Equipment", "OverrideType", "CustomQuantity", "OverrideReason", "IsActive"],
+      "groupByField": "Location",
+      "sortField": "Equipment",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "By Equipment",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Location", "OverrideType", "CustomQuantity", "OverrideReason", "IsActive"],
+      "groupByField": "Equipment",
+      "sortField": "Location",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Not Required Items",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Location", "Equipment", "OverrideReason", "ApprovedBy"],
+      "filter": "[OverrideType] = 'NotRequired'",
+      "sortField": "Location",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Pending Approval",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Location", "Equipment", "OverrideType", "CustomQuantity", "OverrideReason"],
+      "filter": "ISBLANK([ApprovedBy])",
+      "sortField": "EffectiveDate",
+      "sortDirection": "Ascending"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "CustomQuantity",
+        "formula": "=OR([OverrideType]<>\"CustomQuantity\",AND([OverrideType]=\"CustomQuantity\",[CustomQuantity]>=0))",
+        "message": "Custom quantity is required for CustomQuantity override type"
+      },
+      {
+        "field": "ExpiryDate",
+        "formula": "=OR(ISBLANK([ExpiryDate]),[ExpiryDate]>=[EffectiveDate])",
+        "message": "Expiry date must be on or after effective date"
+      }
+    ]
+  }
+}

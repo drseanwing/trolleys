@@ -1,6 +1,6 @@
 [
   {
-    "DepartmentName": "4C Burns Unit",
+    "Title": "4C Burns Unit",
     "DisplayName": "4C Burns Unit",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "James Mayne Building",
@@ -13,7 +13,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "5C beds 1-18",
+    "Title": "5C beds 1-18",
     "DisplayName": "5C beds 1-18",
     "ServiceLine": "Cancer Care Services",
     "Building": "Joyce Tweddell Building",
@@ -26,7 +26,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "5C beds 19-22",
+    "Title": "5C beds 19-22",
     "DisplayName": "5C beds 19-22",
     "ServiceLine": "Cancer Care Services",
     "Building": "Joyce Tweddell Building",
@@ -39,7 +39,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "6A North (including Gynae)",
+    "Title": "6A North (including Gynae)",
     "DisplayName": "6A North (including Gynae)",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -52,7 +52,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "6A South",
+    "Title": "6A South",
     "DisplayName": "6A South",
     "ServiceLine": "Cancer Care Services",
     "Building": "Ned Hanlon Building",
@@ -65,7 +65,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "6B North",
+    "Title": "6B North",
     "DisplayName": "6B North",
     "ServiceLine": "Women's & Newborn Services",
     "Building": "Ned Hanlon Building",
@@ -78,7 +78,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "6B South",
+    "Title": "6B South",
     "DisplayName": "6B South",
     "ServiceLine": "Women's & Newborn Services",
     "Building": "Ned Hanlon Building",
@@ -91,7 +91,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "7A North",
+    "Title": "7A North",
     "DisplayName": "7A North",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -104,7 +104,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "7A South",
+    "Title": "7A South",
     "DisplayName": "7A South",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -117,7 +117,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "7B North",
+    "Title": "7B North",
     "DisplayName": "7B North",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -130,7 +130,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "7B South/Epicentre",
+    "Title": "7B South/Epicentre",
     "DisplayName": "7B South/Epicentre",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -143,7 +143,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "7B West",
+    "Title": "7B West",
     "DisplayName": "7B West",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -156,7 +156,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "8A North",
+    "Title": "8A North",
     "DisplayName": "8A North",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -169,7 +169,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "8A South",
+    "Title": "8A South",
     "DisplayName": "8A South",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -182,7 +182,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "8B North",
+    "Title": "8B North",
     "DisplayName": "8B North",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -195,7 +195,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "8B South",
+    "Title": "8B South",
     "DisplayName": "8B South",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -208,7 +208,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "9A North",
+    "Title": "9A North",
     "DisplayName": "9A North",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -221,7 +221,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "9A South",
+    "Title": "9A South",
     "DisplayName": "9A South",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -234,7 +234,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "9B North",
+    "Title": "9B North",
     "DisplayName": "9B North",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -247,7 +247,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "9B South",
+    "Title": "9B South",
     "DisplayName": "9B South",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -260,7 +260,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Birth Suite",
+    "Title": "Birth Suite",
     "DisplayName": "Birth Suite",
     "ServiceLine": "Women's & Newborn Services",
     "Building": "Ned Hanlon Building",
@@ -273,7 +273,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Cancer Care Satellite Clinic- Northlakes",
+    "Title": "Cancer Care Satellite Clinic- Northlakes",
     "DisplayName": "Cancer Care Satellite Clinic- Northlakes",
     "ServiceLine": "Cancer Care Services",
     "Building": "Offsite",
@@ -286,7 +286,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Cardiology OPD",
+    "Title": "Cardiology OPD",
     "DisplayName": "Cardiology OPD",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -299,7 +299,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Cath lab 2",
+    "Title": "Cath lab 2",
     "DisplayName": "Cath lab 2",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -312,7 +312,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Cath Lab entry",
+    "Title": "Cath Lab entry",
     "DisplayName": "Cath Lab entry",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -325,7 +325,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Cath Lab procedure room 1",
+    "Title": "Cath Lab procedure room 1",
     "DisplayName": "Cath Lab procedure room 1",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -338,7 +338,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "CCU  Pod 2",
+    "Title": "CCU  Pod 2",
     "DisplayName": "CCU  Pod 2",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -351,7 +351,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "CCU Pod 1",
+    "Title": "CCU Pod 1",
     "DisplayName": "CCU Pod 1",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -364,7 +364,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "ED- GA DEM Short Stay",
+    "Title": "ED- GA DEM Short Stay",
     "DisplayName": "ED- GA DEM Short Stay",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -377,7 +377,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "ED-Cold",
+    "Title": "ED-Cold",
     "DisplayName": "ED-Cold",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -390,7 +390,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "ENT OPD",
+    "Title": "ENT OPD",
     "DisplayName": "ENT OPD",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -403,7 +403,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Gastroenterology Clinic",
+    "Title": "Gastroenterology Clinic",
     "DisplayName": "Gastroenterology Clinic",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -416,7 +416,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Gynae Outpatients Clinic",
+    "Title": "Gynae Outpatients Clinic",
     "DisplayName": "Gynae Outpatients Clinic",
     "ServiceLine": "Women's & Newborn Services",
     "Building": "Ned Hanlon Building",
@@ -429,7 +429,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Herston Alcohol and Drug Service",
+    "Title": "Herston Alcohol and Drug Service",
     "DisplayName": "Herston Alcohol and Drug Service",
     "ServiceLine": "Mental Health",
     "Building": "Joyce Tweddell Building",
@@ -442,7 +442,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "HIRF Clinic Trolley",
+    "Title": "HIRF Clinic Trolley",
     "DisplayName": "HIRF Clinic Trolley",
     "ServiceLine": "Internal Medicine Services",
     "Building": "HIRF Building",
@@ -455,7 +455,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Hyperbaric",
+    "Title": "Hyperbaric",
     "DisplayName": "Hyperbaric",
     "ServiceLine": "Critical Care & Clinical Support Services",
     "Building": "Ned Hanlon Building",
@@ -468,7 +468,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Internal Medicine Day Treatment Unit",
+    "Title": "Internal Medicine Day Treatment Unit",
     "DisplayName": "Internal Medicine Day Treatment Unit",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -481,7 +481,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Kallangur Dialysis Unit",
+    "Title": "Kallangur Dialysis Unit",
     "DisplayName": "Kallangur Dialysis Unit",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Offsite",
@@ -494,7 +494,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Maternal/Foetal Medicine",
+    "Title": "Maternal/Foetal Medicine",
     "DisplayName": "Maternal/Foetal Medicine",
     "ServiceLine": "Women's & Newborn Services",
     "Building": "Ned Hanlon Building",
@@ -507,7 +507,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Maternity Outpatients",
+    "Title": "Maternity Outpatients",
     "DisplayName": "Maternity Outpatients",
     "ServiceLine": "Women's & Newborn Services",
     "Building": "Ned Hanlon Building",
@@ -520,7 +520,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Medical Imaging",
+    "Title": "Medical Imaging",
     "DisplayName": "Medical Imaging",
     "ServiceLine": "Mental Health",
     "Building": "Ned Hanlon Building",
@@ -533,7 +533,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "MH ECT Clinic",
+    "Title": "MH ECT Clinic",
     "DisplayName": "MH ECT Clinic",
     "ServiceLine": "Mental Health",
     "Building": "Mental Health Block",
@@ -546,7 +546,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "MH F Floor",
+    "Title": "MH F Floor",
     "DisplayName": "MH F Floor",
     "ServiceLine": "Mental Health",
     "Building": "Mental Health Block",
@@ -559,7 +559,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "MH G Floor",
+    "Title": "MH G Floor",
     "DisplayName": "MH G Floor",
     "ServiceLine": "Mental Health",
     "Building": "Mental Health Block",
@@ -572,7 +572,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "MH H Floor",
+    "Title": "MH H Floor",
     "DisplayName": "MH H Floor",
     "ServiceLine": "Mental Health",
     "Building": "Mental Health Block",
@@ -585,7 +585,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "MH I Floor",
+    "Title": "MH I Floor",
     "DisplayName": "MH I Floor",
     "ServiceLine": "Mental Health",
     "Building": "Mental Health Block",
@@ -598,7 +598,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Minor Procedures Unit",
+    "Title": "Minor Procedures Unit",
     "DisplayName": "Minor Procedures Unit",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "James Mayne Building",
@@ -611,7 +611,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Neurology OPD",
+    "Title": "Neurology OPD",
     "DisplayName": "Neurology OPD",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -624,7 +624,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Neuroscience Clinical Research Suit (Rm 336)",
+    "Title": "Neuroscience Clinical Research Suit (Rm 336)",
     "DisplayName": "Neuroscience Clinical Research Suit (Rm 336)",
     "ServiceLine": "Internal Medicine Services",
     "Building": "HIRF Building",
@@ -637,7 +637,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Neurosurgery OPD",
+    "Title": "Neurosurgery OPD",
     "DisplayName": "Neurosurgery OPD",
     "ServiceLine": "Internal Medicine Services",
     "Building": "HIRF Building",
@@ -650,7 +650,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Northlakes Dialysis Unit",
+    "Title": "Northlakes Dialysis Unit",
     "DisplayName": "Northlakes Dialysis Unit",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Offsite",
@@ -663,7 +663,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Nuclear Medicine general",
+    "Title": "Nuclear Medicine general",
     "DisplayName": "Nuclear Medicine general",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -676,7 +676,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Nuclear Medicine stress testroom",
+    "Title": "Nuclear Medicine stress testroom",
     "DisplayName": "Nuclear Medicine stress testroom",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -689,7 +689,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Obstetric Review Centre",
+    "Title": "Obstetric Review Centre",
     "DisplayName": "Obstetric Review Centre",
     "ServiceLine": "Women's & Newborn Services",
     "Building": "Ned Hanlon Building",
@@ -702,7 +702,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Oncology Day procedure Unit",
+    "Title": "Oncology Day procedure Unit",
     "DisplayName": "Oncology Day procedure Unit",
     "ServiceLine": "Cancer Care Services",
     "Building": "Joyce Tweddell Building",
@@ -715,7 +715,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Oncology day treatment unit",
+    "Title": "Oncology day treatment unit",
     "DisplayName": "Oncology day treatment unit",
     "ServiceLine": "Cancer Care Services",
     "Building": "Joyce Tweddell Building",
@@ -728,7 +728,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Opthalmology Clinical",
+    "Title": "Opthalmology Clinical",
     "DisplayName": "Opthalmology Clinical",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -741,7 +741,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Ortho OPD",
+    "Title": "Ortho OPD",
     "DisplayName": "Ortho OPD",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -754,7 +754,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "PACU - Level 5",
+    "Title": "PACU - Level 5",
     "DisplayName": "PACU - Level 5",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "James Mayne Building",
@@ -767,7 +767,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Physio reception (shared with transit lounge)",
+    "Title": "Physio reception (shared with transit lounge)",
     "DisplayName": "Physio reception (shared with transit lounge)",
     "ServiceLine": "Allied Health",
     "Building": "Ned Hanlon Building",
@@ -780,7 +780,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Private Practice",
+    "Title": "Private Practice",
     "DisplayName": "Private Practice",
     "ServiceLine": "Critical Care & Clinical Support Services",
     "Building": "James Mayne Building",
@@ -793,7 +793,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "PTCM Pain Centre (STARS)",
+    "Title": "PTCM Pain Centre (STARS)",
     "DisplayName": "PTCM Pain Centre (STARS)",
     "ServiceLine": "Critical Care & Clinical Support Services",
     "Building": "STARS Building",
@@ -806,7 +806,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Queensland Adult Specialist Immunisation Service",
+    "Title": "Queensland Adult Specialist Immunisation Service",
     "DisplayName": "Queensland Adult Specialist Immunisation Service",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -819,7 +819,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Radiation Oncology",
+    "Title": "Radiation Oncology",
     "DisplayName": "Radiation Oncology",
     "ServiceLine": "Cancer Care Services",
     "Building": "Joyce Tweddell Building",
@@ -832,7 +832,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Redcliffe Dialysis Unit",
+    "Title": "Redcliffe Dialysis Unit",
     "DisplayName": "Redcliffe Dialysis Unit",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Offsite",
@@ -845,7 +845,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Renal Unit",
+    "Title": "Renal Unit",
     "DisplayName": "Renal Unit",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Ned Hanlon Building",
@@ -858,7 +858,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Rheumatology/Dermatology OPD",
+    "Title": "Rheumatology/Dermatology OPD",
     "DisplayName": "Rheumatology/Dermatology OPD",
     "ServiceLine": "Internal Medicine Services",
     "Building": "STARS Building",
@@ -871,7 +871,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "SOS OPD",
+    "Title": "SOS OPD",
     "DisplayName": "SOS OPD",
     "ServiceLine": "Critical Care & Clinical Support Services",
     "Building": "James Mayne Building",
@@ -884,7 +884,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Special Care Nursery",
+    "Title": "Special Care Nursery",
     "DisplayName": "Special Care Nursery",
     "ServiceLine": "Women's & Newborn Services",
     "Building": "Ned Hanlon Building",
@@ -897,7 +897,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Stafford Renal Unit",
+    "Title": "Stafford Renal Unit",
     "DisplayName": "Stafford Renal Unit",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Offsite",
@@ -910,7 +910,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Surgical Day Care Unit (23 hour unit) in PACU Level 4",
+    "Title": "Surgical Day Care Unit (23 hour unit) in PACU Level 4",
     "DisplayName": "Surgical Day Care Unit (23 hour unit) in PACU L...",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -923,7 +923,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Thoracic",
+    "Title": "Thoracic",
     "DisplayName": "Thoracic",
     "ServiceLine": "Internal Medicine Services",
     "Building": "James Mayne Building",
@@ -936,7 +936,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Urology Clinic - now on Level 1",
+    "Title": "Urology Clinic - now on Level 1",
     "DisplayName": "Urology Clinic - now on Level 1",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "James Mayne Building",
@@ -949,7 +949,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Vascular OPD",
+    "Title": "Vascular OPD",
     "DisplayName": "Vascular OPD",
     "ServiceLine": "Surgical & Perioperative Services",
     "Building": "Ned Hanlon Building",
@@ -962,7 +962,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Wattelbrae",
+    "Title": "Wattelbrae",
     "DisplayName": "Wattelbrae",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Joyce Tweddell Building",
@@ -975,7 +975,7 @@
     "Status": "Active"
   },
   {
-    "DepartmentName": "Wattlebrae OPD Clinic",
+    "Title": "Wattlebrae OPD Clinic",
     "DisplayName": "Wattlebrae OPD Clinic",
     "ServiceLine": "Internal Medicine Services",
     "Building": "Joyce Tweddell Building",

@@ -1,0 +1,167 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/list-formatting.schema.json",
+  "listName": "RandomAuditSelectionItem",
+  "description": "Individual trolleys selected in weekly random selection batches",
+  "baseTemplate": "genericList",
+  "columns": [
+    {
+      "internalName": "Title",
+      "displayName": "Item Reference",
+      "type": "Text",
+      "required": true,
+      "maxLength": 50,
+      "description": "Auto-generated reference (ITEM-1, ITEM-2, etc.)"
+    },
+    {
+      "internalName": "Selection",
+      "displayName": "Selection",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "RandomAuditSelection",
+      "lookupField": "Title",
+      "description": "Parent selection batch"
+    },
+    {
+      "internalName": "Location",
+      "displayName": "Location",
+      "type": "Lookup",
+      "required": true,
+      "lookupList": "Location",
+      "lookupField": "Title",
+      "description": "Selected trolley location"
+    },
+    {
+      "internalName": "Audit",
+      "displayName": "Completed Audit",
+      "type": "Lookup",
+      "required": false,
+      "lookupList": "Audit",
+      "lookupField": "Title",
+      "description": "Link to completed audit record (if any)"
+    },
+    {
+      "internalName": "PriorityScore",
+      "displayName": "Priority Score",
+      "type": "Number",
+      "required": true,
+      "minimum": 0,
+      "description": "Calculated priority score at time of selection"
+    },
+    {
+      "internalName": "SelectionOrder",
+      "displayName": "Selection Order",
+      "type": "Number",
+      "required": true,
+      "minimum": 1,
+      "maximum": 20,
+      "description": "Display order within selection (1-10)"
+    },
+    {
+      "internalName": "CompletionStatus",
+      "displayName": "Completion Status",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Pending",
+        "Completed",
+        "Skipped"
+      ],
+      "defaultValue": "Pending",
+      "description": "Current status of this selected audit"
+    },
+    {
+      "internalName": "CompletedDate",
+      "displayName": "Completed Date",
+      "type": "DateTime",
+      "required": false,
+      "dateTimeFormat": "DateTime",
+      "description": "Date/time audit was submitted"
+    },
+    {
+      "internalName": "CompletedBy",
+      "displayName": "Completed By",
+      "type": "User",
+      "required": false,
+      "description": "User who completed the audit"
+    },
+    {
+      "internalName": "SkipReason",
+      "displayName": "Skip Reason",
+      "type": "Note",
+      "required": false,
+      "maxLength": 500,
+      "description": "Reason if audit was skipped"
+    },
+    {
+      "internalName": "DaysSinceLastAuditAtSelection",
+      "displayName": "Days Since Last Audit (At Selection)",
+      "type": "Number",
+      "required": false,
+      "description": "Days since last audit at time of selection"
+    },
+    {
+      "internalName": "LastComplianceAtSelection",
+      "displayName": "Last Compliance (At Selection)",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Last compliance score at time of selection"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Items",
+      "viewType": "html",
+      "isDefault": true,
+      "viewFields": ["Title", "Selection", "Location", "SelectionOrder", "CompletionStatus", "PriorityScore"],
+      "sortField": "SelectionOrder",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Pending Audits",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Selection", "Location", "SelectionOrder", "PriorityScore"],
+      "filter": "[CompletionStatus] = 'Pending'",
+      "sortField": "SelectionOrder",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Completed Audits",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Selection", "Location", "Audit", "CompletedDate", "CompletedBy"],
+      "filter": "[CompletionStatus] = 'Completed'",
+      "sortField": "CompletedDate",
+      "sortDirection": "Descending"
+    },
+    {
+      "name": "By Selection",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Title", "Location", "SelectionOrder", "CompletionStatus", "PriorityScore"],
+      "groupByField": "Selection",
+      "sortField": "SelectionOrder",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "Skipped Audits",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": ["Selection", "Location", "SkipReason"],
+      "filter": "[CompletionStatus] = 'Skipped'",
+      "sortField": "Selection",
+      "sortDirection": "Descending"
+    }
+  ],
+  "validation": {
+    "rules": [
+      {
+        "field": "SelectionOrder",
+        "formula": "=AND([SelectionOrder]>=1,[SelectionOrder]<=20)",
+        "message": "Selection order must be between 1 and 20"
+      }
+    ]
+  }
+}

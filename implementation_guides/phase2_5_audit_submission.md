@@ -693,28 +693,65 @@ Set(
 );
 
 // Equipment Score Calculation (30% weight)
+// IMPORTANT: Critical equipment is weighted at 60%, non-critical at 40%
+// This ensures patient safety equipment failures have greater impact on compliance
+
+// Step 1: Calculate Critical Equipment Score (60% of equipment weight)
 Set(
-    varEquipmentCompliantCount,
-    CountRows(
-        Filter(
-            colCurrentEquipment,
-            QuantityFound >= QuantityExpected
-        )
+    varCriticalItems,
+    Filter(colCurrentEquipment, IsCritical = true)
+);
+Set(
+    varCriticalCompliant,
+    CountRows(Filter(varCriticalItems, QuantityFound >= QuantityExpected))
+);
+Set(
+    varCriticalScore,
+    If(
+        CountRows(varCriticalItems) = 0,
+        100,
+        (varCriticalCompliant / CountRows(varCriticalItems)) * 100
     )
 );
 
+// Step 2: Calculate Non-Critical Equipment Score (40% of equipment weight)
+Set(
+    varNonCriticalItems,
+    Filter(colCurrentEquipment, IsCritical = false || IsBlank(IsCritical))
+);
+Set(
+    varNonCriticalCompliant,
+    CountRows(Filter(varNonCriticalItems, QuantityFound >= QuantityExpected))
+);
+Set(
+    varNonCriticalScore,
+    If(
+        CountRows(varNonCriticalItems) = 0,
+        100,
+        (varNonCriticalCompliant / CountRows(varNonCriticalItems)) * 100
+    )
+);
+
+// Step 3: Calculate Weighted Equipment Score
+Set(
+    varEquipScore,
+    (varCriticalScore * 0.60) + (varNonCriticalScore * 0.40)
+);
+
+// Step 4: Track critical items missing for reporting
+Set(
+    varCriticalItemsMissing,
+    CountRows(Filter(varCriticalItems, QuantityFound < QuantityExpected))
+);
+
+// Legacy variables for backwards compatibility
+Set(
+    varEquipmentCompliantCount,
+    CountRows(Filter(colCurrentEquipment, QuantityFound >= QuantityExpected))
+);
 Set(
     varEquipmentTotalCount,
     CountRows(colCurrentEquipment)
-);
-
-Set(
-    varEquipScore,
-    If(
-        varEquipmentTotalCount = 0,
-        0,
-        (varEquipmentCompliantCount / varEquipmentTotalCount) * 100
-    )
 );
 
 // Overall Compliance Score Calculation (Weighted Average)
@@ -765,11 +802,50 @@ If(
                "No check record found. ", ""),
             If(NOT(varCurrentCondAudit.IsWorkingOrder),
                "Trolley not in working order. ", ""),
-            If(CountRows(Filter(colCurrentEquipment, QuantityFound = 0)) > 0,
-               "Critical equipment missing. ", "")
+            If(varCriticalItemsMissing > 0,
+               "Critical equipment missing (" & varCriticalItemsMissing & " items). ", "")
         )
     ),
     Set(varFollowUpNotes, "")
+);
+
+// AUTO-ISSUE CREATION: Create Critical severity issue for missing critical equipment
+// This ensures patient safety equipment failures are tracked and escalated
+If(
+    varCriticalItemsMissing > 0,
+    // Build list of missing critical items for issue description
+    Set(
+        varMissingCriticalList,
+        Concat(
+            Filter(varCriticalItems, QuantityFound < QuantityExpected),
+            Title & " (Expected: " & QuantityExpected & ", Found: " & QuantityFound & ")",
+            Char(10)
+        )
+    );
+
+    // Create Critical issue automatically
+    Patch(
+        Issue,
+        Defaults(Issue),
+        {
+            Title: "Critical Equipment Missing - " & varCurrentLocation.Title,
+            Description: "The following critical equipment items were found missing or insufficient during audit " & varCurrentAudit.Title & ":" & Char(10) & Char(10) & varMissingCriticalList,
+            Category: {Value: "Equipment"},
+            Severity: {Value: "Critical"},
+            Status: {Value: "Open"},
+            LocationId: varCurrentLocation,
+            AuditId: varCurrentAudit,
+            ReportedBy: varAuditorName,
+            ReportedDate: Now()
+        }
+    );
+
+    // Notify that auto-issue was created
+    Notify(
+        "Critical issue created: Missing critical equipment requires immediate attention.",
+        NotificationType.Warning,
+        5000
+    )
 )
 ```
 
