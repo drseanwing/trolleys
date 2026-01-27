@@ -2712,6 +2712,36 @@ Equipment (30% weight):
 - [ ] AuditEquipment records created (Task 2.5.13)
 - [ ] Location LastAuditDate updated (Task 2.5.14)
 - [ ] Follow-up logic implemented
+- [ ] 1:1 relationship enforcement implemented (see below)
+
+### 1:1 Relationship Enforcement
+
+The following audit sub-tables have a 1:1 relationship with the Audit record:
+- AuditDocuments (one per audit)
+- AuditCondition (one per audit)
+- AuditChecks (one per audit)
+
+**Power Automate Enforcement Logic:**
+
+Before creating a new AuditDocuments/AuditCondition/AuditChecks record, add a validation step:
+
+```
+// Check for existing record - prevents duplicates
+Get items from AuditDocuments
+Filter Query: Audit/Id eq @{triggerBody()?['AuditId']}
+
+Condition: length(body('Get_existing_AuditDocuments')?['value']) > 0
+  If Yes: Skip creation OR Update existing record
+  If No: Create new record
+```
+
+**Alternative - Use Upsert Pattern:**
+```
+// Try to get existing, if not found create new
+Get items → If empty, Create item → Else Update item
+```
+
+This ensures data integrity and prevents orphaned or duplicate audit sub-records.
 
 ### Draft Save (Task 2.5.15)
 - [ ] SaveDraftAuditFlow created

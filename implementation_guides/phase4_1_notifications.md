@@ -1727,6 +1727,23 @@ Medium/Low severity > 30 days → Escalate to Level 2
 Any issue > 30 days → Escalate to Level 3 (executive)
 ```
 
+### SLA Integration (New)
+
+The Issue schema includes calculated SLA tracking fields that simplify escalation logic:
+
+| Field | Type | Purpose |
+|-------|------|---------|
+| TargetResolutionDate | Calculated | Auto-calculates SLA deadline based on severity |
+| SLAStatus | Calculated | "On Track", "At Risk", "Breached", "Completed" |
+| DaysToSLA | Calculated | Days remaining (negative if breached) |
+
+**Simplified Escalation Query using SLA fields:**
+```
+Filter Query: (SLAStatus eq 'Breached') and (EscalationLevel ne 'Level2') and (EscalationLevel ne 'Level3')
+```
+
+This automatically captures all issues that have exceeded their severity-based SLA deadline without needing complex date calculations in the flow.
+
 ### Implementation Steps
 
 #### Step 1: Create Scheduled Cloud Flow

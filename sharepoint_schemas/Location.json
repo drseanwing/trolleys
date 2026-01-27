@@ -158,9 +158,11 @@
       "internalName": "DaysSinceLastAudit",
       "displayName": "Days Since Last Audit",
       "type": "Calculated",
-      "formula": "=IF(ISBLANK([LastAuditDate]),999,DATEDIF([LastAuditDate],TODAY(),\"D\"))",
+      "formula": "=IF(ISBLANK([LastAuditDate]),999,INT(TODAY()-[LastAuditDate]))",
+      "formulaAlternative": "=IF(ISBLANK([LastAuditDate]),999,DATEDIF([LastAuditDate],TODAY(),\"D\"))",
       "outputType": "Number",
-      "description": "Number of days since last audit (999 if never audited)"
+      "description": "Number of days since last audit (999 if never audited). Note: Primary formula uses simple date subtraction for maximum SharePoint compatibility. Alternative DATEDIF formula provided if needed.",
+      "compatibilityNote": "DATEDIF function has limited support in some SharePoint versions. The primary formula uses INT(TODAY()-[LastAuditDate]) which is universally supported."
     },
     {
       "internalName": "Notes",
