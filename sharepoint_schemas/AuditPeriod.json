@@ -51,8 +51,10 @@
       "displayName": "Working Days",
       "type": "Calculated",
       "formula": "=NETWORKDAYS([StartDate],[EndDate])",
+      "formulaAlternative": "=INT(([EndDate]-[StartDate]+1)*5/7)",
       "outputType": "Number",
-      "description": "Business days in the period (calculated)"
+      "description": "Business days in the period (calculated). Uses NETWORKDAYS for accuracy.",
+      "compatibilityNote": "NETWORKDAYS may not be available in all SharePoint versions. If unavailable, use the approximate formula =INT(([EndDate]-[StartDate]+1)*5/7) or calculate manually."
     },
     {
       "internalName": "TotalDays",
@@ -98,6 +100,14 @@
       "type": "User",
       "required": false,
       "description": "Admin who created the period"
+    },
+    {
+      "internalName": "Notes",
+      "displayName": "Notes",
+      "type": "Note",
+      "required": false,
+      "maxLength": 500,
+      "description": "Additional notes about this audit period"
     }
   ],
   "views": [

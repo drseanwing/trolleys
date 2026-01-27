@@ -157,13 +157,14 @@ Notes                        Text      No
 1. Click **Add action** and search for "Return"
 2. Select **Return value (cloud flow)**
 3. Set Output:
-   ```json
+   ```text
    {
      "LocationId": @{body('Create_item')?['ID']},
      "LocationTitle": @{body('Create_item')?['Title']},
      "Status": "Success"
    }
    ```
+   > Note: This is Power Automate expression syntax, not valid JSON.
 
 #### Step 5: Add Error Handling (Try-Catch Pattern)
 

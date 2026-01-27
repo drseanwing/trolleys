@@ -64,8 +64,8 @@
       "choices": [
         "Open",
         "Assigned",
-        "In_Progress",
-        "Pending_Verification",
+        "In Progress",
+        "Pending Verification",
         "Resolved",
         "Closed"
       ],
@@ -176,6 +176,39 @@
       "minimum": 0,
       "defaultValue": 0,
       "description": "Number of times issue has been reopened"
+    },
+    {
+      "internalName": "TargetResolutionDate",
+      "displayName": "Target Resolution Date",
+      "type": "Calculated",
+      "formula": "=IF([Severity]=\"Critical\",[ReportedDate]+3,IF([Severity]=\"High\",[ReportedDate]+7,IF([Severity]=\"Medium\",[ReportedDate]+14,[ReportedDate]+30)))",
+      "outputType": "DateTime",
+      "description": "SLA deadline based on severity (Critical=3d, High=7d, Medium=14d, Low=30d)"
+    },
+    {
+      "internalName": "SLAStatus",
+      "displayName": "SLA Status",
+      "type": "Calculated",
+      "formula": "=IF(OR([Status]=\"Closed\",[Status]=\"Resolved\"),\"Completed\",IF(TODAY()>[TargetResolutionDate],\"Breached\",IF(TODAY()>=[TargetResolutionDate]-2,\"At Risk\",\"On Track\")))",
+      "outputType": "Text",
+      "description": "Current SLA status: On Track, At Risk, Breached, or Completed"
+    },
+    {
+      "internalName": "DaysToSLA",
+      "displayName": "Days to SLA",
+      "type": "Calculated",
+      "formula": "=IF(OR([Status]=\"Closed\",[Status]=\"Resolved\"),0,[TargetResolutionDate]-TODAY())",
+      "outputType": "Number",
+      "description": "Days remaining until SLA deadline (negative if breached)"
+    },
+    {
+      "internalName": "LinkedFollowUpAudit",
+      "displayName": "Follow-Up Audit",
+      "type": "Lookup",
+      "required": false,
+      "lookupList": "Audit",
+      "lookupField": "Title",
+      "description": "Link to audit that resolved/verified this issue"
     }
   ],
   "views": [
@@ -271,6 +304,40 @@
       ],
       "filter": "AND([Status]<>'Closed',[ReportedDate]<TODAY()-30)",
       "sortField": "ReportedDate",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "SLA Tracking",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "IssueNumber",
+        "Title",
+        "Severity",
+        "SLAStatus",
+        "DaysToSLA",
+        "TargetResolutionDate",
+        "AssignedTo"
+      ],
+      "filter": "AND([Status]<>'Closed',[Status]<>'Resolved')",
+      "sortField": "DaysToSLA",
+      "sortDirection": "Ascending"
+    },
+    {
+      "name": "SLA Breached",
+      "viewType": "html",
+      "isDefault": false,
+      "viewFields": [
+        "IssueNumber",
+        "Title",
+        "Severity",
+        "DaysToSLA",
+        "LocationId",
+        "AssignedTo",
+        "EscalationLevel"
+      ],
+      "filter": "[SLAStatus]='Breached'",
+      "sortField": "DaysToSLA",
       "sortDirection": "Ascending"
     }
   ],

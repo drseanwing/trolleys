@@ -6,24 +6,30 @@ A SharePoint/PowerApps solution for managing annual audits of resuscitation trol
 
 ```
 trolleys/
-├── RBWH_Trolley_Audit_Task_List.md         # Master task list with 165 tasks
+├── RBWH_Trolley_Audit_Task_List.md         # Master task list with 260 tasks
 ├── RBWH_Trolley_Audit_Program_Specification_v2 (1).md  # Program specification
 ├── RBWH_Resuscitation_Trolley_Audit_Schema.md          # Data schema specification
 ├── audit_erd_v2 (1).mermaid                # Entity relationship diagram
 ├── equipment_master_list.json              # Source equipment data
 ├── locations_master_cleaned.csv            # Source location data
-├── sharepoint_schemas/                     # SharePoint list configurations
+├── sharepoint_schemas/                     # SharePoint list configurations (17 schemas)
 │   ├── ServiceLine.json                    # Service line reference data schema
 │   ├── EquipmentCategory.json              # Equipment category schema
 │   ├── AuditPeriod.json                    # Audit period configuration schema
 │   ├── Equipment.json                      # Master equipment list schema
 │   ├── Location.json                       # Trolley location master schema
 │   ├── LocationChangeLog.json              # Location change audit trail schema
+│   ├── LocationEquipment.json              # Location-specific equipment overrides
 │   ├── Audit.json                          # Main audit record schema
 │   ├── AuditDocuments.json                 # Documentation checks schema
 │   ├── AuditCondition.json                 # Physical condition checks schema
 │   ├── AuditChecks.json                    # Routine check counts schema
-│   └── AuditEquipment.json                 # Equipment item checks schema
+│   ├── AuditEquipment.json                 # Equipment item checks schema
+│   ├── Issue.json                          # Issue tracking schema
+│   ├── CorrectiveAction.json               # Corrective action schema
+│   ├── IssueComment.json                   # Issue comments schema
+│   ├── RandomAuditSelection.json           # Weekly random selection batches
+│   └── RandomAuditSelectionItem.json       # Individual selected trolleys
 ├── seed_data/                              # Import-ready data files
 │   ├── ServiceLine.json                    # 7 service lines
 │   ├── EquipmentCategory.json              # 8 equipment categories
@@ -56,7 +62,7 @@ trolleys/
 
 ### Phases 2-4
 
-All phases now have complete implementation guides ready. See the Implementation Guides section below for the full index of 18 guides covering all 165 tasks.
+All phases now have complete implementation guides ready. See the Implementation Guides section below for the full index of 18 guides covering all 260 tasks.
 
 ## SharePoint List Schemas
 
@@ -114,7 +120,7 @@ The `seed_data/` directory contains JSON files ready for import into SharePoint 
 
 ## Implementation Guides
 
-Comprehensive step-by-step guides covering all 165 tasks across 4 phases. Each guide provides detailed instructions for manual implementation in SharePoint/PowerApps UI.
+Comprehensive step-by-step guides covering all 260 tasks across 4 phases. Each guide provides detailed instructions for manual implementation in SharePoint/PowerApps UI.
 
 ### Complete Guide Index
 
@@ -146,7 +152,7 @@ Comprehensive step-by-step guides covering all 165 tasks across 4 phases. Each g
 - **Phase 3 (Reporting & Analytics)**: 36 tasks - 3 guides covering dashboards, Power BI, data migration
 - **Phase 4 (Advanced Features & Launch)**: 36 tasks - 4 guides covering notifications, features, testing, deployment
 
-**Total: 18 guides covering all 165 implementation tasks**
+**Total: 18 guides covering all 260 implementation tasks**
 
 ### Using the Guides
 

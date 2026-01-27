@@ -163,6 +163,42 @@
       "required": false,
       "dateTimeFormat": "DateTime",
       "description": "When the audit was verified"
+    },
+    {
+      "internalName": "TriggeredByIssue",
+      "displayName": "Triggered By Issue",
+      "type": "Lookup",
+      "required": false,
+      "lookupList": "Issue",
+      "lookupField": "IssueNumber",
+      "description": "Link to issue that triggered this follow-up audit (for AuditType=FollowUp)"
+    },
+    {
+      "internalName": "CriticalEquipmentScore",
+      "displayName": "Critical Equipment Score",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Score for critical equipment items only (weighted 60% of equipment score)"
+    },
+    {
+      "internalName": "NonCriticalEquipmentScore",
+      "displayName": "Non-Critical Equipment Score",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Score for non-critical equipment items only (weighted 40% of equipment score)"
+    },
+    {
+      "internalName": "CriticalItemsMissing",
+      "displayName": "Critical Items Missing",
+      "type": "Number",
+      "required": false,
+      "minimum": 0,
+      "defaultValue": 0,
+      "description": "Count of critical equipment items that are missing or insufficient"
     }
   ],
   "views": [
