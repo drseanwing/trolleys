@@ -17,6 +17,7 @@ import json
 import os
 from datetime import date
 
+from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 
 from audit.models import (
@@ -69,6 +70,11 @@ class Command(BaseCommand):
         self._load_audit_periods(seed_dir)
 
         self.stdout.write(self.style.SUCCESS('\nSeed data loading complete.'))
+
+        # Setup role-based access control groups
+        self.stdout.write('\n' + '='*70)
+        call_command('setup_roles')
+        self.stdout.write('='*70)
 
     # ------------------------------------------------------------------
     # 1. ServiceLine
