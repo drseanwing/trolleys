@@ -1,0 +1,73 @@
+{% extends "audit/base.html" %}
+{% block title %}Audit - Equipment{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Audit: {{ audit.location.display_name }}</h2>
+</div>
+
+<!-- Step indicator -->
+<div class="d-flex mb-4">
+    <span class="audit-step completed">1. Documentation</span>
+    <span class="audit-step active">2. Equipment</span>
+    <span class="audit-step">3. Condition</span>
+    <span class="audit-step">4. Routine Checks</span>
+    <span class="audit-step">5. Review &amp; Submit</span>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {% for cat_name, checks in categories.items %}
+    <div class="card mb-3">
+        <div class="card-header"><h6 class="mb-0">{{ cat_name }}</h6></div>
+        <div class="card-body p-0">
+            <table class="table table-sm mb-0">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Present</th>
+                        <th>Qty Found</th>
+                        <th>Expected</th>
+                        <th>Expiry OK</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for check in checks %}
+                <tr>
+                    <td>
+                        {{ check.equipment.item_name }}
+                        {% if check.equipment.critical_item %} <span class="badge bg-danger">Critical</span>{% endif %}
+                    </td>
+                    <td>
+                        <input type="checkbox" name="equip_{{ check.pk }}_present"
+                               {% if check.is_present %}checked{% endif %}
+                               class="form-check-input">
+                    </td>
+                    <td>
+                        <input type="number" name="equip_{{ check.pk }}_qty"
+                               value="{{ check.quantity_found }}"
+                               class="form-control form-control-sm" style="width:80px" min="0">
+                    </td>
+                    <td>{{ check.quantity_expected }}</td>
+                    <td>
+                        {% if check.equipment.requires_expiry_check %}
+                        <input type="checkbox" name="equip_{{ check.pk }}_expiry"
+                               {% if check.expiry_ok %}checked{% endif %}
+                               class="form-check-input">
+                        {% else %}---{% endif %}
+                    </td>
+                    <td>
+                        <input type="text" name="equip_{{ check.pk }}_notes"
+                               value="{{ check.item_notes }}"
+                               class="form-control form-control-sm" style="width:150px">
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Save &amp; Continue</button>
+</form>
+{% endblock %}

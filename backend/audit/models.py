@@ -195,6 +195,10 @@ class Location(models.Model):
     def __str__(self):
         return self.display_name
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('audit:trolley_detail', kwargs={'pk': self.pk})
+
     @property
     def days_since_last_audit(self):
         """Number of days since the last audit was completed at this location."""
@@ -677,6 +681,10 @@ class Issue(models.Model):
 
     def __str__(self):
         return f"{self.issue_number} - {self.title}"
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('audit:issue_detail', kwargs={'pk': self.pk})
 
     def save(self, *args, **kwargs):
         if not self.issue_number:

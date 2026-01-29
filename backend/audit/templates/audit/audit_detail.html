@@ -1,0 +1,191 @@
+{% extends "audit/base.html" %}
+{% block title %}Audit - {{ audit.location.display_name }}{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Audit: {{ audit.location.display_name }}</h2>
+    <p class="text-muted">
+        {{ audit.started_at|date:"d M Y H:i" }} &bull;
+        {{ audit.auditor_name }} &bull;
+        <span class="badge bg-{% if audit.submission_status == 'Submitted' %}success{% elif audit.submission_status == 'Reviewed' %}info{% else %}warning{% endif %}">
+            {{ audit.get_submission_status_display }}
+        </span>
+    </p>
+</div>
+
+{% if audit.overall_compliance %}
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card card-stat">
+            <div class="card-body">
+                <h6 class="text-muted">Overall</h6>
+                <h3 class="{% if audit.overall_compliance >= 80 %}compliance-high{% elif audit.overall_compliance >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                    {{ audit.overall_compliance|floatformat:1 }}%
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Documentation</h6>
+                <h4>{% if audit.document_score is not None %}{{ audit.document_score|floatformat:1 }}%{% else %}---{% endif %}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Equipment</h6>
+                <h4>{% if audit.equipment_score is not None %}{{ audit.equipment_score|floatformat:1 }}%{% else %}---{% endif %}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Condition</h6>
+                <h4>{% if audit.condition_score is not None %}{{ audit.condition_score|floatformat:1 }}%{% else %}---{% endif %}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Routine Checks</h6>
+                <h4>{% if audit.check_score is not None %}{{ audit.check_score|floatformat:1 }}%{% else %}---{% endif %}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Documentation -->
+{% if documents %}
+<div class="card mb-3">
+    <div class="card-header"><h6 class="mb-0">Documentation</h6></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                Check Record: <strong>{{ documents.get_check_record_status_display }}</strong>
+            </div>
+            <div class="col-md-3">
+                Guidelines: <strong>{{ documents.get_check_guidelines_status_display }}</strong>
+            </div>
+            <div class="col-md-3">
+                BLS Poster: <strong>{% if documents.bls_poster_present %}Present{% else %}Missing{% endif %}</strong>
+            </div>
+            <div class="col-md-3">
+                Equipment List: <strong>{{ documents.get_equipment_list_status_display }}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Equipment Checks -->
+{% if equipment_checks %}
+<div class="card mb-3">
+    <div class="card-header"><h6 class="mb-0">Equipment Checklist</h6></div>
+    <div class="card-body p-0">
+        <table class="table table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Item</th>
+                    <th>Present</th>
+                    <th>Qty Found</th>
+                    <th>Qty Expected</th>
+                    <th>Expiry</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for check in equipment_checks %}
+            <tr class="{% if check.equipment.critical_item and not check.is_present %}table-danger{% endif %}">
+                <td><small>{{ check.equipment.category.category_name }}</small></td>
+                <td>
+                    {{ check.equipment.item_name }}
+                    {% if check.equipment.critical_item %} <span class="badge bg-danger">Critical</span>{% endif %}
+                </td>
+                <td>{% if check.is_present %}&#10003;{% else %}&#10007;{% endif %}</td>
+                <td>{{ check.quantity_found }}</td>
+                <td>{{ check.quantity_expected }}</td>
+                <td>
+                    {% if check.equipment.requires_expiry_check %}
+                        {% if check.expiry_ok %}OK{% else %}<span class="text-danger">Expired</span>{% endif %}
+                    {% else %}---{% endif %}
+                </td>
+                <td><small>{{ check.item_notes }}</small></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- Condition -->
+{% if condition %}
+<div class="card mb-3">
+    <div class="card-header"><h6 class="mb-0">Physical Condition</h6></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">Clean: <strong>{% if condition.is_clean %}Yes{% else %}No{% endif %}</strong></div>
+            <div class="col">Working Order: <strong>{% if condition.is_working_order %}Yes{% else %}No{% endif %}</strong></div>
+            <div class="col">Rubber Bands: <strong>{% if condition.rubber_bands_used %}Yes{% else %}No{% endif %}</strong></div>
+            <div class="col">O2 Tubing: <strong>{% if condition.o2_tubing_correct %}OK{% else %}Issue{% endif %}</strong></div>
+            <div class="col">INHALO: <strong>{% if condition.inhalo_cylinder_ok %}OK{% else %}Issue{% endif %}</strong></div>
+        </div>
+        {% if condition.issue_type != 'None' %}
+        <div class="mt-2">
+            <strong>Issue Type:</strong> {{ condition.get_issue_type_display }}
+            {% if condition.issue_description %}
+            <br><strong>Description:</strong> {{ condition.issue_description }}
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Checks -->
+{% if checks %}
+<div class="card mb-3">
+    <div class="card-header"><h6 class="mb-0">Routine Checks</h6></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                Outside Checks: <strong>{{ checks.outside_check_count }} / {{ checks.expected_outside }}</strong>
+                {% if checks.outside_compliance is not None %}
+                <span class="ms-2 {% if checks.outside_compliance >= 80 %}compliance-high{% elif checks.outside_compliance >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                    ({{ checks.outside_compliance|floatformat:1 }}%)
+                </span>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                Inside Checks: <strong>{{ checks.inside_check_count }} / {{ checks.expected_inside }}</strong>
+                {% if checks.inside_compliance is not None %}
+                <span class="ms-2 {% if checks.inside_compliance >= 80 %}compliance-high{% elif checks.inside_compliance >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                    ({{ checks.inside_compliance|floatformat:1 }}%)
+                </span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Notes -->
+{% if audit.notes %}
+<div class="card mb-3">
+    <div class="card-header"><h6 class="mb-0">Notes</h6></div>
+    <div class="card-body">{{ audit.notes|linebreaksbr }}</div>
+</div>
+{% endif %}
+
+<!-- Actions -->
+<div class="d-flex gap-2 mt-3">
+    <a href="{% url 'audit:audit_list' %}" class="btn btn-outline-secondary">Back to Audits</a>
+    <a href="{% url 'audit:trolley_detail' audit.location.pk %}" class="btn btn-outline-secondary">View Trolley</a>
+</div>
+{% endblock %}

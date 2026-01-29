@@ -1,0 +1,148 @@
+{% extends "audit/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Dashboard</h2>
+</div>
+
+<!-- KPI Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card card-stat">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted">Active Trolleys</h6>
+                <h3>{{ total_locations }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat success">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted">Completed Audits</h6>
+                <h3>{{ total_audits }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat warning">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted">Open Issues</h6>
+                <h3>{{ open_issues }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat {% if avg_compliance >= 80 %}success{% elif avg_compliance >= 60 %}warning{% else %}critical{% endif %}">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted">Avg Compliance</h6>
+                <h3>{% if avg_compliance %}{{ avg_compliance|floatformat:1 }}%{% else %}N/A{% endif %}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Service Line Stats and Recent Issues -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><h5 class="mb-0">Compliance by Service Line</h5></div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Service Line</th>
+                            <th>Locations</th>
+                            <th>Audits</th>
+                            <th>Avg Compliance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for sl in service_line_stats %}
+                    <tr>
+                        <td>{{ sl.abbreviation }} - {{ sl.name }}</td>
+                        <td>{{ sl.location_count }}</td>
+                        <td>{{ sl.audit_count }}</td>
+                        <td>
+                            {% if sl.avg_compliance %}
+                            <span class="{% if sl.avg_compliance >= 80 %}compliance-high{% elif sl.avg_compliance >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                                {{ sl.avg_compliance|floatformat:1 }}%
+                            </span>
+                            {% else %}N/A{% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4" class="text-muted">No service lines configured</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><h5 class="mb-0">Recent Issues</h5></div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Location</th>
+                            <th>Severity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for issue in recent_issues %}
+                    <tr>
+                        <td><a href="{% url 'audit:issue_detail' issue.pk %}">{{ issue.issue_number|default:"---" }}</a></td>
+                        <td>{{ issue.location.display_name }}</td>
+                        <td><span class="badge badge-{{ issue.severity|lower }}">{{ issue.severity }}</span></td>
+                        <td>{{ issue.status }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4" class="text-muted">No issues found</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Audits -->
+<div class="card">
+    <div class="card-header"><h5 class="mb-0">Recent Audits</h5></div>
+    <div class="card-body p-0">
+        <table class="table table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Service Line</th>
+                    <th>Date</th>
+                    <th>Auditor</th>
+                    <th>Compliance</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for a in recent_audits %}
+            <tr>
+                <td><a href="{% url 'audit:audit_detail' a.pk %}">{{ a.location.display_name }}</a></td>
+                <td>{{ a.location.service_line.abbreviation }}</td>
+                <td>{{ a.completed_at|date:"d M Y" }}</td>
+                <td>{{ a.auditor_name }}</td>
+                <td>
+                    {% if a.overall_compliance %}
+                    <span class="{% if a.overall_compliance >= 80 %}compliance-high{% elif a.overall_compliance >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                        {{ a.overall_compliance|floatformat:1 }}%
+                    </span>
+                    {% else %}---{% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-muted">No completed audits yet</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

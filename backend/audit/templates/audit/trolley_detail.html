@@ -1,0 +1,120 @@
+{% extends "audit/base.html" %}
+{% block title %}{{ trolley.display_name }}{% endblock %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h2>{{ trolley.display_name }}</h2>
+        <p class="text-muted mb-0">{{ trolley.service_line }} &bull; {{ trolley.building }} &bull; {{ trolley.level }}</p>
+    </div>
+    <div>
+        {% if is_auditor %}
+        <form method="post" action="{% url 'audit:audit_start' trolley.pk %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Start Audit</button>
+        </form>
+        {% endif %}
+        {% if is_educator %}
+        <a href="{% url 'audit:trolley_edit' trolley.pk %}" class="btn btn-outline-secondary">Edit</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header"><h6 class="mb-0">Details</h6></div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-6">Status</dt>
+                    <dd class="col-sm-6">
+                        <span class="badge bg-{% if trolley.status == 'Active' %}success{% elif trolley.status == 'Inactive' %}warning{% else %}secondary{% endif %}">{{ trolley.status }}</span>
+                    </dd>
+                    <dt class="col-sm-6">Trolley Type</dt>
+                    <dd class="col-sm-6">{{ trolley.get_trolley_type_display }}</dd>
+                    <dt class="col-sm-6">Defibrillator</dt>
+                    <dd class="col-sm-6">{{ trolley.get_defibrillator_type_display }}</dd>
+                    <dt class="col-sm-6">Operating Hours</dt>
+                    <dd class="col-sm-6">{{ trolley.get_operating_hours_display }}</dd>
+                    <dt class="col-sm-6">Paediatric Box</dt>
+                    <dd class="col-sm-6">{% if trolley.has_paediatric_box %}Yes{% else %}No{% endif %}</dd>
+                    <dt class="col-sm-6">Last Audit</dt>
+                    <dd class="col-sm-6">{{ trolley.last_audit_date|date:"d M Y"|default:"Never" }}</dd>
+                    <dt class="col-sm-6">Compliance</dt>
+                    <dd class="col-sm-6">
+                        {% if trolley.last_audit_compliance %}
+                        <span class="{% if trolley.last_audit_compliance >= 80 %}compliance-high{% elif trolley.last_audit_compliance >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                            {{ trolley.last_audit_compliance|floatformat:1 }}%
+                        </span>
+                        {% else %}N/A{% endif %}
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <!-- Recent Audits -->
+        <div class="card mb-3">
+            <div class="card-header"><h6 class="mb-0">Audit History</h6></div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Auditor</th>
+                            <th>Type</th>
+                            <th>Compliance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for a in recent_audits %}
+                    <tr>
+                        <td><a href="{% url 'audit:audit_detail' a.pk %}">{{ a.completed_at|date:"d M Y"|default:a.started_at|date:"d M Y" }}</a></td>
+                        <td>{{ a.auditor_name }}</td>
+                        <td>{{ a.get_audit_type_display }}</td>
+                        <td>
+                            {% if a.overall_compliance %}
+                            <span class="{% if a.overall_compliance >= 80 %}compliance-high{% elif a.overall_compliance >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                                {{ a.overall_compliance|floatformat:1 }}%
+                            </span>
+                            {% else %}---{% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4" class="text-muted">No audits yet</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Open Issues -->
+        {% if open_issues %}
+        <div class="card">
+            <div class="card-header"><h6 class="mb-0">Open Issues</h6></div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Severity</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in open_issues %}
+                    <tr>
+                        <td><a href="{% url 'audit:issue_detail' i.pk %}">{{ i.issue_number }}</a></td>
+                        <td><span class="badge badge-{{ i.severity|lower }}">{{ i.severity }}</span></td>
+                        <td>{{ i.title }}</td>
+                        <td>{{ i.status }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

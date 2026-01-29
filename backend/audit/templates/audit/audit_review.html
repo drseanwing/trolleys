@@ -1,0 +1,81 @@
+{% extends "audit/base.html" %}
+{% block title %}Audit - Review{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Review &amp; Submit: {{ audit.location.display_name }}</h2>
+</div>
+
+<!-- Step indicator -->
+<div class="d-flex mb-4">
+    <span class="audit-step completed">1. Documentation</span>
+    <span class="audit-step completed">2. Equipment</span>
+    <span class="audit-step completed">3. Condition</span>
+    <span class="audit-step completed">4. Routine Checks</span>
+    <span class="audit-step active">5. Review &amp; Submit</span>
+</div>
+
+<!-- Score Preview -->
+<div class="row mb-4">
+    {% if doc_score is not None %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h6>Documentation</h6>
+                <h4 class="{% if doc_score >= 80 %}compliance-high{% elif doc_score >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                    {{ doc_score|floatformat:1 }}%
+                </h4>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h6>Equipment</h6>
+                <h4 class="{% if equip_score >= 80 %}compliance-high{% elif equip_score >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                    {{ equip_score|floatformat:1 }}%
+                </h4>
+            </div>
+        </div>
+    </div>
+    {% if cond_score is not None %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h6>Condition</h6>
+                <h4 class="{% if cond_score >= 80 %}compliance-high{% elif cond_score >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                    {{ cond_score|floatformat:1 }}%
+                </h4>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if check_score is not None %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h6>Checks</h6>
+                <h4 class="{% if check_score >= 80 %}compliance-high{% elif check_score >= 60 %}compliance-medium{% else %}compliance-low{% endif %}">
+                    {{ check_score|floatformat:1 }}%
+                </h4>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="alert alert-info">
+    Review all sections above. Once submitted, the audit cannot be edited.
+</div>
+
+<div class="d-flex gap-2">
+    <a href="{% url 'audit:audit_documents' audit.pk %}" class="btn btn-outline-secondary">Edit Documentation</a>
+    <a href="{% url 'audit:audit_equipment' audit.pk %}" class="btn btn-outline-secondary">Edit Equipment</a>
+    <a href="{% url 'audit:audit_condition' audit.pk %}" class="btn btn-outline-secondary">Edit Condition</a>
+    <a href="{% url 'audit:audit_checks' audit.pk %}" class="btn btn-outline-secondary">Edit Checks</a>
+    <form method="post" action="{% url 'audit:audit_submit' audit.pk %}" class="ms-auto">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success btn-lg">Submit Audit</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "audit/base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Reports</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Compliance Report</h5>
+                <p class="card-text">View compliance trends by service line, location, and time period.</p>
+                <a href="{% url 'audit:compliance_report' %}" class="btn btn-primary">View Report</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Issue Summary</h5>
+                <p class="card-text">Overview of open, resolved, and escalated issues across all locations.</p>
+                <a href="{% url 'audit:issue_list' %}" class="btn btn-outline-primary">View Issues</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Audit History</h5>
+                <p class="card-text">Complete list of all audits with filtering and search capabilities.</p>
+                <a href="{% url 'audit:audit_list' %}" class="btn btn-outline-primary">View Audits</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Export Options -->
+{% if is_manager %}
+<div class="card mt-3">
+    <div class="card-header"><h5 class="mb-0">Data Export</h5></div>
+    <div class="card-body">
+        <p>Export audit and compliance data for external reporting.</p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'audit:export_audits' %}?format=csv" class="btn btn-outline-secondary">Export Audits (CSV)</a>
+            <a href="{% url 'audit:export_issues' %}?format=csv" class="btn btn-outline-secondary">Export Issues (CSV)</a>
+            <a href="{% url 'audit:export_compliance' %}?format=csv" class="btn btn-outline-secondary">Export Compliance (CSV)</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "audit/base.html" %}
+{% block title %}Issues{% endblock %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+    <h2>Issues</h2>
+    {% if is_auditor %}
+    <a href="{% url 'audit:issue_create' %}" class="btn btn-primary">Report Issue</a>
+    {% endif %}
+</div>
+
+<!-- Filters -->
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-md-2">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select form-select-sm">
+                    <option value="">All</option>
+                    <option value="Open" {% if current_filters.status == 'Open' %}selected{% endif %}>Open</option>
+                    <option value="Assigned" {% if current_filters.status == 'Assigned' %}selected{% endif %}>Assigned</option>
+                    <option value="InProgress" {% if current_filters.status == 'InProgress' %}selected{% endif %}>In Progress</option>
+                    <option value="PendingVerification" {% if current_filters.status == 'PendingVerification' %}selected{% endif %}>Pending Verification</option>
+                    <option value="Resolved" {% if current_filters.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                    <option value="Closed" {% if current_filters.status == 'Closed' %}selected{% endif %}>Closed</option>
+                    <option value="Escalated" {% if current_filters.status == 'Escalated' %}selected{% endif %}>Escalated</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Severity</label>
+                <select name="severity" class="form-select form-select-sm">
+                    <option value="">All</option>
+                    <option value="Critical" {% if current_filters.severity == 'Critical' %}selected{% endif %}>Critical</option>
+                    <option value="High" {% if current_filters.severity == 'High' %}selected{% endif %}>High</option>
+                    <option value="Medium" {% if current_filters.severity == 'Medium' %}selected{% endif %}>Medium</option>
+                    <option value="Low" {% if current_filters.severity == 'Low' %}selected{% endif %}>Low</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Category</label>
+                <select name="category" class="form-select form-select-sm">
+                    <option value="">All</option>
+                    <option value="Equipment" {% if current_filters.category == 'Equipment' %}selected{% endif %}>Equipment</option>
+                    <option value="Documentation" {% if current_filters.category == 'Documentation' %}selected{% endif %}>Documentation</option>
+                    <option value="Condition" {% if current_filters.category == 'Condition' %}selected{% endif %}>Condition</option>
+                    <option value="Compliance" {% if current_filters.category == 'Compliance' %}selected{% endif %}>Compliance</option>
+                    <option value="Process" {% if current_filters.category == 'Process' %}selected{% endif %}>Process</option>
+                    <option value="Other" {% if current_filters.category == 'Other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Service Line</label>
+                <select name="service_line" class="form-select form-select-sm">
+                    <option value="">All</option>
+                    {% for sl in service_lines %}
+                    <option value="{{ sl.pk }}" {% if current_filters.service_line == sl.pk|slugify %}selected{% endif %}>{{ sl.abbreviation }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-sm w-100">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Table -->
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Issue #</th>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Category</th>
+                    <th>Severity</th>
+                    <th>Status</th>
+                    <th>Reported</th>
+                    <th>Assigned To</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td><a href="{% url 'audit:issue_detail' issue.pk %}">{{ issue.issue_number }}</a></td>
+                <td>{{ issue.title|truncatewords:8 }}</td>
+                <td>{{ issue.location.display_name }}</td>
+                <td>{{ issue.issue_category }}</td>
+                <td><span class="badge badge-{{ issue.severity|lower }}">{{ issue.severity }}</span></td>
+                <td>
+                    <span class="badge bg-{% if issue.status == 'Closed' or issue.status == 'Resolved' %}success{% elif issue.status == 'Escalated' %}danger{% elif issue.status == 'Open' %}secondary{% else %}warning{% endif %}">
+                        {{ issue.get_status_display }}
+                    </span>
+                </td>
+                <td>{{ issue.reported_date|date:"d M Y" }}</td>
+                <td>{{ issue.assigned_to|default:"Unassigned" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8" class="text-muted text-center">No issues found</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if is_paginated %}
+<nav class="mt-3">
+    <ul class="pagination pagination-sm justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% endif %}
+        <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
