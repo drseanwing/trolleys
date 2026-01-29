@@ -1,4 +1,4 @@
-# RBWH Trolley Audit System
+# REdI Trolley Audit System
 ## Phase 4.2 Advanced Features Implementation Guide
 
 **Document Version:** 1.0
@@ -71,7 +71,7 @@ First, create the LocationEquipment list that stores per-location equipment cust
 
 **Navigate to SharePoint Site:**
 
-1. Go to https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+1. Go to https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 2. Select **Settings** (gear icon) → **Site contents**
 3. Click **+ New** → **List**
 4. Name: `LocationEquipment`
@@ -108,7 +108,7 @@ For the **Equipment** column:
 **Open the Audit App in Edit Mode:**
 
 1. Navigate to https://make.powerapps.com
-2. Open **RBWH_Trolley_Audit_App**
+2. Open **REdI_Trolley_Audit_App**
 3. Click **Edit**
 
 **Enable Offline Settings:**
@@ -767,7 +767,7 @@ In Power Automate, create a SharePoint list: `AuditPhotoReferences`
 
 ```
 Action 1: Create file in AuditPhotos library
-├── Location: /sites/RBWHTrolleyAudit/AuditPhotos
+├── Location: /sites/REdITrolleyAudit/AuditPhotos
 ├── File name:
 │   @{triggerBody()['AuditId']}_
 │   @{triggerBody()['ItemId']}_

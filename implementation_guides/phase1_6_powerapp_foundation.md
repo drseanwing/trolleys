@@ -1524,7 +1524,7 @@ After completing Phase 1.6, proceed with:
 ### Related Documentation
 
 - REdI Trolley Audit Task List: `RBWH_Trolley_Audit_Task_List.md`
-- RBWH Data Schema: `RBWH_Resuscitation_Trolley_Audit_Schema.md`
+- REdI Data Schema: `RBWH_Resuscitation_Trolley_Audit_Schema.md`
 - SharePoint List Schemas: `sharepoint_schemas/` directory
 
 ### Revision History

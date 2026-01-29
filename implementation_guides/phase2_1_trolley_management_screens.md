@@ -1,6 +1,6 @@
 # Phase 2.1 Trolley Management Screens Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -10,7 +10,7 @@ Document Type: Step-by-Step Implementation Guide
 
 ## Overview
 
-Phase 2.1 establishes comprehensive trolley management functionality within the RBWH Trolley Audit PowerApp. This phase creates a complete Trolley List screen with advanced filtering, sorting, and colour-coded status indicators, along with detailed Trolley Detail screens supporting both view and edit modes, optional equipment configuration, trolley creation workflows, and historical audit tracking.
+Phase 2.1 establishes comprehensive trolley management functionality within the REdI Trolley Audit PowerApp. This phase creates a complete Trolley List screen with advanced filtering, sorting, and colour-coded status indicators, along with detailed Trolley Detail screens supporting both view and edit modes, optional equipment configuration, trolley creation workflows, and historical audit tracking.
 
 **Phase Scope:** Tasks 2.1.1 through 2.1.18
 **Estimated Duration:** 18 hours
@@ -625,7 +625,7 @@ If(
 
 ### Objective
 
-Implement Building filter with all 8 RBWH buildings/locations, filtering trolley list accordingly.
+Implement Building filter with all 8 campus buildings/locations, filtering trolley list accordingly.
 
 ### Prerequisites
 
@@ -3035,7 +3035,7 @@ Implement the Trolley History tab showing complete audit history, issues log, an
 2. Format chart:
    - Y-axis range: 0-100%
    - Colour: `InteractiveColor` (green)
-   - Target line at 80% (RBWH target)
+   - Target line at 80% (compliance target)
 
 #### Step 4: Add Issues History
 
@@ -3428,7 +3428,7 @@ After completing Phase 2.1, proceed with:
 ### Key Resources
 
 - **Phase 1.6 PowerApp Foundation:** `implementation_guides/phase1_6_powerapp_foundation.md`
-- **RBWH Program Specification:** `RBWH_Trolley_Audit_Program_Specification_v2.md`
+- **REdI Program Specification:** `RBWH_Trolley_Audit_Program_Specification_v2.md`
 - **SharePoint Location Schema:** `sharepoint_schemas/Location.json`
 - **Seed Data:** `seed_data/Location.json`
 

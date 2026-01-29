@@ -1,6 +1,6 @@
 # Phase 4.3 Testing Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -10,7 +10,7 @@ Document Type: Comprehensive Testing Framework & Implementation Guide
 
 ## Overview
 
-Phase 4.3 implements comprehensive testing and quality assurance for the RBWH Trolley Audit system before go-live. This phase covers test planning, functional testing across all modules, defect tracking and resolution, and formal sign-off procedures.
+Phase 4.3 implements comprehensive testing and quality assurance for the REdI Trolley Audit system before go-live. This phase covers test planning, functional testing across all modules, defect tracking and resolution, and formal sign-off procedures.
 
 **Phase Scope:** Tasks 4.3.1 through 4.3.10
 **Estimated Duration:** 4-6 weeks
@@ -56,7 +56,7 @@ All test cases follow the same structure: Objective, Prerequisites, Steps, Expec
 #### 1.1 Test Plan Header
 
 ```
-PROJECT: RBWH Resuscitation Trolley Audit System
+PROJECT: REdI Trolley Audit System
 TEST PLAN VERSION: 1.0
 TEST ENVIRONMENT: SharePoint/Power Apps test site
 TESTING PERIOD: [Start Date] to [End Date]

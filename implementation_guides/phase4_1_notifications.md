@@ -73,7 +73,7 @@ Before starting, gather:
    - Footer text colour: #666666 (Medium grey)
 
 2. **SharePoint Site Details**
-   - Site URL: https://[yourtenant].sharepoint.com/sites/RBWHTrolleyAudit
+   - Site URL: https://[yourtenant].sharepoint.com/sites/REdITrolleyAudit
    - Environment name (for Power Automate connections)
 
 3. **Notification Recipients**

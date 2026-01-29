@@ -1,4 +1,4 @@
-# RBWH Trolley Audit System
+# REdI Trolley Audit System
 ## Phase 2.4 Equipment Checklist Implementation Guide
 
 **Document Version:** 1.0
@@ -26,7 +26,7 @@
 
 ## Executive Summary
 
-This guide covers the implementation of the Equipment Checklist feature (Phase 2.4), which represents a critical enhancement to the RBWH Trolley Audit system. Instead of a binary "all items stocked" response, the audit now captures item-level detail with quantity tracking, expiry verification, and real-time compliance scoring.
+This guide covers the implementation of the Equipment Checklist feature (Phase 2.4), which represents a critical enhancement to the REdI Trolley Audit system. Instead of a binary "all items stocked" response, the audit now captures item-level detail with quantity tracking, expiry verification, and real-time compliance scoring.
 
 ### What You'll Complete
 
@@ -101,7 +101,7 @@ Gather the following before starting:
    - Any equipment exceptions by location
 
 3. **UI/UX Standards**
-   - RBWH brand colours from Phase 1.1
+   - REdI brand colours from Phase 1.1
    - Typography standards from Phase 1.6
    - Component library from Phase 1.6 (if available)
 
@@ -175,7 +175,7 @@ Create the AuditEquipment SharePoint list to store item-level equipment check re
 
 ### Prerequisites Checklist
 
-- [ ] SharePoint site (RBWH Trolley Audit) exists
+- [ ] SharePoint site (REdI Trolley Audit) exists
 - [ ] Equipment list created with 89 items
 - [ ] Audit list created with relationships configured
 - [ ] EquipmentCategory list populated
@@ -186,7 +186,7 @@ Create the AuditEquipment SharePoint list to store item-level equipment check re
 
 **Action:** Navigate to your SharePoint site and create a new list
 
-1. Go to **RBWH Trolley Audit** site
+1. Go to **REdI Trolley Audit** site
 2. Click **+ New** → **List**
 3. Select **Blank list**
 4. Name the list: **AuditEquipment**
@@ -390,7 +390,7 @@ EquipmentCheckScreen (Main screen)
 
 **Action:** Create a new screen in your PowerApp
 
-1. In your RBWH Trolley Audit app, click **+ New screen**
+1. In your REdI Trolley Audit app, click **+ New screen**
 2. Select **Blank**
 3. Rename screen to **EquipmentCheckScreen**
 
@@ -404,7 +404,7 @@ EquipmentCheckScreen (Main screen)
 
 **Header Container (Rectangle)**
 - Height: 80px
-- Fill: #1B3A5F (RBWH Primary Blue)
+- Fill: #1B3A5F (REdI Navy)
 - Position: Top, full width
 
 **Title Label**
@@ -1853,7 +1853,7 @@ After completing Phase 2.4, proceed with:
 
 For implementation questions or issues:
 
-- **SharePoint Admin:** [Contact RBWH IT]
+- **SharePoint Admin:** [Contact Metro North Health IT]
 - **PowerApp Development:** [Contact Power Platform Team]
 - **Business Logic:** [Contact MERT Educator]
 

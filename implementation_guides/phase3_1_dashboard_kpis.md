@@ -1,6 +1,6 @@
 # Phase 3.1 Dashboard KPIs Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -78,7 +78,7 @@ Where:
 
 #### Step 1: Navigate to Home Screen
 
-1. Open the RBWH_Trolley_Audit_App in Power Apps Studio
+1. Open the REdI_Trolley_Audit_App in Power Apps Studio
 2. In the left panel, locate and select the **Home** screen
 3. This should display the tablet layout created in Phase 1.6
 
@@ -597,7 +597,7 @@ Overdue Audits = Count of Location records where:
   - DaysSinceLastAudit > AuditPeriod.ComprehensiveFrequency
 ```
 
-For RBWH, the comprehensive audit frequency is typically 180 days (6 months).
+For REdI, the comprehensive audit frequency is typically 180 days (6 months).
 
 ### Prerequisites
 
@@ -609,7 +609,7 @@ For RBWH, the comprehensive audit frequency is typically 180 days (6 months).
 
 #### Step 1: Verify AuditPeriod Frequency Configuration
 
-1. Open SharePoint and navigate to the RBWH Trolley Audit site
+1. Open SharePoint and navigate to the REdI Trolley Audit site
 2. Go to the AuditPeriod list
 3. Open the current active period record
 4. Verify it has frequency configuration (we will assume 180 days for standard audits)
@@ -1402,7 +1402,7 @@ Filter(
 
 ## Summary
 
-Phase 3.1 successfully implements four key performance indicators on the RBWH Trolley Audit system dashboard:
+Phase 3.1 successfully implements four key performance indicators on the REdI Trolley Audit system dashboard:
 
 1. **Audit Completion Rate** (3.1.1-3.1.2)
    - Percentage of active locations audited this period
@@ -1473,6 +1473,6 @@ Phase 3.1 successfully implements four key performance indicators on the RBWH Tr
 
 ---
 
-**Document prepared for:** RBWH Medical Emergency Response Team
+**Document prepared for:** REdI Team
 **Contact:** MERT Nurse Educator #70106 or #70108
 **Last Updated:** January 2026
