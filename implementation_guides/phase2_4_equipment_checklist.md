@@ -404,7 +404,7 @@ EquipmentCheckScreen (Main screen)
 
 **Header Container (Rectangle)**
 - Height: 80px
-- Fill: #005FAD (RBWH Primary Blue)
+- Fill: #1B3A5F (RBWH Primary Blue)
 - Position: Top, full width
 
 **Title Label**
@@ -432,7 +432,7 @@ EquipmentCheckScreen (Main screen)
 - Text: `Text(Round(EquipmentSubscore, 0)) & "% Complete"`
 - Font size: 24pt
 - Font weight: Bold
-- Colour: `If(EquipmentSubscore >= 90, ColorValue("#78BE20"), If(EquipmentSubscore >= 75, ColorValue("#FFB600"), ColorValue("#E81C23")))`
+- Colour: `If(EquipmentSubscore >= 90, ColorValue("#2B9E9E"), If(EquipmentSubscore >= 75, ColorValue("#FFB600"), ColorValue("#E81C23")))`
 - Position: (20px, 15px)
 
 **Subscore Detail Label**
@@ -553,11 +553,11 @@ EquipmentItemRow
 │   │   └── Text: If(quantityFound < quantityExpected,
 │   │            quantityFound - quantityExpected & " SHORT", "✓")
 │   │   └── Colour: If(quantityFound >= quantityExpected,
-│   │            ColorValue("#78BE20"), ColorValue("#E81C23"))
+│   │            ColorValue("#2B9E9E"), ColorValue("#E81C23"))
 │   │
 │   └── Status Indicator
 │       └── Icon: If(isCompliant, "✓", "✗")
-│       └── Colour: If(isCompliant, #78BE20, #E81C23)
+│       └── Colour: If(isCompliant, #2B9E9E, #E81C23)
 │
 └── Row 3: Notes Field (if applicable)
     └── Notes input
@@ -575,7 +575,7 @@ If(
   If(
     quantityFound < quantityExpected,
     ColorValue("#FFB600"),                  // Orange: Shortfall
-    ColorValue("#78BE20")                   // Green: Compliant
+    ColorValue("#2B9E9E")                   // Green: Compliant
   )
 )
 ```
@@ -908,7 +908,7 @@ BorderColor:
     ColorValue("#E81C23"),  // Red
     If(Value > quantityExpected,
       ColorValue("#FFB600"),  // Orange (overstocked)
-      ColorValue("#78BE20")   // Green (at expected)
+      ColorValue("#2B9E9E")   // Green (at expected)
     )
   )
 ```
@@ -1277,7 +1277,7 @@ Bold: true
 Color:
   If(
     varEquipmentSubscore >= 90,
-    ColorValue("#78BE20"),    // Green
+    ColorValue("#2B9E9E"),    // Green
     If(
       varEquipmentSubscore >= 75,
       ColorValue("#FFB600"),  // Orange
@@ -1336,7 +1336,7 @@ BorderColor:
           NumberInput_QuantityFound.Value > StandardQuantity,
           ColorValue("#FF9900"), // Light orange: Overstocked
 
-          ColorValue("#78BE20")  // Green: At expected
+          ColorValue("#2B9E9E")  // Green: At expected
         )
       )
     )
@@ -1447,7 +1447,7 @@ Set(varItemStatusSummary,
         varFilteredEquipment,
         NumberInput_QuantityFound.Value = StandardQuantity
       )),
-      Colour: ColorValue("#78BE20")  // Green
+      Colour: ColorValue("#2B9E9E")  // Green
     },
 
     {

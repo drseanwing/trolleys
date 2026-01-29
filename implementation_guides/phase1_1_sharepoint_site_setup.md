@@ -1,4 +1,4 @@
-# RBWH Trolley Audit System
+# REdI Trolley Audit System
 ## Phase 1.1 SharePoint Site Setup Implementation Guide
 
 **Document Version:** 1.0
@@ -23,7 +23,7 @@
 
 ## Executive Summary
 
-This guide provides step-by-step instructions for setting up the SharePoint Online site infrastructure for the RBWH Trolley Audit system. Phase 1.1 establishes the foundation upon which all audit data lists, PowerApp, and reporting will be built.
+This guide provides step-by-step instructions for setting up the SharePoint Online site infrastructure for the REdI Trolley Audit system. Phase 1.1 establishes the foundation upon which all audit data lists, PowerApp, and reporting will be built.
 
 ### What You'll Complete
 
@@ -32,17 +32,17 @@ This guide provides step-by-step instructions for setting up the SharePoint Onli
 | 1.1.1 | Provision SharePoint site with standard settings | 1 hour | None |
 | 1.1.2 | Configure role-based access control (RBAC) | 2 hours | 1.1.1 |
 | 1.1.3 | Build navigation structure for key lists | 1 hour | 1.1.1 |
-| 1.1.4 | Apply RBWH branding elements | 1 hour | 1.1.1 |
+| 1.1.4 | Apply REdI branding elements | 1 hour | 1.1.1 |
 
 **Total Duration:** Approximately 5 hours of implementation work
 
 ### Site Overview
 
 By the end of Phase 1.1, you will have:
-- **Provisioned site:** RBWH Trolley Audit
+- **Provisioned site:** REdI Trolley Audit
 - **User groups:** Owners, Members, Visitors
 - **Navigation menu:** Home, Trolley Locations, Equipment, Audits, Issues, Reports
-- **Branding:** Queensland Health colour scheme applied
+- **Branding:** REdI colour scheme applied
 - **Ready for:** Phase 1.2 (Reference Data Lists)
 
 ---
@@ -61,15 +61,16 @@ By the end of Phase 1.1, you will have:
 Before starting, gather:
 
 1. **Organizational Details**
-   - Organization name: Royal Brisbane and Women's Hospital
-   - Department contact: MERT (Medical Emergency Response Team)
+   - Organization name: Resuscitation EDucation Initiative (REdI)
+   - Department contact: REdI Team, Workforce Development & Education Unit
    - Approval manager name and email
 
 2. **Branding Assets**
-   - Organisation logo (PNG, max 500KB)
+   - Organisation logo (PNG/SVG, max 500KB)
    - Colour codes:
-     - Primary Blue: #005FAD (Queensland Health standard)
-     - Secondary Green: #78BE20 (Queensland Health accent)
+     - REdI Navy: #1B3A5F (Headers, primary text, backgrounds)
+     - REdI Teal: #2B9E9E (Accents, interactive elements)
+     - REdI Coral: #E55B64 (Primary brand, highlights)
      - Text colour: #333333 (Dark grey)
 
 3. **User Groups** (collect from your IT contact)
@@ -90,7 +91,7 @@ Before starting, gather:
 # Task 1.1.1: Create SharePoint Site
 
 ## Objective
-Provision a new SharePoint Team Site named "RBWH Trolley Audit" with appropriate storage, features, and initial configuration.
+Provision a new SharePoint Team Site named "REdI Trolley Audit" with appropriate storage, features, and initial configuration.
 
 ## Step-by-Step Instructions
 
@@ -132,9 +133,9 @@ Provision a new SharePoint Team Site named "RBWH Trolley Audit" with appropriate
 
 | Field | Value | Required |
 |-------|-------|----------|
-| **Site Name** | RBWH Trolley Audit | Yes |
+| **Site Name** | REdI Trolley Audit | Yes |
 | **Site Description** | Resuscitation trolley audit system for Royal Brisbane and Women's Hospital | No |
-| **Site Address (URL)** | /sites/RBWHTrolleyAudit | Yes |
+| **Site Address (URL)** | /sites/REdITrolleyAudit | Yes |
 | **Classification** | Internal | Yes |
 | **Time Zone** | (UTC+10:00) Brisbane | Yes |
 | **Language** | English | Yes |
@@ -143,8 +144,8 @@ Provision a new SharePoint Team Site named "RBWH Trolley Audit" with appropriate
 **Example Completion:**
 
 ```
-Site Name: RBWH Trolley Audit
-Site Address: RBWHTrolleyAudit
+Site Name: REdI Trolley Audit
+Site Address: REdITrolleyAudit
 Owner: mert.lead@rbwh.qld.gov.au
 Time Zone: (UTC+10:00) Brisbane
 Language: English
@@ -164,7 +165,7 @@ Language: English
 |---------|---------------|--------|
 | **Storage Quota** | 100 GB | Adequate for audit records, documents, and historical data |
 | **Allow external sharing** | Only with verified external users | Security compliance |
-| **Default Sharing Link Type** | Internal | Restrict to RBWH users only |
+| **Default Sharing Link Type** | Internal | Restrict to REdI users only |
 | **Team Site Default Privacy** | Private | Controlled access via groups |
 
 **Steps:**
@@ -187,8 +188,8 @@ Language: English
 
 **Pre-Creation Checklist:**
 
-- [ ] Site name: "RBWH Trolley Audit"
-- [ ] URL is clean: RBWHTrolleyAudit (no spaces/special characters)
+- [ ] Site name: "REdI Trolley Audit"
+- [ ] URL is clean: REdITrolleyAudit (no spaces/special characters)
 - [ ] Owner email is valid and belongs to MERT educator
 - [ ] Time zone: Brisbane (UTC+10:00)
 - [ ] Language: English
@@ -206,7 +207,7 @@ Language: English
 **Expected Result:**
 - Confirmation message appears
 - Site appears in Active Sites list
-- Site can be accessed via URL: https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+- Site can be accessed via URL: https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 
 **Screenshot Placeholder:** [Site Creation Confirmation]
 
@@ -219,7 +220,7 @@ Language: English
 **Steps:**
 
 ```
-1. Go to https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+1. Go to https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 2. Wait for initial site rendering (may take a few seconds)
 3. Verify you can:
    - Access the home page
@@ -230,8 +231,8 @@ Language: English
 **Verification Points:**
 
 - [ ] Site loads without errors
-- [ ] Site URL is correct: /sites/RBWHTrolleyAudit
-- [ ] Site name displays as "RBWH Trolley Audit"
+- [ ] Site URL is correct: /sites/REdITrolleyAudit
+- [ ] Site name displays as "REdI Trolley Audit"
 - [ ] Home page has placeholder content
 - [ ] Navigation is visible
 
@@ -265,8 +266,8 @@ Language: English
 
 | Item | Value | Status |
 |------|-------|--------|
-| Site Name | RBWH Trolley Audit | ✓ Created |
-| Site URL | /sites/RBWHTrolleyAudit | ✓ Created |
+| Site Name | REdI Trolley Audit | ✓ Created |
+| Site URL | /sites/REdITrolleyAudit | ✓ Created |
 | Owner | [MERT Lead] | ✓ Set |
 | Storage | 100 GB | ✓ Configured |
 | Time Zone | Brisbane (UTC+10:00) | ✓ Set |
@@ -290,7 +291,7 @@ This task creates three Office 365 Groups that will control access to the ShareP
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    RBWH Trolley Audit Site                   │
+│                    REdI Trolley Audit Site                   │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
 │  ┌─────────────────┐  ┌──────────────────┐  ┌────────────┐ │
@@ -314,7 +315,7 @@ This task creates three Office 365 Groups that will control access to the ShareP
 **Steps:**
 
 ```
-1. Go to https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+1. Go to https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 2. Click gear icon (Settings) top right
 3. Select "Site Settings"
 4. Under "Users and Permissions" section, click "Site permissions"
@@ -336,7 +337,7 @@ This task creates three Office 365 Groups that will control access to the ShareP
 1. From "Site permissions" page, click "Grant permissions" or "+ New Group"
 2. Select "Create a new group"
 3. Fill in group details:
-   - Name: RBWH Trolley Audit - Owners
+   - Name: REdI Trolley Audit - Owners
    - Description: MERT Educators with full site control
    - Permission Level: Full Control
 4. Add members:
@@ -348,7 +349,7 @@ This task creates three Office 365 Groups that will control access to the ShareP
 
 | Property | Value |
 |----------|-------|
-| **Name** | RBWH Trolley Audit - Owners |
+| **Name** | REdI Trolley Audit - Owners |
 | **Email** | rbwhtrolleyaudit-owners@yourtenant.onmicrosoft.com |
 | **Permission Level** | Full Control |
 | **Members** | [List of MERT educators] |
@@ -376,7 +377,7 @@ Note: Get exact email addresses from your IT contact
 ```
 1. Click "+ New Group" again
 2. Fill in group details:
-   - Name: RBWH Trolley Audit - Members
+   - Name: REdI Trolley Audit - Members
    - Description: NUM and Ward Managers - can edit audits and manage issues
    - Permission Level: Contribute
 3. Add members:
@@ -389,7 +390,7 @@ Note: Get exact email addresses from your IT contact
 
 | Property | Value |
 |----------|-------|
-| **Name** | RBWH Trolley Audit - Members |
+| **Name** | REdI Trolley Audit - Members |
 | **Email** | rbwhtrolleyaudit-members@yourtenant.onmicrosoft.com |
 | **Permission Level** | Contribute |
 | **Members** | [List of NUMs and Ward Managers] |
@@ -430,7 +431,7 @@ Note: Get email list from your Nursing Leadership contact
 ```
 1. Click "+ New Group" again
 2. Fill in group details:
-   - Name: RBWH Trolley Audit - Visitors
+   - Name: REdI Trolley Audit - Visitors
    - Description: Clinical staff - Auditors and assessors (read-only access)
    - Permission Level: Read
 3. Add members:
@@ -443,7 +444,7 @@ Note: Get email list from your Nursing Leadership contact
 
 | Property | Value |
 |----------|-------|
-| **Name** | RBWH Trolley Audit - Visitors |
+| **Name** | REdI Trolley Audit - Visitors |
 | **Email** | rbwhtrolleyaudit-visitors@yourtenant.onmicrosoft.com |
 | **Permission Level** | Read |
 | **Members** | [List of clinical auditors/staff] |
@@ -482,9 +483,9 @@ Note: Can add ~50-100 users. Start with core group.
 ```
 1. From Site Settings > Site Permissions
 2. Look for "Quick Launch" or group list showing:
-   - RBWH Trolley Audit - Owners
-   - RBWH Trolley Audit - Members
-   - RBWH Trolley Audit - Visitors
+   - REdI Trolley Audit - Owners
+   - REdI Trolley Audit - Members
+   - REdI Trolley Audit - Visitors
 3. Click each group to verify member count
 ```
 
@@ -562,29 +563,29 @@ Note: Can add ~50-100 users. Start with core group.
 
 | Group Name | Permission Level | Members | Status |
 |-----------|-----------------|---------|--------|
-| RBWH Trolley Audit - Owners | Full Control | [Count: _] | ✓ Created |
-| RBWH Trolley Audit - Members | Contribute | [Count: _] | ✓ Created |
-| RBWH Trolley Audit - Visitors | Read | [Count: _] | ✓ Created |
+| REdI Trolley Audit - Owners | Full Control | [Count: _] | ✓ Created |
+| REdI Trolley Audit - Members | Contribute | [Count: _] | ✓ Created |
+| REdI Trolley Audit - Visitors | Read | [Count: _] | ✓ Created |
 
 **Documentation to Save:**
 
 Create a file named `site_permissions_audit.txt` documenting:
 
 ```
-Site: RBWH Trolley Audit
+Site: REdI Trolley Audit
 Created: [Date]
 Groups created: 3
 Total users: [Count]
 
-Group 1: RBWH Trolley Audit - Owners
+Group 1: REdI Trolley Audit - Owners
 - Email: rbwhtrolleyaudit-owners@yourtenant.onmicrosoft.com
 - Members: [List names]
 
-Group 2: RBWH Trolley Audit - Members
+Group 2: REdI Trolley Audit - Members
 - Email: rbwhtrolleyaudit-members@yourtenant.onmicrosoft.com
 - Members: [List names]
 
-Group 3: RBWH Trolley Audit - Visitors
+Group 3: REdI Trolley Audit - Visitors
 - Email: rbwhtrolleyaudit-visitors@yourtenant.onmicrosoft.com
 - Members: [List names]
 
@@ -630,7 +631,7 @@ Home (Site Home)
 **Steps:**
 
 ```
-1. Go to https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+1. Go to https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 2. Click gear icon (Settings)
 3. Select "Edit site information"
 4. Look for "Appearance" or "Navigation" section
@@ -667,25 +668,25 @@ Home (Site Home)
    Item 1 - Trolley Locations
    - Title: Trolley Locations
    - Type: Link
-   - URL: /sites/RBWHTrolleyAudit/Lists/Location
+   - URL: /sites/REdITrolleyAudit/Lists/Location
    - Display: In menu
 
    Item 2 - Equipment
    - Title: Equipment
    - Type: Link
-   - URL: /sites/RBWHTrolleyAudit/Lists/Equipment
+   - URL: /sites/REdITrolleyAudit/Lists/Equipment
    - Display: In menu
 
    Item 3 - Audits
    - Title: Audits
    - Type: Link
-   - URL: /sites/RBWHTrolleyAudit/Lists/Audit
+   - URL: /sites/REdITrolleyAudit/Lists/Audit
    - Display: In menu
 
    Item 4 - Issues
    - Title: Issues
    - Type: Link
-   - URL: /sites/RBWHTrolleyAudit/Lists/Issue
+   - URL: /sites/REdITrolleyAudit/Lists/Issue
    - Display: In menu
 
    Item 5 - Reports
@@ -727,13 +728,13 @@ Link 2:
 - Title: View Locations
 - Icon: Map Pin
 - Description: Browse all trolley locations
-- URL: /sites/RBWHTrolleyAudit/Lists/Location
+- URL: /sites/REdITrolleyAudit/Lists/Location
 
 Link 3:
 - Title: Manage Issues
 - Icon: Alert
 - Description: View and manage open issues
-- URL: /sites/RBWHTrolleyAudit/Lists/Issue
+- URL: /sites/REdITrolleyAudit/Lists/Issue
 
 Link 4:
 - Title: Audit Reports
@@ -745,7 +746,7 @@ Link 5:
 - Title: Equipment Master
 - Icon: Package
 - Description: View all equipment items
-- URL: /sites/RBWHTrolleyAudit/Lists/Equipment
+- URL: /sites/REdITrolleyAudit/Lists/Equipment
 ```
 
 **Screenshot Placeholder:** [Home Page with Quick Links]
@@ -813,7 +814,7 @@ Link 5:
 **Create File:** `site_navigation_guide.md`
 
 ```markdown
-# RBWH Trolley Audit Site Navigation Guide
+# REdI Trolley Audit Site Navigation Guide
 
 ## Main Navigation Structure
 
@@ -833,11 +834,11 @@ Link 5:
 - Equipment Master - View equipment
 
 ### List URLs
-- Home: /sites/RBWHTrolleyAudit
-- Locations: /sites/RBWHTrolleyAudit/Lists/Location
-- Equipment: /sites/RBWHTrolleyAudit/Lists/Equipment
-- Audits: /sites/RBWHTrolleyAudit/Lists/Audit
-- Issues: /sites/RBWHTrolleyAudit/Lists/Issue
+- Home: /sites/REdITrolleyAudit
+- Locations: /sites/REdITrolleyAudit/Lists/Location
+- Equipment: /sites/REdITrolleyAudit/Lists/Equipment
+- Audits: /sites/REdITrolleyAudit/Lists/Audit
+- Issues: /sites/REdITrolleyAudit/Lists/Issue
 - Reports: [Phase 3]
 
 ### User Access by Role
@@ -874,26 +875,30 @@ Link 5:
 # Task 1.1.4: Configure Site Branding
 
 ## Objective
-Apply RBWH and Queensland Health branding to the SharePoint site, including colours, logo, and theme.
+Apply REdI (Resuscitation EDucation Initiative) branding to the SharePoint site, including colours, logo, and theme.
 
 ## Branding Specifications
 
 ### Colour Scheme
 
-**Queensland Health Official Colours:**
+**REdI Brand Colours:**
 
 ```
-Primary Blue:       #005FAD
-                    RGB(0, 95, 173)
-                    Used for: Headers, buttons, links
+REdI Navy:          #1B3A5F
+                    RGB(27, 58, 95)
+                    Used for: Headers, primary text, backgrounds
 
-Secondary Green:    #78BE20
-                    RGB(120, 190, 32)
-                    Used for: Accents, success states
+REdI Coral:         #E55B64
+                    RGB(229, 91, 100)
+                    Used for: Primary brand, highlights, buttons
+
+REdI Teal:          #2B9E9E
+                    RGB(43, 158, 158)
+                    Used for: Accents, interactive elements
 
 Dark Grey:          #333333
                     RGB(51, 51, 51)
-                    Used for: Text, borders
+                    Used for: Body text, borders
 
 Light Grey:         #F5F5F5
                     RGB(245, 245, 245)
@@ -907,8 +912,9 @@ White:              #FFFFFF
 
 ```
 ┌─────────────────────────────────────┐
-│ ■ #005FAD Primary Blue              │
-│ ■ #78BE20 Secondary Green           │
+│ ■ #1B3A5F REdI Navy                 │
+│ ■ #E55B64 REdI Coral                │
+│ ■ #2B9E9E REdI Teal                 │
 │ ■ #333333 Dark Grey (Text)          │
 │ ■ #F5F5F5 Light Grey (Background)   │
 │ ■ #FFFFFF White                     │
@@ -919,9 +925,10 @@ White:              #FFFFFF
 
 **Size & Format:**
 - Recommended size: 200x50 pixels (4:1 ratio)
-- Format: PNG with transparent background
+- Format: SVG preferred, PNG with transparent background
 - Maximum file size: 500 KB
-- File name: RBWH_Logo_Horizontal.png
+- File name: redi-logo-primary-rgb.svg (or redi-logo-primary-rgb.png)
+- Minimum digital size: 100px width
 
 ---
 
@@ -934,7 +941,7 @@ White:              #FFFFFF
 **Steps:**
 
 ```
-1. Go to https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+1. Go to https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 2. Click gear icon (Settings) top right
 3. Select "Site Settings"
 4. Under "Design" or "Site Appearance" section:
@@ -951,26 +958,27 @@ White:              #FFFFFF
 
 ### Step 2: Upload Organization Logo
 
-**Action:** Upload RBWH logo to site
+**Action:** Upload REdI logo to site
 
 **Steps:**
 
 ```
 1. From Theme settings, locate "Site Logo" section
 2. Click "Upload new logo"
-3. Browse and select: RBWH_Logo_Horizontal.png
+3. Browse and select: redi-logo-primary-rgb.svg (or .png)
 4. Verify logo displays correctly
 5. Adjust positioning if needed:
    - Top left (typical)
    - Logo should align with header
+   - Maintain clear space equal to height of "E" on all sides
 ```
 
 **Logo Specifications Checklist:**
 
-- [ ] File: RBWH_Logo_Horizontal.png (or provided file)
-- [ ] Size: 200x50 pixels (or similar 4:1 ratio)
-- [ ] Background: Transparent (PNG)
-- [ ] Clarity: Readable at 32 pixel height
+- [ ] File: redi-logo-primary-rgb.svg or redi-logo-primary-rgb.png
+- [ ] Size: 200x50 pixels minimum (or similar 4:1 ratio)
+- [ ] Background: Transparent
+- [ ] Clarity: Readable at 32 pixel height (100px minimum width)
 - [ ] File size: < 500 KB
 
 **Screenshot Placeholder:** [Logo Upload - Position Preview]
@@ -985,11 +993,12 @@ White:              #FFFFFF
 
 ```
 1. If "Theme" page is shown:
-2. Look for "Blue" or "Modern Blue" theme
+2. Look for a dark blue or navy theme
 3. Click to preview
-4. Modify theme colours to RBWH palette:
-   - Primary: #005FAD
-   - Accent: #78BE20
+4. Modify theme colours to REdI palette:
+   - Primary: #1B3A5F (REdI Navy)
+   - Accent: #E55B64 (REdI Coral)
+   - Secondary: #2B9E9E (REdI Teal)
    - Text: #333333
 ```
 
@@ -1001,7 +1010,7 @@ White:              #FFFFFF
 1. From Theme settings, click "Create custom theme"
    or "+ New Theme"
 
-2. Theme Name: RBWH Trolley Audit
+2. Theme Name: REdI Trolley Audit
 
 3. Configure Colours:
 ```
@@ -1010,8 +1019,9 @@ White:              #FFFFFF
 
 | Theme Element | Hex Code | RGB | Notes |
 |---------------|----------|-----|-------|
-| Primary (Dominant colour) | #005FAD | 0,95,173 | Queensland Health blue |
-| Secondary (Accent) | #78BE20 | 120,190,32 | Queensland Health green |
+| Primary (Dominant colour) | #1B3A5F | 27,58,95 | REdI Navy |
+| Secondary (Accent) | #E55B64 | 229,91,100 | REdI Coral - primary brand |
+| Tertiary (Interactive) | #2B9E9E | 43,158,158 | REdI Teal - accents |
 | Text (Neutral dark) | #333333 | 51,51,51 | Dark grey for readability |
 | Background | #FFFFFF | 255,255,255 | White page background |
 | Neutral (Light) | #F5F5F5 | 245,245,245 | Light grey for sections |
@@ -1020,11 +1030,11 @@ White:              #FFFFFF
 
 ```
 1. Click "Primary Colour"
-   - Enter: #005FAD
+   - Enter: #1B3A5F (REdI Navy)
    - Click OK/Apply
 
 2. Click "Secondary Colour" or "Accent"
-   - Enter: #78BE20
+   - Enter: #E55B64 (REdI Coral)
    - Click OK/Apply
 
 3. Click "Text Colour"
@@ -1052,14 +1062,14 @@ White:              #FFFFFF
    - Logo alignment: Left
    - Header style: Minimal (removes redundant info)
    - Site title position: Below logo
-   - Site title: RBWH Trolley Audit
+   - Site title: REdI Trolley Audit
 ```
 
 **Header Configuration Checklist:**
 
 - [ ] Logo displays in top left
-- [ ] Site title reads "RBWH Trolley Audit"
-- [ ] Header background uses primary blue (#005FAD)
+- [ ] Site title reads "REdI Trolley Audit"
+- [ ] Header background uses REdI Navy (#1B3A5F)
 - [ ] Search bar is visible
 - [ ] No horizontal scrolling
 
@@ -1083,11 +1093,11 @@ White:              #FFFFFF
 
 **Expected Results After Application:**
 
-- [ ] Header background is primary blue (#005FAD)
-- [ ] Buttons show secondary green (#78BE20) on hover
+- [ ] Header background is REdI Navy (#1B3A5F)
+- [ ] Buttons show REdI Coral (#E55B64) on hover
 - [ ] Text is dark grey (#333333)
 - [ ] Logo visible in top left
-- [ ] Site title shows "RBWH Trolley Audit"
+- [ ] Site title shows "REdI Trolley Audit"
 
 **Screenshot Placeholder:** [Site After Theme Applied - Header with Branding]
 
@@ -1105,11 +1115,11 @@ White:              #FFFFFF
 
 Footer Text:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Royal Brisbane and Women's Hospital
-MERT - Medical Emergency Response Team
-Resuscitation Trolley Audit System
+Resuscitation EDucation Initiative (REdI)
+Workforce Development & Education Unit
+Royal Brisbane & Women's Hospital
 
-For support: mert@rbwh.qld.gov.au
+For support: redi@health.qld.gov.au
 Last updated: [System-generated date]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1123,7 +1133,7 @@ Last updated: [System-generated date]
 | Background colour | #F5F5F5 (Light grey) |
 | Text colour | #333333 (Dark grey) |
 | Font size | 12px |
-| Content | Contact info + RBWH details |
+| Content | Contact info + REdI details |
 | Display | On all pages |
 
 **Screenshot Placeholder:** [Site Footer Configuration]
@@ -1178,47 +1188,54 @@ Last updated: [System-generated date]
 **Create File:** `branding_configuration.txt`
 
 ```
-RBWH Trolley Audit Site - Branding Configuration
-================================================
+REdI Trolley Audit Site - Branding Configuration
+=================================================
 
-Site: RBWH Trolley Audit
-URL: /sites/RBWHTrolleyAudit
+Site: REdI Trolley Audit
+URL: /sites/REdITrolleyAudit
 Date Configured: [Date]
 Configured By: [Your Name]
 
-COLOUR SCHEME
-─────────────
-Primary Blue:       #005FAD (RGB 0, 95, 173)
-Secondary Green:    #78BE20 (RGB 120, 190, 32)
+COLOUR SCHEME (REdI Brand Guidelines v1.0)
+──────────────────────────────────────────
+REdI Navy:          #1B3A5F (RGB 27, 58, 95)
+REdI Coral:         #E55B64 (RGB 229, 91, 100)
+REdI Teal:          #2B9E9E (RGB 43, 158, 158)
 Text Dark:          #333333 (RGB 51, 51, 51)
 Background Light:   #F5F5F5 (RGB 245, 245, 245)
 Background White:   #FFFFFF (RGB 255, 255, 255)
 
+TYPOGRAPHY
+──────────
+Primary Font: Montserrat (400, 500, 600, 700)
+Display Font: Bebas Neue
+Fallback: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif
+
 LOGO
 ────
-File: RBWH_Logo_Horizontal.png
-Size: 200x50 pixels
-Format: PNG with transparent background
+File: redi-logo-primary-rgb.svg
+Size: 200x50 pixels minimum (100px width minimum digital)
+Format: SVG preferred, PNG with transparent background
 Location: Site header, top left
 Status: Uploaded and active
 
 HEADER CONFIGURATION
 ───────────────────
-Site Title: RBWH Trolley Audit
+Site Title: REdI Trolley Audit
 Logo Position: Left
 Header Style: Minimal
-Background: Primary Blue
+Background: REdI Navy (#1B3A5F)
 Search Bar: Enabled
 
 FOOTER CONFIGURATION
 ───────────────────
 Status: Configured
-Content: RBWH contact details
+Content: REdI contact details
 Background: Light Grey (#F5F5F5)
 
 THEME
 ─────
-Theme Name: RBWH Trolley Audit
+Theme Name: REdI Trolley Audit
 Type: Custom
 Status: Applied to entire site
 
@@ -1245,13 +1262,15 @@ NEXT STEPS (Phase 1.2+)
 
 | Item | Configuration | Status |
 |------|---------------|--------|
-| Logo Upload | RBWH_Logo_Horizontal.png | ✓ Uploaded |
-| Primary Colour | #005FAD (Queensland Blue) | ✓ Applied |
-| Secondary Colour | #78BE20 (Queensland Green) | ✓ Applied |
+| Logo Upload | redi-logo-primary-rgb.svg | ✓ Uploaded |
+| Primary Colour | #1B3A5F (REdI Navy) | ✓ Applied |
+| Accent Colour | #E55B64 (REdI Coral) | ✓ Applied |
+| Interactive Colour | #2B9E9E (REdI Teal) | ✓ Applied |
 | Text Colour | #333333 (Dark Grey) | ✓ Applied |
 | Header Style | Minimal with logo left | ✓ Configured |
-| Footer | RBWH contact details | ✓ Configured |
-| Theme Name | RBWH Trolley Audit | ✓ Created |
+| Footer | REdI contact details | ✓ Configured |
+| Theme Name | REdI Trolley Audit | ✓ Created |
+| Typography | Montserrat / Bebas Neue | ✓ Applied |
 | Cross-browser Testing | All major browsers | ✓ Passed |
 
 ---
@@ -1300,9 +1319,9 @@ Use this comprehensive checklist to verify all Phase 1.1 tasks are complete.
 ### Task 1.1.1: Create SharePoint Site
 
 **Site Creation**
-- [ ] Site name: "RBWH Trolley Audit"
-- [ ] Site URL: /sites/RBWHTrolleyAudit
-- [ ] Site accessible at: https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+- [ ] Site name: "REdI Trolley Audit"
+- [ ] Site URL: /sites/REdITrolleyAudit
+- [ ] Site accessible at: https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 - [ ] Time zone: Brisbane (UTC+10:00)
 - [ ] Storage quota: 100 GB
 - [ ] Language: English
@@ -1319,9 +1338,9 @@ Use this comprehensive checklist to verify all Phase 1.1 tasks are complete.
 ### Task 1.1.2: Configure Site Permissions
 
 **Group Creation**
-- [ ] Group 1: "RBWH Trolley Audit - Owners" (Full Control)
-- [ ] Group 2: "RBWH Trolley Audit - Members" (Contribute)
-- [ ] Group 3: "RBWH Trolley Audit - Visitors" (Read)
+- [ ] Group 1: "REdI Trolley Audit - Owners" (Full Control)
+- [ ] Group 2: "REdI Trolley Audit - Members" (Contribute)
+- [ ] Group 3: "REdI Trolley Audit - Visitors" (Read)
 
 **Member Assignment**
 - [ ] MERT educators added to Owners group: ___ members
@@ -1378,20 +1397,21 @@ Use this comprehensive checklist to verify all Phase 1.1 tasks are complete.
 ### Task 1.1.4: Configure Site Branding
 
 **Colours Applied**
-- [ ] Primary blue (#005FAD) in header
-- [ ] Secondary green (#78BE20) in buttons/accents
+- [ ] REdI Navy (#1B3A5F) in header
+- [ ] REdI Coral (#E55B64) in buttons/highlights
+- [ ] REdI Teal (#2B9E9E) in accents/interactive elements
 - [ ] Dark grey (#333333) for text
 - [ ] Light grey (#F5F5F5) in backgrounds
 
 **Logo Configuration**
-- [ ] RBWH logo uploaded
+- [ ] REdI logo uploaded
 - [ ] Logo visible in header, top left
 - [ ] Logo responsive on mobile
-- [ ] Logo size appropriate (200x50 or similar)
+- [ ] Logo size appropriate (200x50 or similar, 100px min width)
 
 **Header & Footer**
-- [ ] Header shows site title: "RBWH Trolley Audit"
-- [ ] Header background is primary blue
+- [ ] Header shows site title: "REdI Trolley Audit"
+- [ ] Header background is REdI Navy
 - [ ] Footer displays contact information
 - [ ] Footer background is light grey
 
@@ -1544,7 +1564,7 @@ Use this comprehensive checklist to verify all Phase 1.1 tasks are complete.
 
 3. Verify colour codes:
    - Use colour picker to check hex codes
-   - Confirm #005FAD is primary (not #005fad)
+   - Confirm #1B3A5F is REdI Navy (not #005fad)
    - Try one colour at a time
    - Verify browser colour support (hex vs RGB)
 
@@ -1583,14 +1603,14 @@ Use this comprehensive checklist to verify all Phase 1.1 tasks are complete.
    - Update navigation when lists created
 
 2. Verify current navigation:
-   - Home link should work: /sites/RBWHTrolleyAudit
+   - Home link should work: /sites/REdITrolleyAudit
    - Test other existing pages
    - Quick links to future lists are fine (as placeholders)
 
 3. Fix broken links:
    - Replace non-existent URLs with # for now
    - Update all links in Phase 1.2 when lists created
-   - Use relative URLs: /sites/RBWHTrolleyAudit/Lists/[ListName]
+   - Use relative URLs: /sites/REdITrolleyAudit/Lists/[ListName]
    - Test each link after list creation
 
 4. Clear cache:
@@ -1781,26 +1801,26 @@ Use this comprehensive checklist to verify all Phase 1.1 tasks are complete.
 
 # Summary
 
-You have successfully completed Phase 1.1 - SharePoint Site Setup for the RBWH Trolley Audit system.
+You have successfully completed Phase 1.1 - SharePoint Site Setup for the REdI Trolley Audit system.
 
 ## What Was Accomplished
 
-✓ **Task 1.1.1** - Provisioned SharePoint site "RBWH Trolley Audit"
+✓ **Task 1.1.1** - Provisioned SharePoint site "REdI Trolley Audit"
 ✓ **Task 1.1.2** - Configured 3-tier permission model (Owners, Members, Visitors)
 ✓ **Task 1.1.3** - Created intuitive navigation menu structure
-✓ **Task 1.1.4** - Applied RBWH/Queensland Health branding
+✓ **Task 1.1.4** - Applied REdI branding
 
 ## Key Artefacts Created
 
 1. **SharePoint Site**
-   - URL: /sites/RBWHTrolleyAudit
+   - URL: /sites/REdITrolleyAudit
    - 100 GB storage allocated
    - Modern experience enabled
 
 2. **Permission Groups**
-   - RBWH Trolley Audit - Owners (Full Control)
-   - RBWH Trolley Audit - Members (Contribute)
-   - RBWH Trolley Audit - Visitors (Read)
+   - REdI Trolley Audit - Owners (Full Control)
+   - REdI Trolley Audit - Members (Contribute)
+   - REdI Trolley Audit - Visitors (Read)
 
 3. **Navigation Structure**
    - 5 main menu items
@@ -1808,7 +1828,7 @@ You have successfully completed Phase 1.1 - SharePoint Site Setup for the RBWH T
    - Mobile-responsive design
 
 4. **Brand Identity**
-   - Queensland Health colours applied
+   - REdI brand colours applied
    - Logo uploaded and positioned
    - Consistent theme across site
 

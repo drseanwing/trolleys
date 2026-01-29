@@ -161,7 +161,7 @@ Where:
    - **Name:** `CompletionRate_Trend`
    - **Text:** Formula - See Step 9
    - **FontSize:** 12
-   - **Color:** `RGBA(76, 175, 80, 1)` (Green for positive trend)
+   - **Color:** `RGBA(40, 167, 69, 1)` (Green for positive trend)
    - **Align:** Center
    - **X:** 10
    - **Y:** 130
@@ -1365,7 +1365,7 @@ Filter(
 | Icon (Issues) | Amber | #FFC107 | Warning indicator |
 | Icon (Overdue) | Red | #F44336 | Alert indicator |
 | Icon (Compliance) | Blue | #4285F4 | Information indicator |
-| Trend (Positive) | Green | #4CAF50 | Upward trend |
+| Trend (Positive) | Green | #28A745 | Upward trend |
 | Trend (Alert) | Red | #F44336 | Alert trend |
 | Hover Background | Very Light Gray | #F8F8F8 | Hover state |
 

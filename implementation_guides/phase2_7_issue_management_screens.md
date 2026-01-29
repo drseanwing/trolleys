@@ -1389,20 +1389,20 @@ If(
 
 | Status | Colour | Hex Code | Meaning |
 |--------|--------|----------|---------|
-| Open | `InfoColor` | #2196F3 | New issue, not yet assigned |
-| In Progress | `AccentColor` | #E35205 | Being actively worked on |
-| Pending Verification | `WarningColor` | #FF9800 | Awaiting review/confirmation |
-| Resolved | `SuccessColor` | #4CAF50 | Issue fixed and verified |
+| Open | `InfoColor` | #17A2B8 | New issue, not yet assigned |
+| In Progress | `AccentColor` | #E55B64 | Being actively worked on |
+| Pending Verification | `WarningColor` | #FFC107 | Awaiting review/confirmation |
+| Resolved | `SuccessColor` | #28A745 | Issue fixed and verified |
 | Closed | `TextSecondary` | #666666 | Issue completed and archived |
 
 ### Severity Colour Coding
 
 | Severity | Colour | Hex Code | Meaning |
 |----------|--------|----------|---------|
-| Critical | `ErrorColor` | #E53D3D | Immediate action required, patient safety risk |
-| High | `AccentColor` | #E35205 | Significant issue, action needed soon |
-| Medium | `WarningColor` | #FF9800 | Notable issue, plan resolution |
-| Low | `InfoColor` | #2196F3 | Minor issue, can be scheduled |
+| Critical | `ErrorColor` | #DC3545 | Immediate action required, patient safety risk |
+| High | `AccentColor` | #E55B64 | Significant issue, action needed soon |
+| Medium | `WarningColor` | #FFC107 | Notable issue, plan resolution |
+| Low | `InfoColor` | #17A2B8 | Minor issue, can be scheduled |
 
 ### PowerFx Colour Assignment Functions
 

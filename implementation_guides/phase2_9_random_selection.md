@@ -966,7 +966,7 @@ PowerApp: Random Selection Admin Screen
 ```
 Label: "Random Selection Administration"
 - Font: Bold, 28pt
-- Color: RBWH Primary Blue (#005FAD)
+- Color: RBWH Primary Blue (#1B3A5F)
 
 Label: "This week's random trolley audit selection"
 - Font: Regular, 14pt
@@ -1009,7 +1009,7 @@ Card Container (if selection exists):
 Button 1: Generate New Selection
   Visible: IsBlank(CurrentSelection) OR AllowOverwrite
   Label: "Generate New Selection"
-  Style: RBWH Secondary Green (#78BE20)
+  Style: RBWH Secondary Green (#2B9E9E)
   On Select:
     Set(varGenerating, true);
     Random_Selection_Generate.Run();
@@ -1031,7 +1031,7 @@ Button 2: Force Regenerate
 
 Button 3: View Selection History
   Label: "View Selection History"
-  Style: RBWH Primary Blue (#005FAD)
+  Style: RBWH Primary Blue (#1B3A5F)
   On Select:
     Navigate(RandomSelectionHistory, ScreenTransition.Cover);
 ```
@@ -1072,7 +1072,7 @@ Container: Selection Statistics
     Label: "COMPLETED"
     Count: CountIf(SelectionItems, CompletionStatus = "Completed")
     Percentage: Count / Total * 100
-    Color: Green (#78BE20)
+    Color: Green (#2B9E9E)
 
   Stat Card 2:
     Label: "PENDING"

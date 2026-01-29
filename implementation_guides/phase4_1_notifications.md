@@ -1,4 +1,4 @@
-# RBWH Trolley Audit System
+# REdI Trolley Audit System
 ## Phase 4.1 Notifications Implementation Guide
 
 **Document Version:** 1.0
@@ -26,7 +26,7 @@
 
 ## Executive Summary
 
-This guide provides step-by-step instructions for implementing Phase 4.1 Notifications, a critical component of the RBWH Trolley Audit system that keeps stakeholders informed of audit submissions, critical issues, assignments, and escalations through automated email notifications and scheduled maintenance flows.
+This guide provides step-by-step instructions for implementing Phase 4.1 Notifications, a critical component of the REdI Trolley Audit system that keeps stakeholders informed of audit submissions, critical issues, assignments, and escalations through automated email notifications and scheduled maintenance flows.
 
 ### What You'll Complete
 
@@ -44,11 +44,11 @@ This guide provides step-by-step instructions for implementing Phase 4.1 Notific
 ### Notifications Overview
 
 By the end of Phase 4.1, you will have:
-- **5 HTML email templates** designed with RBWH branding
+- **5 HTML email templates** designed with REdI branding
 - **4 transactional flows** triggered by audit/issue events
 - **2 scheduled flows** running daily for overdue reminders and escalations
 - **Recipient logic** ensuring correct people receive notifications
-- **Complete email branding** with Queensland Health colour scheme
+- **Complete email branding** with REdI colour scheme
 
 ---
 
@@ -66,10 +66,10 @@ By the end of Phase 4.1, you will have:
 
 Before starting, gather:
 
-1. **RBWH Branding Assets**
-   - RBWH logo (PNG, recommended 150x60 pixels, <100KB)
-   - Primary colour: #005FAD (Queensland Health blue)
-   - Secondary colour: #78BE20 (Queensland Health green)
+1. **REdI Branding Assets**
+   - REdI logo (PNG, recommended 150x60 pixels, <100KB)
+   - Primary colour: #1B3A5F (REdI blue)
+   - Secondary colour: #2B9E9E (REdI green)
    - Footer text colour: #666666 (Medium grey)
 
 2. **SharePoint Site Details**
@@ -99,7 +99,7 @@ Before creating flows:
 2. **Configure send-as account:**
    - Use a shared mailbox or service account for notifications
    - Recommended address: trolleyaudit@rbwh.com.au (or your organization standard)
-   - Email subject will include "[RBWH Trolley Audit System]" prefix
+   - Email subject will include "[REdI Trolley Audit System]" prefix
 
 3. **List field dependencies:**
    - Ensure all referenced columns exist in SharePoint lists
@@ -116,9 +116,9 @@ All email templates follow this structure and branding:
 **Header Section:**
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  [RBWH LOGO]  RBWH Trolley Audit System                │
+│  [REdI LOGO]  REdI Trolley Audit System                │
 │                                                         │
-│  Primary colour: #005FAD (used for header background)  │
+│  Primary colour: #1B3A5F (used for header background)  │
 │  Text colour: White (#FFFFFF)                          │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -127,17 +127,17 @@ All email templates follow this structure and branding:
 - Font: Segoe UI or Calibri, 14px for body text
 - Line height: 1.5 for readability
 - Colour scheme: #333333 (text), #F5F5F5 (subtle backgrounds)
-- Key information: #005FAD (highlighting)
+- Key information: #1B3A5F (highlighting)
 
 **Footer Section:**
 ```
 ┌─────────────────────────────────────────────────────────┐
 │  ─────────────────────────────────────────────────────  │
-│  This is an automated message from the RBWH Trolley    │
+│  This is an automated message from the REdI Trolley    │
 │  Audit System. Do not reply to this email.             │
 │  Contact your MERT Educator for assistance.            │
 │                                                         │
-│  [© RBWH 2026]                                         │
+│  [© REdI 2026]                                         │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -160,7 +160,7 @@ All email templates follow this structure and branding:
 
 #### Step 1: Email Template Design
 
-**Subject Line:** `[RBWH Trolley Audit] Submission Confirmed - {Location} - {Compliance}%`
+**Subject Line:** `[REdI Trolley Audit] Submission Confirmed - {Location} - {Compliance}%`
 
 **Template Variables:**
 ```
@@ -204,7 +204,7 @@ Create the following HTML template (save as reference for Power Automate):
             border-collapse: collapse;
         }
         .header {
-            background-color: #005FAD;
+            background-color: #1B3A5F;
             color: white;
             padding: 30px 20px;
             text-align: center;
@@ -229,14 +229,14 @@ Create the following HTML template (save as reference for Power Automate):
         }
         .confirmation-box {
             background-color: #E8F4F8;
-            border-left: 4px solid #005FAD;
+            border-left: 4px solid #1B3A5F;
             padding: 15px;
             margin: 20px 0;
             border-radius: 4px;
         }
         .confirmation-box h3 {
             margin: 0 0 10px 0;
-            color: #005FAD;
+            color: #1B3A5F;
             font-size: 16px;
         }
         .confirmation-box p {
@@ -266,7 +266,7 @@ Create the following HTML template (save as reference for Power Automate):
             font-size: 14px;
         }
         .score-value {
-            color: #005FAD;
+            color: #1B3A5F;
             font-weight: bold;
             font-size: 16px;
         }
@@ -300,7 +300,7 @@ Create the following HTML template (save as reference for Power Automate):
             font-size: 16px;
         }
         .button {
-            background-color: #005FAD;
+            background-color: #1B3A5F;
             color: white;
             padding: 12px 30px;
             text-decoration: none;
@@ -326,7 +326,7 @@ Create the following HTML template (save as reference for Power Automate):
     <table class="email-container">
         <tr>
             <td class="header">
-                <h1>RBWH Trolley Audit System</h1>
+                <h1>REdI Trolley Audit System</h1>
                 <p>Audit Submission Confirmed</p>
             </td>
         </tr>
@@ -436,9 +436,9 @@ Create the following HTML template (save as reference for Power Automate):
         </tr>
         <tr>
             <td class="footer">
-                <p>This is an automated message from the RBWH Trolley Audit System.</p>
+                <p>This is an automated message from the REdI Trolley Audit System.</p>
                 <p>Do not reply to this email. Contact your MERT Educator for assistance.</p>
-                <p>&copy; Royal Brisbane and Women's Hospital 2026</p>
+                <p>&copy; REdI 2026</p>
                 <p><a href="{PreferencesLink}">Manage Notification Preferences</a></p>
             </td>
         </tr>
@@ -458,7 +458,7 @@ Create the following HTML template (save as reference for Power Automate):
 | Field | Value |
 |-------|-------|
 | **To** | {AuditorEmail} |
-| **Subject** | `[RBWH Trolley Audit] Submission Confirmed - {Location} - {OverallCompliance}%` |
+| **Subject** | `[REdI Trolley Audit] Submission Confirmed - {Location} - {OverallCompliance}%` |
 | **Body** | [Paste HTML template above] |
 | **IsHtml** | Yes (toggle) |
 
@@ -497,7 +497,7 @@ trolleyaudit@rbwh.com.au (or your shared mailbox)
 
 **Subject:**
 ```
-[RBWH Trolley Audit] Submission Confirmed - @{body('Get_Location')?['DisplayName']} - @{outputs('Calculate_Compliance_Score')?['body']}%
+[REdI Trolley Audit] Submission Confirmed - @{body('Get_Location')?['DisplayName']} - @{outputs('Calculate_Compliance_Score')?['body']}%
 ```
 
 **Body:**
@@ -671,14 +671,14 @@ Create the following critical alert template:
         }
         .action-required {
             background-color: #E8F4F8;
-            border-left: 4px solid #005FAD;
+            border-left: 4px solid #1B3A5F;
             padding: 15px;
             margin: 20px 0;
             border-radius: 4px;
         }
         .action-required h3 {
             margin: 0 0 10px 0;
-            color: #005FAD;
+            color: #1B3A5F;
             font-size: 16px;
         }
         .action-list {
@@ -695,7 +695,7 @@ Create the following critical alert template:
             content: "→";
             position: absolute;
             left: 0;
-            color: #005FAD;
+            color: #1B3A5F;
             font-weight: bold;
         }
         .button {
@@ -731,7 +731,7 @@ Create the following critical alert template:
         </tr>
         <tr>
             <td class="header">
-                <h1>RBWH Trolley Audit System</h1>
+                <h1>REdI Trolley Audit System</h1>
                 <p>Critical Issue Alert</p>
                 <div class="alert-badge">CRITICAL SEVERITY</div>
             </td>
@@ -811,9 +811,9 @@ Create the following critical alert template:
         </tr>
         <tr>
             <td class="footer">
-                <p><strong>This is an urgent automated alert from the RBWH Trolley Audit System.</strong></p>
+                <p><strong>This is an urgent automated alert from the REdI Trolley Audit System.</strong></p>
                 <p>Do not reply to this email. Contact your MERT Educator immediately.</p>
-                <p>&copy; Royal Brisbane and Women's Hospital 2026</p>
+                <p>&copy; REdI 2026</p>
             </td>
         </tr>
     </table>
@@ -895,7 +895,7 @@ Also add a **Schedule cloud flow** trigger (separate flow):
 
 #### Step 1: Email Template Design
 
-**Subject Line:** `[RBWH Trolley Audit] New Issue Assigned - {IssueTitle}`
+**Subject Line:** `[REdI Trolley Audit] New Issue Assigned - {IssueTitle}`
 
 **Template Variables:**
 ```
@@ -934,7 +934,7 @@ Also add a **Schedule cloud flow** trigger (separate flow):
             border-collapse: collapse;
         }
         .header {
-            background-color: #005FAD;
+            background-color: #1B3A5F;
             color: white;
             padding: 30px 20px;
             text-align: center;
@@ -954,14 +954,14 @@ Also add a **Schedule cloud flow** trigger (separate flow):
         }
         .assignment-box {
             background-color: #E8F4F8;
-            border-left: 4px solid #005FAD;
+            border-left: 4px solid #1B3A5F;
             padding: 20px;
             margin: 20px 0;
             border-radius: 4px;
         }
         .assignment-box h3 {
             margin: 0 0 15px 0;
-            color: #005FAD;
+            color: #1B3A5F;
             font-size: 18px;
         }
         .detail-row {
@@ -1004,14 +1004,14 @@ Also add a **Schedule cloud flow** trigger (separate flow):
         }
         .timeline {
             background-color: #E8F4F8;
-            border-left: 4px solid #005FAD;
+            border-left: 4px solid #1B3A5F;
             padding: 15px;
             margin: 15px 0;
             border-radius: 4px;
         }
         .timeline h4 {
             margin: 0 0 10px 0;
-            color: #005FAD;
+            color: #1B3A5F;
         }
         .action-items {
             background-color: #FFF3E0;
@@ -1042,7 +1042,7 @@ Also add a **Schedule cloud flow** trigger (separate flow):
             font-weight: bold;
         }
         .button {
-            background-color: #005FAD;
+            background-color: #1B3A5F;
             color: white;
             padding: 12px 30px;
             text-decoration: none;
@@ -1068,7 +1068,7 @@ Also add a **Schedule cloud flow** trigger (separate flow):
     <table class="email-container">
         <tr>
             <td class="header">
-                <h1>RBWH Trolley Audit System</h1>
+                <h1>REdI Trolley Audit System</h1>
                 <p>New Issue Assignment</p>
             </td>
         </tr>
@@ -1141,9 +1141,9 @@ Also add a **Schedule cloud flow** trigger (separate flow):
         </tr>
         <tr>
             <td class="footer">
-                <p>This is an automated message from the RBWH Trolley Audit System.</p>
+                <p>This is an automated message from the REdI Trolley Audit System.</p>
                 <p>Do not reply to this email. Contact your MERT Educator for assistance.</p>
-                <p>&copy; Royal Brisbane and Women's Hospital 2026</p>
+                <p>&copy; REdI 2026</p>
             </td>
         </tr>
     </table>
@@ -1176,7 +1176,7 @@ After the "Update Issue status to Assigned" action:
 
 **Subject:**
 ```
-[RBWH Trolley Audit] New Issue Assigned - @{body('Get_Issue')?['Title']}
+[REdI Trolley Audit] New Issue Assigned - @{body('Get_Issue')?['Title']}
 ```
 
 **Body:**
@@ -1214,7 +1214,7 @@ Add optional **CC**:
 
 #### Step 1: Email Template Design
 
-**Subject Line:** `[RBWH Trolley Audit] Weekly Random Selection - {WeekStartDate} to {WeekEndDate}`
+**Subject Line:** `[REdI Trolley Audit] Weekly Random Selection - {WeekStartDate} to {WeekEndDate}`
 
 **Template Variables:**
 ```
@@ -1252,7 +1252,7 @@ Add optional **CC**:
             border-collapse: collapse;
         }
         .header {
-            background-color: #005FAD;
+            background-color: #1B3A5F;
             color: white;
             padding: 30px 20px;
             text-align: center;
@@ -1273,14 +1273,14 @@ Add optional **CC**:
         }
         .week-box {
             background-color: #E8F4F8;
-            border-left: 4px solid #005FAD;
+            border-left: 4px solid #1B3A5F;
             padding: 15px;
             margin: 20px 0;
             border-radius: 4px;
         }
         .week-box h3 {
             margin: 0 0 10px 0;
-            color: #005FAD;
+            color: #1B3A5F;
             font-size: 16px;
         }
         .week-box p {
@@ -1293,7 +1293,7 @@ Add optional **CC**:
             background-color: #F9F9F9;
         }
         .selection-table th {
-            background-color: #005FAD;
+            background-color: #1B3A5F;
             color: white;
             padding: 12px;
             text-align: left;
@@ -1305,7 +1305,7 @@ Add optional **CC**:
         }
         .rank {
             background-color: #E8F4F8;
-            color: #005FAD;
+            color: #1B3A5F;
             font-weight: bold;
             text-align: center;
             width: 40px;
@@ -1341,7 +1341,7 @@ Add optional **CC**:
         .stat-card .stat-value {
             font-size: 24px;
             font-weight: bold;
-            color: #005FAD;
+            color: #1B3A5F;
         }
         .stat-card .stat-label {
             font-size: 12px;
@@ -1357,7 +1357,7 @@ Add optional **CC**:
             margin: 10px 0;
         }
         .progress-fill {
-            background-color: #78BE20;
+            background-color: #2B9E9E;
             height: 100%;
             display: flex;
             align-items: center;
@@ -1368,18 +1368,18 @@ Add optional **CC**:
         }
         .action-box {
             background-color: #E8F4F8;
-            border-left: 4px solid #005FAD;
+            border-left: 4px solid #1B3A5F;
             padding: 15px;
             margin: 20px 0;
             border-radius: 4px;
         }
         .action-box h3 {
             margin: 0 0 10px 0;
-            color: #005FAD;
+            color: #1B3A5F;
             font-size: 16px;
         }
         .button {
-            background-color: #005FAD;
+            background-color: #1B3A5F;
             color: white;
             padding: 12px 30px;
             text-decoration: none;
@@ -1402,7 +1402,7 @@ Add optional **CC**:
     <table class="email-container">
         <tr>
             <td class="header">
-                <h1>RBWH Trolley Audit System</h1>
+                <h1>REdI Trolley Audit System</h1>
                 <p>Weekly Random Audit Selection</p>
             </td>
         </tr>
@@ -1477,7 +1477,7 @@ Add optional **CC**:
 
                 <p style="text-align: center; margin: 20px 0;">
                     <a href="{AppLink}/audits" class="button">Start Audit</a>
-                    <a href="{AppLink}/selection" class="button" style="background-color: #78BE20; margin-left: 10px;">View Selection</a>
+                    <a href="{AppLink}/selection" class="button" style="background-color: #2B9E9E; margin-left: 10px;">View Selection</a>
                 </p>
 
                 <p>
@@ -1493,9 +1493,9 @@ Add optional **CC**:
         </tr>
         <tr>
             <td class="footer">
-                <p>This is an automated message from the RBWH Trolley Audit System.</p>
+                <p>This is an automated message from the REdI Trolley Audit System.</p>
                 <p>Do not reply to this email. Contact your MERT Educator for assistance.</p>
-                <p>&copy; Royal Brisbane and Women's Hospital 2026</p>
+                <p>&copy; REdI 2026</p>
             </td>
         </tr>
     </table>
@@ -1533,7 +1533,7 @@ MERT.Educators@rbwh.com.au (distribution list)
 
 **Subject:**
 ```
-[RBWH Trolley Audit] Weekly Random Selection - @{formatDateTime(addDays(utcNow(), sub(dayOfWeek(utcNow()), 2)), 'dddd d MMMM')} to @{formatDateTime(addDays(utcNow(), sub(dayOfWeek(utcNow()), 2) + 6), 'dddd d MMMM')}
+[REdI Trolley Audit] Weekly Random Selection - @{formatDateTime(addDays(utcNow(), sub(dayOfWeek(utcNow()), 2)), 'dddd d MMMM')} to @{formatDateTime(addDays(utcNow(), sub(dayOfWeek(utcNow()), 2) + 6), 'dddd d MMMM')}
 ```
 
 **Body:**
@@ -1637,7 +1637,7 @@ Add **Apply to each**:
 
 **Subject:**
 ```
-[RBWH Trolley Audit] Overdue Trolleys - Action Required - @{formatDateTime(utcNow(), 'dd/MM/yyyy')}
+[REdI Trolley Audit] Overdue Trolleys - Action Required - @{formatDateTime(utcNow(), 'dd/MM/yyyy')}
 ```
 
 **Body:**
@@ -1936,7 +1936,7 @@ Send summary email to MERT with:
 ### Email Templates Verification
 
 - [ ] All 5 email templates created with correct HTML structure
-- [ ] RBWH branding applied consistently (logo, #005FAD colour)
+- [ ] REdI branding applied consistently (logo, #1B3A5F colour)
 - [ ] All template variables correctly identified
 - [ ] HTML renders properly in Outlook, Gmail, mobile devices
 - [ ] Alt text added to images
@@ -2013,9 +2013,9 @@ Send summary email to MERT with:
 
 ### Email Branding Verification
 
-- [ ] RBWH logo displays correctly (150x60px)
-- [ ] Primary colour #005FAD used consistently
-- [ ] Secondary colour #78BE20 used for highlights/buttons
+- [ ] REdI logo displays correctly (150x60px)
+- [ ] Primary colour #1B3A5F used consistently
+- [ ] Secondary colour #2B9E9E used for highlights/buttons
 - [ ] Font is Segoe UI or Calibri
 - [ ] Text colour is #333333 (dark grey)
 - [ ] Footer colour is #666666 (medium grey)

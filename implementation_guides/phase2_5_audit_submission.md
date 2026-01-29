@@ -251,8 +251,8 @@ Show all audit responses from each section in a readable, organized format withi
    // For each boolean check
    If(
        ThisItem.IsClean,
-       RGBA(76, 175, 80, 1),    // Green checkmark
-       RGBA(229, 61, 61, 1)      // Red X
+       RGBA(40, 167, 69, 1),    // Green checkmark
+       RGBA(220, 53, 69, 1)      // Red X
    )
    ```
 
