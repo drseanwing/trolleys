@@ -9,9 +9,12 @@ Sends notifications for:
 5. Issue escalation (to management chain)
 6. Weekly random selection (to MERT educators)
 """
+import logging
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+
+logger = logging.getLogger(__name__)
 
 
 class NotificationService:
@@ -152,5 +155,5 @@ class NotificationService:
                 recipient_list=recipients,
                 fail_silently=True,
             )
-        except Exception:
-            pass  # Log in production; fail silently for now
+        except Exception as e:
+            logger.error("Failed to send email notification: %s", e, exc_info=True)

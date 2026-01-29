@@ -16,8 +16,9 @@ import csv
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.db.models import Avg, Count, Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views import View
@@ -36,12 +37,46 @@ from .mixins import (
 )
 from .models import (
     Audit, AuditChecks, AuditCondition, AuditDocuments, AuditEquipment,
-    AuditPeriod, Equipment, Issue, Location, RandomAuditSelection,
-    ServiceLine,
+    AuditPeriod, Equipment, Issue, Location, LocationEquipment,
+    RandomAuditSelection, ServiceLine,
 )
 from .services.compliance import ComplianceScorer
 from .services.issue_workflow import InvalidTransitionError, IssueWorkflow
 from .services.random_selection import RandomAuditSelector
+
+
+# ---------------------------------------------------------------------------
+# Mixins for Audit Wizard Ownership Validation
+# ---------------------------------------------------------------------------
+
+class AuditOwnershipMixin:
+    """
+    Mixin to validate that the current user owns the audit and it's in progress.
+    Used by all audit wizard views to enforce ownership checks.
+    """
+    def dispatch(self, request, *args, **kwargs):
+        # Get the audit object
+        audit = get_object_or_404(Audit, pk=kwargs.get('pk'))
+
+        # Check ownership: user must be the auditor or a superuser
+        if audit.auditor_user != request.user and not request.user.is_superuser:
+            messages.error(
+                request,
+                'You do not have permission to edit this audit. Only the original auditor can modify it.',
+            )
+            return HttpResponseForbidden(
+                'You do not have permission to edit this audit.',
+            )
+
+        # Check status: audit must be in progress
+        if audit.submission_status != 'InProgress':
+            messages.error(
+                request,
+                'This audit has already been submitted and cannot be modified.',
+            )
+            return redirect('audit:audit_detail', pk=audit.pk)
+
+        return super().dispatch(request, *args, **kwargs)
 
 
 # ---------------------------------------------------------------------------
@@ -272,6 +307,13 @@ class AuditStartView(AuditorRequiredMixin, View):
 
         # Create equipment check records filtered to this location
         equipment_list = Equipment.objects.filter(is_active=True)
+
+        # Prefetch all equipment overrides for this location to avoid N+1 queries
+        overrides = {
+            le.equipment_id: le
+            for le in LocationEquipment.objects.filter(location=location)
+        }
+
         for equip in equipment_list:
             # Skip items not matching defibrillator type
             if (
@@ -286,10 +328,8 @@ class AuditStartView(AuditorRequiredMixin, View):
             if equip.is_altered_airway_item and not location.has_altered_airway:
                 continue
 
-            # Check for custom quantity override
-            override = location.equipment_overrides.filter(
-                equipment=equip,
-            ).first()
+            # Check for custom quantity override using prefetched dict
+            override = overrides.get(equip.pk)
             expected_qty = (
                 override.custom_quantity
                 if override and override.custom_quantity
@@ -344,7 +384,7 @@ class AuditDetailView(ViewerRequiredMixin, DetailView):
         return ctx
 
 
-class AuditDocumentsView(AuditorRequiredMixin, View):
+class AuditDocumentsView(AuditOwnershipMixin, AuditorRequiredMixin, View):
     """Step 1 of audit wizard: documentation checks."""
 
     template_name = 'audit/audit_documents.html'
@@ -370,7 +410,7 @@ class AuditDocumentsView(AuditorRequiredMixin, View):
         })
 
 
-class AuditEquipmentView(AuditorRequiredMixin, View):
+class AuditEquipmentView(AuditOwnershipMixin, AuditorRequiredMixin, View):
     """Step 2 of audit wizard: equipment checklist."""
 
     template_name = 'audit/audit_equipment.html'
@@ -399,21 +439,31 @@ class AuditEquipmentView(AuditorRequiredMixin, View):
         audit = get_object_or_404(Audit, pk=pk)
         equipment_checks = audit.equipment_checks.all()
 
-        for check in equipment_checks:
-            prefix = f'equip_{check.pk}'
-            check.is_present = request.POST.get(f'{prefix}_present') == 'on'
-            check.quantity_found = int(
-                request.POST.get(f'{prefix}_qty', 0),
-            )
-            check.expiry_ok = request.POST.get(f'{prefix}_expiry') == 'on'
-            check.item_notes = request.POST.get(f'{prefix}_notes', '')
-            check.save()
+        try:
+            for check in equipment_checks:
+                prefix = f'equip_{check.pk}'
+                check.is_present = request.POST.get(f'{prefix}_present') == 'on'
+                qty_value = request.POST.get(f'{prefix}_qty', '0')
+                try:
+                    check.quantity_found = int(qty_value)
+                except ValueError:
+                    messages.error(
+                        request,
+                        f'Invalid quantity value for {check.equipment.item_name}',
+                    )
+                    return redirect('audit:audit_equipment', pk=audit.pk)
+                check.expiry_ok = request.POST.get(f'{prefix}_expiry') == 'on'
+                check.item_notes = request.POST.get(f'{prefix}_notes', '')
+                check.save()
+        except Exception as e:
+            messages.error(request, f'Error saving equipment checklist: {e}')
+            return redirect('audit:audit_equipment', pk=audit.pk)
 
         messages.success(request, 'Equipment checklist saved.')
         return redirect('audit:audit_condition', pk=audit.pk)
 
 
-class AuditConditionView(AuditorRequiredMixin, View):
+class AuditConditionView(AuditOwnershipMixin, AuditorRequiredMixin, View):
     """Step 3 of audit wizard: physical condition assessment."""
 
     template_name = 'audit/audit_condition.html'
@@ -439,7 +489,7 @@ class AuditConditionView(AuditorRequiredMixin, View):
         })
 
 
-class AuditChecksView(AuditorRequiredMixin, View):
+class AuditChecksView(AuditOwnershipMixin, AuditorRequiredMixin, View):
     """Step 4 of audit wizard: routine check counts."""
 
     template_name = 'audit/audit_checks.html'
@@ -465,7 +515,7 @@ class AuditChecksView(AuditorRequiredMixin, View):
         })
 
 
-class AuditReviewView(AuditorRequiredMixin, DetailView):
+class AuditReviewView(AuditOwnershipMixin, AuditorRequiredMixin, DetailView):
     """Step 5 of audit wizard: review all sections before submission."""
 
     model = Audit
@@ -520,7 +570,7 @@ class AuditReviewView(AuditorRequiredMixin, DetailView):
         return ctx
 
 
-class AuditSubmitView(AuditorRequiredMixin, View):
+class AuditSubmitView(AuditOwnershipMixin, AuditorRequiredMixin, View):
     """Submit a completed audit and calculate compliance scores (POST only)."""
 
     def post(self, request, pk):
@@ -530,42 +580,44 @@ class AuditSubmitView(AuditorRequiredMixin, View):
         scorer = ComplianceScorer()
         overall = scorer.calculate_overall_score(audit)
 
-        # Update audit status
-        audit.submission_status = 'Submitted'
-        audit.completed_at = timezone.now()
-        audit.save(update_fields=['submission_status', 'completed_at'])
+        # Wrap all database operations in a transaction
+        with transaction.atomic():
+            # Update audit status
+            audit.submission_status = 'Submitted'
+            audit.completed_at = timezone.now()
+            audit.save(update_fields=['submission_status', 'completed_at'])
 
-        # Update location's last audit info
-        location = audit.location
-        location.last_audit_date = audit.completed_at
-        location.last_audit_compliance = overall
-        location.save(update_fields=['last_audit_date', 'last_audit_compliance'])
+            # Update location's last audit info
+            location = audit.location
+            location.last_audit_date = audit.completed_at
+            location.last_audit_compliance = overall
+            location.save(update_fields=['last_audit_date', 'last_audit_compliance'])
 
-        # Auto-create issues for critical equipment failures
-        for check in audit.equipment_checks.select_related('equipment'):
-            if check.equipment.critical_item and not check.is_present:
-                Issue.objects.create(
-                    location=location,
-                    audit=audit,
-                    issue_category='Equipment',
-                    severity='Critical',
-                    title=f'Missing critical item: {check.equipment.item_name}',
-                    description=(
-                        f'Critical equipment item '
-                        f'"{check.equipment.item_name}" was not found '
-                        f'during audit.'
-                    ),
-                    equipment=check.equipment,
-                    reported_by=audit.auditor_name,
+            # Auto-create issues for critical equipment failures
+            for check in audit.equipment_checks.select_related('equipment'):
+                if check.equipment.critical_item and not check.is_present:
+                    Issue.objects.create(
+                        location=location,
+                        audit=audit,
+                        issue_category='Equipment',
+                        severity='Critical',
+                        title=f'Missing critical item: {check.equipment.item_name}',
+                        description=(
+                            f'Critical equipment item '
+                            f'"{check.equipment.item_name}" was not found '
+                            f'during audit.'
+                        ),
+                        equipment=check.equipment,
+                        reported_by=audit.auditor_name,
+                    )
+
+            # Low compliance triggers follow-up
+            if overall < 80:
+                audit.requires_follow_up = True
+                audit.follow_up_due_date = date.today() + timedelta(days=14)
+                audit.save(
+                    update_fields=['requires_follow_up', 'follow_up_due_date'],
                 )
-
-        # Low compliance triggers follow-up
-        if overall < 80:
-            audit.requires_follow_up = True
-            audit.follow_up_due_date = date.today() + timedelta(days=14)
-            audit.save(
-                update_fields=['requires_follow_up', 'follow_up_due_date'],
-            )
 
         messages.success(
             request,
@@ -613,12 +665,14 @@ class IssueListView(ViewerRequiredMixin, ListView):
             'severity': self.request.GET.get('severity', ''),
             'service_line': self.request.GET.get('service_line', ''),
         }
-        # Issue counts by status
-        ctx['status_counts'] = {}
-        for status_code, _status_label in Issue.STATUS_CHOICES:
-            ctx['status_counts'][status_code] = Issue.objects.filter(
-                status=status_code,
-            ).count()
+        # Issue counts by status - use single aggregate query to avoid N+1
+        status_counts = Issue.objects.aggregate(
+            **{
+                status_code: Count('id', filter=Q(status=status_code))
+                for status_code, _status_label in Issue.STATUS_CHOICES
+            }
+        )
+        ctx['status_counts'] = status_counts
         return ctx
 
 
@@ -850,8 +904,16 @@ class ComplianceReportView(ViewerRequiredMixin, TemplateView):
 class ExportView(ManagerRequiredMixin, View):
     """Export audit data as CSV. Supports audits, issues, and locations."""
 
+    ALLOWED_EXPORT_TYPES = {'audits', 'issues', 'locations'}
+
     def get(self, request):
         export_type = request.GET.get('type', 'audits')
+
+        # Validate export type against whitelist
+        if export_type not in self.ALLOWED_EXPORT_TYPES:
+            return HttpResponseBadRequest(
+                f'Invalid export type. Must be one of: {", ".join(self.ALLOWED_EXPORT_TYPES)}',
+            )
 
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = (

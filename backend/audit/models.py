@@ -12,7 +12,7 @@ Royal Brisbane and Women's Hospital - 17 Django models covering:
 import uuid
 
 from django.conf import settings
-from django.db import models
+from django.db import models, transaction, IntegrityError
 from django.utils import timezone
 
 
@@ -688,24 +688,41 @@ class Issue(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.issue_number:
-            now = timezone.now()
-            prefix = f"ISS-{now.strftime('%Y%m')}-"
-            last_issue = (
-                Issue.objects
-                .filter(issue_number__startswith=prefix)
-                .order_by('-issue_number')
-                .first()
-            )
-            if last_issue:
+            max_retries = 3
+            for attempt in range(max_retries):
                 try:
-                    last_seq = int(last_issue.issue_number.split('-')[-1])
-                except (ValueError, IndexError):
-                    last_seq = 0
-                seq = last_seq + 1
-            else:
-                seq = 1
-            self.issue_number = f"{prefix}{seq:03d}"
-        super().save(*args, **kwargs)
+                    with transaction.atomic():
+                        now = timezone.now()
+                        prefix = f"ISS-{now.strftime('%Y%m')}-"
+
+                        # Lock the Issue table to prevent concurrent number generation
+                        last_issue = (
+                            Issue.objects
+                            .filter(issue_number__startswith=prefix)
+                            .select_for_update()
+                            .order_by('-issue_number')
+                            .first()
+                        )
+
+                        if last_issue:
+                            try:
+                                last_seq = int(last_issue.issue_number.split('-')[-1])
+                            except (ValueError, IndexError):
+                                last_seq = 0
+                            seq = last_seq + 1
+                        else:
+                            seq = 1
+
+                        self.issue_number = f"{prefix}{seq:03d}"
+                        super().save(*args, **kwargs)
+                    break  # Success, exit retry loop
+                except IntegrityError:
+                    if attempt == max_retries - 1:
+                        raise  # Re-raise on final attempt
+                    # Retry on conflict
+                    continue
+        else:
+            super().save(*args, **kwargs)
 
 
 # ===========================================================================

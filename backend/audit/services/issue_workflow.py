@@ -36,7 +36,7 @@ class IssueWorkflow:
         'Low': 240,       # 10 business days
     }
 
-    MAX_ESCALATION_LEVEL = 3
+    MAX_ESCALATION_LEVEL = 5
 
     def can_transition(self, issue, new_status):
         """Check if a state transition is valid."""
@@ -145,6 +145,8 @@ class IssueWorkflow:
 
     def escalate(self, issue, user_name='', reason=''):
         """Escalate an issue."""
+        if issue.escalation_level >= self.MAX_ESCALATION_LEVEL:
+            return issue
         return self.transition(issue, 'Escalated', user_name=user_name,
                               notes=f"Escalated: {reason}")
 
