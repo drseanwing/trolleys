@@ -149,3 +149,9 @@ SESSION_COOKIE_AGE = 28800  # 8 hours
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
+
+
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Dev: prints to console
+DEFAULT_FROM_EMAIL = 'redi-noreply@health.qld.gov.au'
+EMAIL_SUBJECT_PREFIX = '[REdI] '
