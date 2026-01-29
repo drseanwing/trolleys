@@ -1,6 +1,6 @@
 # Phase 2.5 Audit Submission Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -251,8 +251,8 @@ Show all audit responses from each section in a readable, organized format withi
    // For each boolean check
    If(
        ThisItem.IsClean,
-       RGBA(76, 175, 80, 1),    // Green checkmark
-       RGBA(229, 61, 61, 1)      // Red X
+       RGBA(40, 167, 69, 1),    // Green checkmark
+       RGBA(220, 53, 69, 1)      // Red X
    )
    ```
 
@@ -310,7 +310,7 @@ Show all audit responses from each section in a readable, organized format withi
 
 1. Below each section summary, add an "Edit" button:
    - **Text:** "Edit [Section Name]"
-   - **Fill:** `SecondaryColor` (soft blue for navigation)
+   - **Fill:** `InteractiveColor` (soft blue for navigation)
    - **Text Color:** White
    - **OnSelect:**
      ```powerfx
@@ -1207,12 +1207,12 @@ Enable users to navigate back to previous audit entry screens to make changes be
    - **Text:** "✎ Edit " & ThisItem.Section
    - **Width:** 150px
    - **Height:** 40px
-   - **Fill:** `SecondaryColor`
+   - **Fill:** `InteractiveColor`
    - **Text Color:** White
    - **Font Size:** 12pt
    - **Border:** None
    - **Radius:** 4px
-   - **Hover Fill:** Slightly darker `SecondaryColor`
+   - **Hover Fill:** Slightly darker `InteractiveColor`
 
 2. Position edit button at bottom-right of each section summary:
    - **Align:** Right-aligned, 20px from right edge
@@ -1406,7 +1406,7 @@ If(
 |-----------|----------|-------|
 | Edit Button | Width | 150px |
 | | Height | 40px |
-| | Fill | SecondaryColor |
+| | Fill | InteractiveColor |
 | | Text Color | White |
 | | Font Size | 12pt |
 | | Border Radius | 4px |

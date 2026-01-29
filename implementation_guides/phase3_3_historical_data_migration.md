@@ -1,5 +1,5 @@
 # Phase 3.3: Historical Data Migration (Tasks 3.3.1-3.3.11)
-## RBWH Resuscitation Trolley Audit System
+## REdI Trolley Audit System
 
 **Version:** 1.0
 **Date:** January 2026
@@ -1359,7 +1359,7 @@ Upon completion of all Phase 3.3 tasks, obtain written approval:
 PHASE 3.3 MIGRATION SIGN-OFF
 ============================
 
-Project: RBWH Resuscitation Trolley Audit System
+Project: REdI Trolley Audit System
 Phase: 3.3 Historical Data Migration
 Completion Date: _______________
 
@@ -1552,7 +1552,7 @@ WHERE SubmissionStatus = 'Submitted'
 
 ---
 
-**Document Prepared For:** RBWH Medical Emergency Response Team
+**Document Prepared For:** REdI Team
 **Contact:** MERT Nurse Educator or System Administrator
 **Classification:** Internal Use - Implementation Guide
 

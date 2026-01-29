@@ -1,6 +1,6 @@
 # Phase 2.7 Issue Management Screens Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -10,7 +10,7 @@ Document Type: Step-by-Step Implementation Guide
 
 ## Overview
 
-Phase 2.7 implements the complete Issue Management system for the RBWH Trolley Audit application. This phase creates screens for browsing, viewing, creating, and managing maintenance issues with corrective actions and comments.
+Phase 2.7 implements the complete Issue Management system for the REdI Trolley Audit application. This phase creates screens for browsing, viewing, creating, and managing maintenance issues with corrective actions and comments.
 
 **Phase Scope:** Tasks 2.7.1 through 2.7.20
 **Estimated Duration:** 25 hours
@@ -253,7 +253,7 @@ Create a horizontal container for filters below the header:
    - **Width:** 150
    - **Height:** 35
    - **Text:** "+ Add Issue"
-   - **Fill:** `SecondaryColor`
+   - **Fill:** `InteractiveColor`
    - **Text Color:** White
    - **OnSelect:** `Navigate(AddIssueScreen)`
 
@@ -551,7 +551,7 @@ Create a comprehensive issue detail view with header information, description se
    - **Width:** 130
    - **Height:** 35
    - **Text:** "+ Add Action"
-   - **Fill:** `SecondaryColor`
+   - **Fill:** `InteractiveColor`
    - **OnSelect:** `Navigate(Dialog_AddAction)`
 
 #### Step 6: Create Comments Section
@@ -617,7 +617,7 @@ Create a comprehensive issue detail view with header information, description se
    - **Width:** 130
    - **Height:** 35
    - **Text:** "+ Add Comment"
-   - **Fill:** `SecondaryColor`
+   - **Fill:** `InteractiveColor`
    - **OnSelect:** `Navigate(Dialog_AddComment)`
 
 #### Step 7: Add Action Buttons at Bottom
@@ -639,7 +639,7 @@ Create a comprehensive issue detail view with header information, description se
    - **Width:** 150
    - **Height:** 35
    - **Text:** "Mark Resolved"
-   - **Fill:** `SecondaryColor`
+   - **Fill:** `InteractiveColor`
    - **OnSelect:** (See PowerFx)
 
 3. Add "Close Issue" button:
@@ -947,7 +947,7 @@ Create a form for logging new issues with Category, Severity, Title, Description
    - **Width:** 120
    - **Height:** 40
    - **Text:** "Submit"
-   - **Fill:** `SecondaryColor`
+   - **Fill:** `InteractiveColor`
    - **OnSelect:** (See PowerFx)
 
 2. Add Save Draft button:
@@ -1169,7 +1169,7 @@ Create two modal dialogs for adding corrective actions and comments to issues.
    - **Width:** 100
    - **Height:** 40
    - **Text:** "Add"
-   - **Fill:** `SecondaryColor`
+   - **Fill:** `InteractiveColor`
    - **OnSelect:** (See PowerFx)
 
 10. Add Cancel button:
@@ -1282,7 +1282,7 @@ If(
    - **Width:** 100
    - **Height:** 40
    - **Text:** "Add"
-   - **Fill:** `SecondaryColor`
+   - **Fill:** `InteractiveColor`
    - **OnSelect:** (See PowerFx)
 
 8. Add Cancel button:
@@ -1389,20 +1389,20 @@ If(
 
 | Status | Colour | Hex Code | Meaning |
 |--------|--------|----------|---------|
-| Open | `InfoColor` | #2196F3 | New issue, not yet assigned |
-| In Progress | `AccentColor` | #E35205 | Being actively worked on |
-| Pending Verification | `WarningColor` | #FF9800 | Awaiting review/confirmation |
-| Resolved | `SuccessColor` | #4CAF50 | Issue fixed and verified |
+| Open | `InfoColor` | #17A2B8 | New issue, not yet assigned |
+| In Progress | `AccentColor` | #E55B64 | Being actively worked on |
+| Pending Verification | `WarningColor` | #FFC107 | Awaiting review/confirmation |
+| Resolved | `SuccessColor` | #28A745 | Issue fixed and verified |
 | Closed | `TextSecondary` | #666666 | Issue completed and archived |
 
 ### Severity Colour Coding
 
 | Severity | Colour | Hex Code | Meaning |
 |----------|--------|----------|---------|
-| Critical | `ErrorColor` | #E53D3D | Immediate action required, patient safety risk |
-| High | `AccentColor` | #E35205 | Significant issue, action needed soon |
-| Medium | `WarningColor` | #FF9800 | Notable issue, plan resolution |
-| Low | `InfoColor` | #2196F3 | Minor issue, can be scheduled |
+| Critical | `ErrorColor` | #DC3545 | Immediate action required, patient safety risk |
+| High | `AccentColor` | #E55B64 | Significant issue, action needed soon |
+| Medium | `WarningColor` | #FFC107 | Notable issue, plan resolution |
+| Low | `InfoColor` | #17A2B8 | Minor issue, can be scheduled |
 
 ### PowerFx Colour Assignment Functions
 
@@ -1684,7 +1684,7 @@ After completing Phase 2.7, proceed with:
 ## References
 
 ### Related Documentation
-- RBWH Data Schema: `RBWH_Resuscitation_Trolley_Audit_Schema.md`
+- REdI Data Schema: `RBWH_Resuscitation_Trolley_Audit_Schema.md`
 - Task List: `RBWH_Trolley_Audit_Task_List.md`
 - Phase 1.6 Foundation: `implementation_guides/phase1_6_powerapp_foundation.md`
 

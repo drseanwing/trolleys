@@ -1,5 +1,5 @@
 # Phase 3.2: Power BI Reports Implementation Guide
-## RBWH Resuscitation Trolley Audit System
+## REdI Trolley Audit System
 
 **Version:** 1.0
 **Date:** January 2026
@@ -24,7 +24,7 @@
 
 ## Overview
 
-Phase 3.2 delivers enterprise-grade Power BI analytics for the RBWH Trolley Audit system. This phase transforms SharePoint data into actionable dashboards enabling real-time compliance monitoring, trend analysis, and issue tracking across all trolley locations.
+Phase 3.2 delivers enterprise-grade Power BI analytics for the REdI Trolley Audit system. This phase transforms SharePoint data into actionable dashboards enabling real-time compliance monitoring, trend analysis, and issue tracking across all trolley locations.
 
 **Objectives:**
 - Establish Power BI workspace and data connectivity
@@ -125,7 +125,7 @@ Phase 3.2 delivers enterprise-grade Power BI analytics for the RBWH Trolley Audi
 1. **Create Workspace**
    ```
    Power BI Service > Workspaces > Create a workspace
-   Name: "RBWH Trolley Audit Reports"
+   Name: "REdI Trolley Audit Reports"
    Description: "Enterprise dashboards for resuscitation trolley audits"
    License mode: Premium per user (or Premium capacity if available)
    ```
@@ -187,7 +187,7 @@ Phase 3.2 delivers enterprise-grade Power BI analytics for the RBWH Trolley Audi
 1. **Create Power BI Desktop Project**
    ```
    File > New Report
-   Name: "RBWH Trolley Audit Analytics"
+   Name: "REdI Trolley Audit Analytics"
    Save to: Local workspace with version control
    ```
 
@@ -2146,7 +2146,7 @@ Date Range → Issue (filters to issues opened within date range)
 1. **Publish from Power BI Desktop**
    ```
    File > Publish
-   Select workspace: "RBWH Trolley Audit Reports"
+   Select workspace: "REdI Trolley Audit Reports"
    Publish dataset as: "Trolley Audit Analytics"
 
    Dataset publishing options:
@@ -2363,7 +2363,7 @@ Testing Checklist:
 1. **Create Dashboard in Power BI**
    ```
    Power BI Service > Create > Dashboard
-   Name: "RBWH Trolley Audit Executive Dashboard"
+   Name: "REdI Trolley Audit Executive Dashboard"
    Description: "Real-time compliance monitoring"
    ```
 

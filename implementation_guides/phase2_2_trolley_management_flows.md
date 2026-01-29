@@ -1,6 +1,6 @@
 # Phase 2.2 Trolley Management Flows Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -101,7 +101,7 @@ Notes                        Text      No
 1. Click **Add action** and search for "SharePoint"
 2. Select **Create item** (SharePoint connector)
 3. Configure:
-   - **Site Address:** Select your RBWH SharePoint site
+   - **Site Address:** Select the REdI Trolley Audit SharePoint site
    - **List Name:** Location
    - **Title:**
      ```
@@ -372,7 +372,7 @@ SaveNewTrolley_Flow Completion
 #### Step 2: Configure SharePoint Trigger
 
 1. In the trigger section:
-   - **Site Address:** Select your RBWH SharePoint site
+   - **Site Address:** Select the REdI Trolley Audit SharePoint site
    - **List Name:** Location
 
 #### Step 3: Add Condition to Check if New Item
@@ -404,7 +404,7 @@ Example Output: CHGLOC-20260125-47
 1. Click **Add action** and search for "SharePoint"
 2. Select **Create item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** LocationChangeLog
    - **Title:**
      ```
@@ -623,7 +623,7 @@ Add an action to retrieve the current Location item before updating:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Get item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** Location
    - **ID:**
      ```
@@ -657,7 +657,7 @@ Output:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Update item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** Location
    - **ID:**
      ```
@@ -925,7 +925,7 @@ UpdateTrolley_Flow Completion
 #### Step 2: Configure SharePoint Trigger
 
 In the trigger section:
-- **Site Address:** Your RBWH SharePoint site
+- **Site Address:** the REdI Trolley Audit SharePoint site
 - **List Name:** Location
 
 #### Step 3: Add Condition to Exclude Creation Events
@@ -951,7 +951,7 @@ Add an action to retrieve the previous version:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Get item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** Location
    - **ID:**
      ```
@@ -1045,7 +1045,7 @@ In practice, you can use a simplified version that lists common fields changed a
 1. Click **Add action** and search for "SharePoint"
 2. Select **Create item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** LocationChangeLog
    - **Title:**
      ```
@@ -1233,7 +1233,7 @@ Add an action to retrieve the location:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Get item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** Location
    - **ID:**
      ```
@@ -1246,7 +1246,7 @@ Add an action to retrieve the location:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Update item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** Location
    - **ID:**
      ```
@@ -1456,7 +1456,7 @@ DeactivateTrolley_Flow Completion
 #### Step 2: Configure SharePoint Trigger
 
 In the trigger section:
-- **Site Address:** Your RBWH SharePoint site
+- **Site Address:** the REdI Trolley Audit SharePoint site
 - **List Name:** Location
 
 #### Step 3: Add Condition for Status Change to Inactive
@@ -1479,7 +1479,7 @@ equals(triggerBody()?['Status'], 'Inactive')
 Add a **Get item** action to retrieve the location:
 
 ```
-Site Address: Your RBWH SharePoint site
+Site Address: the REdI Trolley Audit SharePoint site
 List Name: Location
 ID: triggerBody()?['ID']
 ```
@@ -1549,7 +1549,7 @@ Output:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Create item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** LocationChangeLog
    - **Title:**
      ```
@@ -1738,7 +1738,7 @@ Add an action to retrieve the location:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Get item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** Location
    - **ID:**
      ```
@@ -1751,7 +1751,7 @@ Add an action to retrieve the location:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Update item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** Location
    - **ID:**
      ```
@@ -1938,7 +1938,7 @@ ReactivateTrolley_Flow Completion
 #### Step 2: Configure SharePoint Trigger
 
 In the trigger section:
-- **Site Address:** Your RBWH SharePoint site
+- **Site Address:** the REdI Trolley Audit SharePoint site
 - **List Name:** Location
 
 #### Step 3: Add Condition for Status Change to Active
@@ -1961,7 +1961,7 @@ equals(triggerBody()?['Status'], 'Active')
 Add a **Get item** action:
 
 ```
-Site Address: Your RBWH SharePoint site
+Site Address: the REdI Trolley Audit SharePoint site
 List Name: Location
 ID: triggerBody()?['ID']
 ```
@@ -2012,7 +2012,7 @@ Output:
 1. Click **Add action** and search for "SharePoint"
 2. Select **Create item**
 3. Configure:
-   - **Site Address:** Your RBWH SharePoint site
+   - **Site Address:** the REdI Trolley Audit SharePoint site
    - **List Name:** LocationChangeLog
    - **Title:**
      ```
@@ -2348,7 +2348,7 @@ After completing Phase 2.2, proceed with:
 
 ### Key Documentation
 
-- RBWH Trolley Audit Task List: `RBWH_Trolley_Audit_Task_List.md`
+- REdI Trolley Audit Task List: `RBWH_Trolley_Audit_Task_List.md`
 - Phase 1.6 PowerApp Foundation: `phase1_6_powerapp_foundation.md`
 - SharePoint Location Schema: `sharepoint_schemas/Location.json`
 - SharePoint LocationChangeLog Schema: `sharepoint_schemas/LocationChangeLog.json`

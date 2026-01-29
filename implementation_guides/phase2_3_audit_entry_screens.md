@@ -1,6 +1,6 @@
 # Phase 2.3 Audit Entry Screens Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -185,7 +185,7 @@ Build the initial screen where auditors begin an audit by selecting a trolley lo
 |-----------|------|----------|-------|
 | ContinueButton | Button | Text | "Continue" |
 | ContinueButton | Button | OnSelect | See validation logic below |
-| ContinueButton | Button | Color | #2E7D32 (RBWH Green) |
+| ContinueButton | Button | Color | #2E7D32 (REdI Teal) |
 | ContinueButton | Button | Font color | White |
 | ContinueButton | Button | Height | 44px |
 | ContinueButton | Button | Width | 200px |

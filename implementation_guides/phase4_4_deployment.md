@@ -1,4 +1,4 @@
-# RBWH Trolley Audit System
+# REdI Trolley Audit System
 ## Phase 4.4 Deployment Implementation Guide
 
 **Document Version:** 1.0
@@ -23,7 +23,7 @@
 
 ## Executive Summary
 
-Phase 4.4 is the final phase of the RBWH Trolley Audit system implementation. This phase transitions the fully-tested system from development to production, ensuring users are trained, permissions are properly configured, and support infrastructure is in place.
+Phase 4.4 is the final phase of the REdI Trolley Audit system implementation. This phase transitions the fully-tested system from development to production, ensuring users are trained, permissions are properly configured, and support infrastructure is in place.
 
 ### Key Objectives
 
@@ -73,7 +73,7 @@ The User Guide should be created as both a PDF and web-based document in SharePo
 #### 1.1 Document Metadata
 
 ```markdown
-RBWH Trolley Audit System - User Guide for Auditors
+REdI Trolley Audit System - User Guide for Auditors
 Version: 1.0
 Date: [Current Date]
 Audience: Clinical Staff (Auditors)
@@ -102,9 +102,9 @@ Next Review: [6 months from now]
 ```markdown
 ## 1. Getting Started
 
-### What is the RBWH Trolley Audit System?
+### What is the REdI Trolley Audit System?
 
-The RBWH Trolley Audit System is a mobile-friendly PowerApp that enables:
+The REdI Trolley Audit System is a mobile-friendly PowerApp that enables:
 - Rapid completion of trolley audits (typically 15-20 minutes per trolley)
 - Standardized audit data collection across all departments
 - Real-time compliance tracking
@@ -146,16 +146,16 @@ The RBWH Trolley Audit System is a mobile-friendly PowerApp that enables:
 
 1. Open the Power Apps app
 2. Tap "Sign In"
-3. Enter your RBWH email address (firstname.lastname@rbwh.org.au)
-4. Enter your RBWH password
+3. Enter your Metro North Health email address (firstname.lastname@rbwh.org.au)
+4. Enter your Metro North Health password
 5. If prompted, choose "Accept" for app permissions
-6. Select "RBWH Trolley Audit" from your available apps
+6. Select "REdI Trolley Audit" from your available apps
 7. Tap "Open App"
 
 ### Step 3: Verify Access
 
 Once the app loads, you should see:
-- RBWH Trolley Audit logo at the top
+- REdI Trolley Audit logo at the top
 - "Home" screen with 4 main buttons
 - Current date and time
 - Your name in the top-right corner
@@ -788,7 +788,7 @@ A: Only if you're authorized. Search for the trolley - you'll only see those you
    - Confirm you're authorized to audit
    - Request access if needed
 2. Confirm correct tenant:
-   - You should see "RBWH" or hospital name
+   - You should see "REdI" or hospital name
    - Not a different organization's account
 3. If recently granted access:
    - Access changes take up to 2 hours to process
@@ -910,7 +910,7 @@ A: Only if you're authorized. Search for the trolley - you'll only see those you
 **Power Apps Help Center:**
 https://powerapps.microsoft.com/en-us/support/
 
-**RBWH SharePoint Help:**
+**REdI SharePoint Help:**
 https://sharepoint.rbwh.org.au/sites/it-support
 
 **System Status Page:**
@@ -952,7 +952,7 @@ The Admin Guide should cover two distinct audiences within a single document usi
 #### 2.1 Document Metadata
 
 ```markdown
-RBWH Trolley Audit System - Administrator Guide
+REdI Trolley Audit System - Administrator Guide
 Version: 1.0
 Date: [Current Date]
 Audience: MERT Educators, IT Administrators
@@ -986,19 +986,19 @@ As a MERT Educator, you have several responsibilities in the system:
 
 **Via PowerApp (Primary Method):**
 1. Open Power Apps app on tablet/phone
-2. Sign in with RBWH credentials
-3. Select "RBWH Trolley Audit" app
+2. Sign in with Metro North Health credentials
+3. Select "REdI Trolley Audit" app
 4. You'll see Home screen with admin options
 
 **Via Web Browser (For Reporting):**
 1. Navigate to https://app.powerbi.com/
-2. Sign in with RBWH credentials
-3. Select "RBWH Trolley Audit Reports" workspace
+2. Sign in with Metro North Health credentials
+3. Select "REdI Trolley Audit Reports" workspace
 4. View dashboards and reports
 
 **Via SharePoint (For Data Management):**
-1. Navigate to https://rbwh.sharepoint.com/sites/RBWHTrolleyAudit
-2. Sign in with RBWH credentials
+1. Navigate to https://[yourtenant].sharepoint.com/sites/REdITrolleyAudit
+2. Sign in with Metro North Health credentials
 3. Access individual lists for manual data management if needed
 
 ---
@@ -1008,7 +1008,7 @@ As a MERT Educator, you have several responsibilities in the system:
 **Purpose:** Quality assurance and issue identification.
 
 **Accessing Submitted Audits:**
-1. Open RBWH Trolley Audit app (PowerApp)
+1. Open REdI Trolley Audit app (PowerApp)
 2. From Home screen, tap "View Audits"
 3. You'll see list of all recent audits
 
@@ -1369,7 +1369,7 @@ rbwh-trolley-admins@rbwh.org.au
 **PowerApp Permissions:**
 
 ```
-RBWH Trolley Audit App (Canvas)
+REdI Trolley Audit App (Canvas)
 ├── Auditor Role
 │   ├── Can access: Audit entry screens, personal submissions
 │   ├── Cannot access: Admin screens, user management
@@ -1417,7 +1417,7 @@ RBWH Trolley Audit App (Canvas)
 
 4. **Configure PowerApp Access:**
    - Open Power Apps admin center
-   - Select app "RBWH Trolley Audit"
+   - Select app "REdI Trolley Audit"
    - Go to "Share" settings
    - Add security groups with appropriate roles
    - Configure role-based security via Power Fx formulas
@@ -1791,9 +1791,9 @@ For feedback or corrections to this guide, contact: it.support@rbwh.org.au
 
 ### SEGMENT 1: INTRODUCTION (1 minute)
 
-[VISUAL: Title slide with RBWH branding]
+[VISUAL: Title slide with REdI branding]
 
-NARRATOR: "Welcome to the RBWH Trolley Audit System training for auditors.
+NARRATOR: "Welcome to the REdI Trolley Audit System training for auditors.
 This video will walk you through completing your first audit from start to finish.
 By the end, you'll know exactly what to do when you open the app."
 
@@ -1816,12 +1816,12 @@ Search for 'Power Apps' and download the official Microsoft app."
 [VISUAL: Show app icon]
 
 NARRATOR: "Once installed, open the app and you'll see a login screen.
-Enter your RBWH email address - that's firstname dot lastname at RBWH dot org dot au"
+Enter your Metro North Health email address - that's firstname dot lastname at RBWH dot org dot au"
 
 [VISUAL: Demonstrate login with test account]
 
-NARRATOR: "Enter your RBWH network password, then accept the permissions.
-You'll see your available apps - select RBWH Trolley Audit."
+NARRATOR: "Enter your Metro North Health network password, then accept the permissions.
+You'll see your available apps - select REdI Trolley Audit."
 
 [VISUAL: App loading]
 
@@ -1834,7 +1834,7 @@ You'll see the Home screen once it's ready."
 
 [VISUAL: Screen recording - Home screen]
 
-NARRATOR: "Here's the Home screen. At the top, you'll see RBWH logo and your name.
+NARRATOR: "Here's the Home screen. At the top, you'll see REdI logo and your name.
 Below that are four main buttons."
 
 [VISUAL: Highlight each button]
@@ -2127,7 +2127,7 @@ NARRATOR: "If you get stuck at any point:
 [VISUAL: Show support contact options]
 
 NARRATOR: "That's it! You're ready to audit trolleys using the new system.
-Thank you for keeping RBWH resuscitation trolleys audit-ready and compliant."
+Thank you for keeping REdI resuscitation trolleys audit-ready and compliant."
 
 [VISUAL: Closing slide with branding]
 
@@ -2147,7 +2147,7 @@ END OF VIDEO
 
 [VISUAL: Title slide - Manager/Educator Edition]
 
-NARRATOR: "Welcome to the RBWH Trolley Audit System training for managers and educators.
+NARRATOR: "Welcome to the REdI Trolley Audit System training for managers and educators.
 This video shows you how to access audit data, review submissions,
 manage issues, and generate reports."
 
@@ -2167,13 +2167,13 @@ NARRATOR: "You'll learn:
 
 NARRATOR: "As a manager, you have two ways to access the system.
 First, you can use the mobile app just like auditors.
-Open Power Apps, select RBWH Trolley Audit, and you'll see manager options."
+Open Power Apps, select REdI Trolley Audit, and you'll see manager options."
 
 [VISUAL: Show app with manager menu]
 
 NARRATOR: "Second, and most useful for managers, is web access.
 Open a web browser and navigate to the app.powerbi.com site.
-Log in with your RBWH credentials."
+Log in with your Metro North Health credentials."
 
 [VISUAL: Show Power BI login]
 
@@ -2439,7 +2439,7 @@ Attendees: ~50 auditors across all service lines
 
 **0:15-0:30 (15 min) - System Access**
 - Download Power Apps app (demo on screen)
-- Login with RBWH credentials
+- Login with Metro North Health credentials
 - What if login fails? (troubleshooting)
 - Resetting passwords
 - Show what Home screen looks like
@@ -2759,7 +2759,7 @@ Equipment List
 **PowerApp Share Settings:**
 
 1. Open Power Apps admin center
-2. Select "RBWH Trolley Audit" app
+2. Select "REdI Trolley Audit" app
 3. Go to "Share" section
 4. Configure sharing:
    - rbwh-trolley-auditors: [User] role → can run app only
@@ -2959,15 +2959,15 @@ If critical permission issues discovered immediately after go-live:
 
 2. **Send Go-Live Announcement (5 min):**
    ```
-   Email Subject: "RBWH Trolley Audit System is Now Live!"
+   Email Subject: "REdI Trolley Audit System is Now Live!"
 
    Body:
-   "The new RBWH Trolley Audit System is now live.
+   "The new REdI Trolley Audit System is now live.
 
    How to access:
    - Open Power Apps app on your phone/tablet
    - Or visit [PowerApp URL] on computer
-   - Log in with your RBWH email
+   - Log in with your Metro North Health email
 
    First steps:
    1. Watch the training video (15 min)
@@ -3223,11 +3223,11 @@ Issue #1:
 ### Appendix B: Sample Training Email
 
 ```markdown
-Subject: RBWH Trolley Audit System - Training & Launch
+Subject: REdI Trolley Audit System - Training & Launch
 
-Dear RBWH Clinical Staff,
+Dear Clinical Staff,
 
-We're excited to announce the launch of the new RBWH Trolley Audit System!
+We're excited to announce the launch of the new REdI Trolley Audit System!
 
 WHAT'S LAUNCHING
 A new mobile app that makes trolley audits faster, easier, and more detailed.
@@ -3247,7 +3247,7 @@ WHAT YOU NEED TO DO
 
 1. WATCH THE TRAINING VIDEO (15 minutes)
    Link: [Training Video URL]
-   or see "RBWH Trolley Audit - Auditor Training" in SharePoint
+   or see "REdI Trolley Audit - Auditor Training" in SharePoint
 
 2. DOWNLOAD THE POWER APPS APP
    Search "Power Apps" in your device's app store
@@ -3311,7 +3311,7 @@ please share suggestions with your manager or MERT educators.
 
 Looking forward to seeing you audit!
 
-RBWH Medical Education & Simulation Team
+REdI Team, Workforce Development & Education Unit
 ```
 
 ---
@@ -3323,7 +3323,7 @@ Subject: Manager Launch Brief - Trolley Audit System Goes Live [Date]
 
 Dear Managers,
 
-The new RBWH Trolley Audit System launches [Date]. Here's what you need to know and do.
+The new REdI Trolley Audit System launches [Date]. Here's what you need to know and do.
 
 YOUR RESPONSIBILITIES
 

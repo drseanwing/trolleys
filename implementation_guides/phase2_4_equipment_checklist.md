@@ -1,4 +1,4 @@
-# RBWH Trolley Audit System
+# REdI Trolley Audit System
 ## Phase 2.4 Equipment Checklist Implementation Guide
 
 **Document Version:** 1.0
@@ -26,7 +26,7 @@
 
 ## Executive Summary
 
-This guide covers the implementation of the Equipment Checklist feature (Phase 2.4), which represents a critical enhancement to the RBWH Trolley Audit system. Instead of a binary "all items stocked" response, the audit now captures item-level detail with quantity tracking, expiry verification, and real-time compliance scoring.
+This guide covers the implementation of the Equipment Checklist feature (Phase 2.4), which represents a critical enhancement to the REdI Trolley Audit system. Instead of a binary "all items stocked" response, the audit now captures item-level detail with quantity tracking, expiry verification, and real-time compliance scoring.
 
 ### What You'll Complete
 
@@ -101,7 +101,7 @@ Gather the following before starting:
    - Any equipment exceptions by location
 
 3. **UI/UX Standards**
-   - RBWH brand colours from Phase 1.1
+   - REdI brand colours from Phase 1.1
    - Typography standards from Phase 1.6
    - Component library from Phase 1.6 (if available)
 
@@ -175,7 +175,7 @@ Create the AuditEquipment SharePoint list to store item-level equipment check re
 
 ### Prerequisites Checklist
 
-- [ ] SharePoint site (RBWH Trolley Audit) exists
+- [ ] SharePoint site (REdI Trolley Audit) exists
 - [ ] Equipment list created with 89 items
 - [ ] Audit list created with relationships configured
 - [ ] EquipmentCategory list populated
@@ -186,7 +186,7 @@ Create the AuditEquipment SharePoint list to store item-level equipment check re
 
 **Action:** Navigate to your SharePoint site and create a new list
 
-1. Go to **RBWH Trolley Audit** site
+1. Go to **REdI Trolley Audit** site
 2. Click **+ New** → **List**
 3. Select **Blank list**
 4. Name the list: **AuditEquipment**
@@ -390,7 +390,7 @@ EquipmentCheckScreen (Main screen)
 
 **Action:** Create a new screen in your PowerApp
 
-1. In your RBWH Trolley Audit app, click **+ New screen**
+1. In your REdI Trolley Audit app, click **+ New screen**
 2. Select **Blank**
 3. Rename screen to **EquipmentCheckScreen**
 
@@ -404,7 +404,7 @@ EquipmentCheckScreen (Main screen)
 
 **Header Container (Rectangle)**
 - Height: 80px
-- Fill: #005FAD (RBWH Primary Blue)
+- Fill: #1B3A5F (REdI Navy)
 - Position: Top, full width
 
 **Title Label**
@@ -432,7 +432,7 @@ EquipmentCheckScreen (Main screen)
 - Text: `Text(Round(EquipmentSubscore, 0)) & "% Complete"`
 - Font size: 24pt
 - Font weight: Bold
-- Colour: `If(EquipmentSubscore >= 90, ColorValue("#78BE20"), If(EquipmentSubscore >= 75, ColorValue("#FFB600"), ColorValue("#E81C23")))`
+- Colour: `If(EquipmentSubscore >= 90, ColorValue("#2B9E9E"), If(EquipmentSubscore >= 75, ColorValue("#FFB600"), ColorValue("#E81C23")))`
 - Position: (20px, 15px)
 
 **Subscore Detail Label**
@@ -553,11 +553,11 @@ EquipmentItemRow
 │   │   └── Text: If(quantityFound < quantityExpected,
 │   │            quantityFound - quantityExpected & " SHORT", "✓")
 │   │   └── Colour: If(quantityFound >= quantityExpected,
-│   │            ColorValue("#78BE20"), ColorValue("#E81C23"))
+│   │            ColorValue("#2B9E9E"), ColorValue("#E81C23"))
 │   │
 │   └── Status Indicator
 │       └── Icon: If(isCompliant, "✓", "✗")
-│       └── Colour: If(isCompliant, #78BE20, #E81C23)
+│       └── Colour: If(isCompliant, #2B9E9E, #E81C23)
 │
 └── Row 3: Notes Field (if applicable)
     └── Notes input
@@ -575,7 +575,7 @@ If(
   If(
     quantityFound < quantityExpected,
     ColorValue("#FFB600"),                  // Orange: Shortfall
-    ColorValue("#78BE20")                   // Green: Compliant
+    ColorValue("#2B9E9E")                   // Green: Compliant
   )
 )
 ```
@@ -908,7 +908,7 @@ BorderColor:
     ColorValue("#E81C23"),  // Red
     If(Value > quantityExpected,
       ColorValue("#FFB600"),  // Orange (overstocked)
-      ColorValue("#78BE20")   // Green (at expected)
+      ColorValue("#2B9E9E")   // Green (at expected)
     )
   )
 ```
@@ -1277,7 +1277,7 @@ Bold: true
 Color:
   If(
     varEquipmentSubscore >= 90,
-    ColorValue("#78BE20"),    // Green
+    ColorValue("#2B9E9E"),    // Green
     If(
       varEquipmentSubscore >= 75,
       ColorValue("#FFB600"),  // Orange
@@ -1336,7 +1336,7 @@ BorderColor:
           NumberInput_QuantityFound.Value > StandardQuantity,
           ColorValue("#FF9900"), // Light orange: Overstocked
 
-          ColorValue("#78BE20")  // Green: At expected
+          ColorValue("#2B9E9E")  // Green: At expected
         )
       )
     )
@@ -1447,7 +1447,7 @@ Set(varItemStatusSummary,
         varFilteredEquipment,
         NumberInput_QuantityFound.Value = StandardQuantity
       )),
-      Colour: ColorValue("#78BE20")  // Green
+      Colour: ColorValue("#2B9E9E")  // Green
     },
 
     {
@@ -1853,7 +1853,7 @@ After completing Phase 2.4, proceed with:
 
 For implementation questions or issues:
 
-- **SharePoint Admin:** [Contact RBWH IT]
+- **SharePoint Admin:** [Contact Metro North Health IT]
 - **PowerApp Development:** [Contact Power Platform Team]
 - **Business Logic:** [Contact MERT Educator]
 

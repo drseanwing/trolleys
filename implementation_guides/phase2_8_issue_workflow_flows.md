@@ -1,6 +1,6 @@
 # Phase 2.8 Issue Workflow Flows Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -203,7 +203,7 @@ The flow will receive data from PowerApp. Add input parameters:
 2. Search for "SharePoint"
 3. Select **Create item**
 4. Configure:
-   - **Site Address:** Select RBWH Trolley Audit site
+   - **Site Address:** Select REdI Trolley Audit site
    - **List Name:** Issue
 
 5. Click **Edit in advanced mode** to add all fields
@@ -387,7 +387,7 @@ In SharePoint, we need to count existing issues from the current year to generat
 2. Search for "SharePoint"
 3. Select **Get items**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
 
 5. Click **Edit in advanced mode** to add OData filter
@@ -573,7 +573,7 @@ Create a Power Automate flow triggered from PowerApp that assigns an issue to a 
 2. Search for "SharePoint"
 3. Select **Update item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -770,7 +770,7 @@ Create a Power Automate flow that saves a corrective action record linked to an 
 2. Search for "SharePoint"
 3. Select **Create item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** CorrectiveAction
 
 5. Click **Edit in advanced mode** for all fields
@@ -906,7 +906,7 @@ Modify the "Save Corrective Action" flow to detect if this is the first correcti
 4. Search for "SharePoint"
 5. Select **Get items**
 6. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** CorrectiveAction
    - **Filter Query:** `Issue/ID eq @{triggerBody()['issueId']}`
 
@@ -941,7 +941,7 @@ Condition: length(outputs('Get_items')?['body/value']) equals 0
 3. Search for "SharePoint"
 4. Select **Update item**
 5. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
    - **Status:** "In_Progress"
@@ -1097,7 +1097,7 @@ Create a Power Automate flow that saves a comment to an issue when submitted fro
 2. Search for "SharePoint"
 3. Select **Create item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** IssueComment
 
 5. Click **Edit in advanced mode** for field mappings
@@ -1269,7 +1269,7 @@ Create a Power Automate flow that updates an issue status from "In_Progress" to 
 2. Search for "SharePoint"
 3. Select **Update item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -1298,7 +1298,7 @@ Before updating, verify current status is "In_Progress" or "Assigned":
 3. Search for "SharePoint"
 4. Select **Get item**
 5. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -1445,7 +1445,7 @@ Create a Power Automate flow that updates an issue status from "Pending_Verifica
 2. Search for "SharePoint"
 3. Select **Get item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -1471,7 +1471,7 @@ This ensures only issues awaiting verification are updated.
 3. Search for "SharePoint"
 4. Select **Update item**
 5. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -1661,7 +1661,7 @@ Create a Power Automate flow that closes a resolved issue by updating status to 
 2. Search for "SharePoint"
 3. Select **Update item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -1815,7 +1815,7 @@ Create a Power Automate flow that reopens a closed issue by updating status back
 2. Search for "SharePoint"
 3. Select **Get item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -1827,7 +1827,7 @@ This retrieves current ReopenCount to increment it.
 2. Search for "SharePoint"
 3. Select **Update item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -1868,7 +1868,7 @@ After updating, automatically add a comment documenting the reopen:
 2. Search for "SharePoint"
 3. Select **Create item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** IssueComment
 
 5. Map fields:
@@ -2052,7 +2052,7 @@ Create a Power Automate flow that escalates an issue by incrementing EscalationL
 2. Search for "SharePoint"
 3. Select **Get item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -2085,7 +2085,7 @@ Escalation level determines which manager handles it:
 )
 ```
 
-**Note:** Customize email addresses to match your RBWH escalation hierarchy.
+**Note:** Customize email addresses to match your Metro North Health escalation hierarchy.
 
 #### Step 5: Add Update Issue Item Action
 
@@ -2093,7 +2093,7 @@ Escalation level determines which manager handles it:
 2. Search for "SharePoint"
 3. Select **Update item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** Issue
    - **ID:** @triggerBody()['issueId']
 
@@ -2127,7 +2127,7 @@ EscalationReason (if field exists):
 2. Search for "SharePoint"
 3. Select **Create item**
 4. Configure:
-   - **Site Address:** RBWH Trolley Audit site
+   - **Site Address:** REdI Trolley Audit site
    - **List Name:** IssueComment
 
 5. Map fields:
@@ -2249,7 +2249,7 @@ Day 29  Resolved       3      Director              Escalation 3 - Executive rev
 - [ ] Manual trigger with issueId, escalationReason, escalatedByEmail
 - [ ] Get item action retrieves current issue
 - [ ] Compose action calculates next escalation manager
-- [ ] Manager matrix matches RBWH organizational structure
+- [ ] Manager matrix matches Metro North Health organizational structure
 - [ ] Update item action maps all escalation fields
 - [ ] EscalationLevel incremented correctly
 - [ ] EscalatedTo set to appropriate manager email
@@ -2457,7 +2457,7 @@ Ensure all prerequisite tasks completed before 2.8:
 
 **Solution:**
 1. Update Compose expression in 2.8.11 with correct manager emails
-2. Validate against RBWH organizational chart
+2. Validate against Metro North Health organizational chart
 3. Test each escalation level separately (0→1, 1→2, 2→3)
 4. Verify manager email format is correct
 
@@ -2542,7 +2542,7 @@ Before deploying Phase 2.8 to production:
 ### Security & Permissions
 - [ ] Flows run with app identity (not user identity) where appropriate
 - [ ] Flows have minimum necessary permissions
-- [ ] Escalation matrix uses valid RBWH manager email addresses
+- [ ] Escalation matrix uses valid Metro North Health manager email addresses
 - [ ] User pickers in PowerApp restrict to organizational users only
 - [ ] Admin access to flow monitoring and error logs
 
@@ -2579,7 +2579,7 @@ Before deploying Phase 2.8 to production:
 
 ## Conclusion
 
-Phase 2.8 implements the complete issue workflow automation for the RBWH Trolley Audit system. The 11 flows manage the full lifecycle of issues from creation through resolution, with comprehensive status tracking, escalation, and audit trails.
+Phase 2.8 implements the complete issue workflow automation for the REdI Trolley Audit system. The 11 flows manage the full lifecycle of issues from creation through resolution, with comprehensive status tracking, escalation, and audit trails.
 
 Key accomplishments:
 - Automated issue numbering (ISS-YYYY-NNNN format)

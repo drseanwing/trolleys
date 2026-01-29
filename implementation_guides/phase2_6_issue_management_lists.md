@@ -1,4 +1,4 @@
-# RBWH Trolley Audit System
+# REdI Trolley Audit System
 ## Phase 2.6 Issue Management Lists Implementation Guide
 
 **Document Version:** 1.0
@@ -67,7 +67,7 @@ Phase 2.6 depends on:
 
 ### Required Access & Permissions
 
-- **SharePoint Admin** or **Site Owner** access to RBWH Trolley Audit site
+- **SharePoint Admin** or **Site Owner** access to REdI Trolley Audit site
 - Ability to create lists and configure columns
 - Power Automate access for calculated columns (if using flows)
 
@@ -235,7 +235,7 @@ The Issue list contains 18 columns organized into 5 categories:
 **Action:** Access SharePoint and initiate list creation
 
 ```
-1. Go to https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+1. Go to https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 2. Click "+ New" in the top left
 3. Select "List"
 4. Choose "Create from template" → "Blank list"
@@ -1015,7 +1015,7 @@ The CorrectiveAction list contains 7 columns:
 **Action:** Navigate to create new list
 
 ```
-1. Go to https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+1. Go to https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 2. Click "+ New"
 3. Select "List"
 4. Select "Create your own" or "Blank list"
@@ -1265,7 +1265,7 @@ The IssueComment list contains 4 columns:
 **Action:** Create new list
 
 ```
-1. Go to https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit
+1. Go to https://yourtenant.sharepoint.com/sites/REdITrolleyAudit
 2. Click "+ New" → "List"
 3. Select "Blank list"
 4. Enter name: "IssueComment"
@@ -2079,7 +2079,7 @@ Use this checklist to verify all Phase 2.6 tasks are complete and functioning co
 
 ## Summary
 
-You have successfully completed Phase 2.6 - Issue Management Lists for the RBWH Trolley Audit system.
+You have successfully completed Phase 2.6 - Issue Management Lists for the REdI Trolley Audit system.
 
 ### What Was Accomplished
 
@@ -2097,19 +2097,19 @@ You have successfully completed Phase 2.6 - Issue Management Lists for the RBWH 
 
 ### Key Artefacts Created
 
-1. **Issue List** (RBWH Trolley Audit / Issue)
+1. **Issue List** (REdI Trolley Audit / Issue)
    - Central issue tracking repository
    - 18 columns for comprehensive issue management
    - Links to Location, Audit, Equipment
    - Status workflow tracking
    - Escalation management
 
-2. **CorrectiveAction List** (RBWH Trolley Audit / CorrectiveAction)
+2. **CorrectiveAction List** (REdI Trolley Audit / CorrectiveAction)
    - Child list tracking actions to resolve issues
    - 7 columns with action classification
    - Links to parent Issue
 
-3. **IssueComment List** (RBWH Trolley Audit / IssueComment)
+3. **IssueComment List** (REdI Trolley Audit / IssueComment)
    - Audit trail of comments and updates
    - 4 columns for minimal tracking
    - Links to parent Issue

@@ -1,6 +1,6 @@
 # Phase 2.1 Trolley Management Screens Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -10,7 +10,7 @@ Document Type: Step-by-Step Implementation Guide
 
 ## Overview
 
-Phase 2.1 establishes comprehensive trolley management functionality within the RBWH Trolley Audit PowerApp. This phase creates a complete Trolley List screen with advanced filtering, sorting, and colour-coded status indicators, along with detailed Trolley Detail screens supporting both view and edit modes, optional equipment configuration, trolley creation workflows, and historical audit tracking.
+Phase 2.1 establishes comprehensive trolley management functionality within the REdI Trolley Audit PowerApp. This phase creates a complete Trolley List screen with advanced filtering, sorting, and colour-coded status indicators, along with detailed Trolley Detail screens supporting both view and edit modes, optional equipment configuration, trolley creation workflows, and historical audit tracking.
 
 **Phase Scope:** Tasks 2.1.1 through 2.1.18
 **Estimated Duration:** 18 hours
@@ -24,15 +24,15 @@ All components in Phase 2.1 use the following colour variables (defined in Phase
 
 | Colour Variable | Hex Code | Usage |
 |-----------------|----------|-------|
-| PrimaryColor | #005FAD | Headers, primary buttons, navigation |
-| SecondaryColor | #78BE20 | Success states, positive indicators |
-| AccentColor | #E35205 | Warnings, attention-required items |
+| PrimaryColor | #1B3A5F | Headers, primary buttons, navigation |
+| InteractiveColor | #2B9E9E | Success states, positive indicators |
+| AccentColor | #E55B64 | Warnings, attention-required items |
 | BackgroundColor | #F5F5F5 | Screen backgrounds, card backgrounds |
 | TextPrimary | #333333 | Headings, body text |
 | TextSecondary | #666666 | Helper text, captions, secondary info |
 | BorderColor | #C8C8C8 | Dividers, borders, separator lines |
-| ErrorColor | #E53D3D | Error messages, failed validations |
-| SuccessColor | #4CAF50 | Success messages, completed actions |
+| ErrorColor | #DC3545 | Error messages, failed validations |
+| SuccessColor | #28A745 | Success messages, completed actions |
 
 ---
 
@@ -317,10 +317,10 @@ For each table row, add conditional formatting based on audit recency:
        IsBlank(DaysSinceLastAudit),
        RGBA(255, 200, 200, 0.3),  // Light red for never audited
        DaysSinceLastAudit < 30,
-       RGBA(120, 190, 32, 0.2),   // Light green for <30 days
+       RGBA(43, 158, 158, 0.2),   // Light green for <30 days
        DaysSinceLastAudit < 60,
        RGBA(255, 200, 0, 0.2),    // Light yellow for 30-60 days
-       RGBA(229, 61, 61, 0.2)     // Light red for >60 days
+       RGBA(220, 53, 69, 0.2)     // Light red for >60 days
    )
    ```
 
@@ -344,7 +344,7 @@ If(
     User().Email in colMERTEducators,
     Button(
         Text: "Edit",
-        Fill: SecondaryColor,
+        Fill: InteractiveColor,
         TextColor: White,
         OnSelect: Set(varSelectedTrolley, ThisItem); Set(varEditMode, true); Navigate(TrolleyDetailScreen, ScreenTransition.Fade)
     ),
@@ -440,15 +440,15 @@ Colour coding formula for row highlighting:
 If(
     IsBlank(ThisItem.DaysSinceLastAudit) Or ThisItem.DaysSinceLastAudit > 999,
     // Never audited - red
-    RGBA(229, 61, 61, 0.15),
+    RGBA(220, 53, 69, 0.15),
     ThisItem.DaysSinceLastAudit < 30,
     // Recently audited - green
-    RGBA(76, 175, 80, 0.15),
+    RGBA(40, 167, 69, 0.15),
     ThisItem.DaysSinceLastAudit < 60,
     // Pending audit - yellow
     RGBA(255, 193, 7, 0.15),
     // Overdue - red
-    RGBA(229, 61, 61, 0.15)
+    RGBA(220, 53, 69, 0.15)
 )
 ```
 
@@ -625,7 +625,7 @@ If(
 
 ### Objective
 
-Implement Building filter with all 8 RBWH buildings/locations, filtering trolley list accordingly.
+Implement Building filter with all 8 campus buildings/locations, filtering trolley list accordingly.
 
 ### Prerequisites
 
@@ -791,7 +791,7 @@ Implement Status filter showing Active/Inactive/Pending trolleys with proper fil
    ```powerfx
    If(
        Status = "Active",
-       SecondaryColor,
+       InteractiveColor,
        Status = "Inactive",
        BorderColor,
        AccentColor  // Pending
@@ -831,7 +831,7 @@ If(
 // Status Badge Fill (for row indicator)
 If(
     ThisItem.Status = "Active",
-    SecondaryColor,      // Green
+    InteractiveColor,      // Green
     ThisItem.Status = "Inactive",
     ErrorColor,          // Red
     ThisItem.Status = "Pending",
@@ -1176,15 +1176,15 @@ Add colour-coded row backgrounds and status indicators showing audit recency: gr
    If(
        Or(IsBlank(ThisItem.DaysSinceLastAudit), ThisItem.DaysSinceLastAudit > 999),
        // Never audited - light red
-       RGBA(229, 61, 61, 0.15),
+       RGBA(220, 53, 69, 0.15),
        ThisItem.DaysSinceLastAudit < 30,
        // Recently audited (<30 days) - light green
-       RGBA(76, 175, 80, 0.15),
+       RGBA(40, 167, 69, 0.15),
        And(ThisItem.DaysSinceLastAudit >= 30, ThisItem.DaysSinceLastAudit < 60),
        // Pending audit (30-60 days) - light yellow
        RGBA(255, 193, 7, 0.15),
        // Overdue audit (>60 days) - light red
-       RGBA(229, 61, 61, 0.15)
+       RGBA(220, 53, 69, 0.15)
    )
    ```
 
@@ -1273,15 +1273,15 @@ Complete colour coding implementation:
 If(
     Or(IsBlank(ThisItem.DaysSinceLastAudit), ThisItem.DaysSinceLastAudit > 999),
     // Never audited or invalid
-    RGBA(229, 61, 61, 0.12),        // Red @ 12% opacity
+    RGBA(220, 53, 69, 0.12),        // Red @ 12% opacity
     ThisItem.DaysSinceLastAudit < 30,
     // Recently audited (< 30 days) - GOOD
-    RGBA(76, 175, 80, 0.12),        // Green @ 12% opacity
+    RGBA(40, 167, 69, 0.12),        // Green @ 12% opacity
     And(ThisItem.DaysSinceLastAudit >= 30, ThisItem.DaysSinceLastAudit < 60),
     // Pending audit (30-60 days) - WARNING
     RGBA(255, 193, 7, 0.12),        // Amber @ 12% opacity
     // Overdue audit (> 60 days) - CRITICAL
-    RGBA(229, 61, 61, 0.12)         // Red @ 12% opacity
+    RGBA(220, 53, 69, 0.12)         // Red @ 12% opacity
 )
 
 // Status Indicator Badge Fill
@@ -1347,9 +1347,9 @@ Label_RedCount.Text =
 
 | Component | Specification |
 |-----------|----------------|
-| Green Row Fill | RGBA(76, 175, 80, 0.12) |
+| Green Row Fill | RGBA(40, 167, 69, 0.12) |
 | Yellow Row Fill | RGBA(255, 193, 7, 0.12) |
-| Red Row Fill | RGBA(229, 61, 61, 0.12) |
+| Red Row Fill | RGBA(220, 53, 69, 0.12) |
 | Badge Size | 20x20 pixels |
 | Font Size | 11pt for status text |
 | Legend Position | 20px above table |
@@ -1526,7 +1526,7 @@ Build the Trolley Detail screen displaying comprehensive information about a sin
    ```powerfx
    Button(
        Text: "Full Audit History",
-       Fill: SecondaryColor,
+       Fill: InteractiveColor,
        OnSelect: Set(varSelectedTab, "History")
    )
    ```
@@ -1970,7 +1970,7 @@ Refresh(Location)
 | Text Input | BorderColor | BorderColor |
 | | BorderThickness | 1 |
 | Dropdown | BorderColor | BorderColor |
-| Save Button | Fill | SuccessColor (#4CAF50) |
+| Save Button | Fill | SuccessColor (#28A745) |
 | | TextColor | White |
 | Cancel Button | Fill | BorderColor |
 | Validation Error | Color | ErrorColor |
@@ -3034,8 +3034,8 @@ Implement the Trolley History tab showing complete audit history, issues log, an
 
 2. Format chart:
    - Y-axis range: 0-100%
-   - Colour: `SecondaryColor` (green)
-   - Target line at 80% (RBWH target)
+   - Colour: `InteractiveColor` (green)
+   - Target line at 80% (compliance target)
 
 #### Step 4: Add Issues History
 
@@ -3428,7 +3428,7 @@ After completing Phase 2.1, proceed with:
 ### Key Resources
 
 - **Phase 1.6 PowerApp Foundation:** `implementation_guides/phase1_6_powerapp_foundation.md`
-- **RBWH Program Specification:** `RBWH_Trolley_Audit_Program_Specification_v2.md`
+- **REdI Program Specification:** `RBWH_Trolley_Audit_Program_Specification_v2.md`
 - **SharePoint Location Schema:** `sharepoint_schemas/Location.json`
 - **Seed Data:** `seed_data/Location.json`
 

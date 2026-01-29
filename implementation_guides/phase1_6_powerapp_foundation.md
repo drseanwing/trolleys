@@ -1,6 +1,6 @@
 # Phase 1.6 PowerApp Foundation Implementation Guide
 
-**RBWH Resuscitation Trolley Audit System**
+**REdI Resuscitation Trolley Audit System**
 
 Version: 1.0
 Date: January 2026
@@ -10,7 +10,7 @@ Document Type: Step-by-Step Implementation Guide
 
 ## Overview
 
-Phase 1.6 establishes the foundational PowerApp infrastructure for the RBWH Trolley Audit system. This phase creates a canvas app with tablet/phone layouts, configures all SharePoint data connections, establishes the colour theme, builds core navigation, and creates the Home screen dashboard foundation.
+Phase 1.6 establishes the foundational PowerApp infrastructure for the REdI Trolley Audit system. This phase creates a canvas app with tablet/phone layouts, configures all SharePoint data connections, establishes the colour theme, builds core navigation, and creates the Home screen dashboard foundation.
 
 **Phase Scope:** Tasks 1.6.1 through 1.6.6
 **Estimated Duration:** 11 hours
@@ -27,7 +27,7 @@ Initialize a new Canvas PowerApp with tablet layout (1366x768) and enable phone 
 ### Prerequisites
 
 - Power Apps environment access with app creation permissions
-- SharePoint site "RBWH Trolley Audit" must exist (Task 1.1.1)
+- SharePoint site "REdI Trolley Audit" must exist (Task 1.1.1)
 
 ### Step-by-Step Instructions
 
@@ -37,7 +37,7 @@ Initialize a new Canvas PowerApp with tablet layout (1366x768) and enable phone 
 2. Sign in with your organizational account
 3. In the left navigation, select **Create**
 4. Click **Canvas app** under the "Start from blank" section
-5. Name your app: `RBWH_Trolley_Audit_App`
+5. Name your app: `REdI_Trolley_Audit_App`
 6. Choose **Tablet** as the format
 7. Click **Create**
 
@@ -48,7 +48,7 @@ Initialize a new Canvas PowerApp with tablet layout (1366x768) and enable phone 
 1. Select **File** from the top menu
 2. Select **App settings** from the left menu
 3. Note the following details:
-   - **App name:** RBWH_Trolley_Audit_App
+   - **App name:** REdI_Trolley_Audit_App
    - **App ID:** (auto-generated)
    - **Orientation:** Select **Portrait** (recommended for clinical use)
    - **Size:** Verify as **Tablet** (1366 x 768 px)
@@ -101,7 +101,7 @@ None required for this task (UI configuration only)
 
 ### Verification Checklist
 
-- [ ] App successfully created with name "RBWH_Trolley_Audit_App"
+- [ ] App successfully created with name "REdI_Trolley_Audit_App"
 - [ ] Tablet layout displays correctly (1366 x 768)
 - [ ] Phone layout enabled and accessible from preview
 - [ ] Orientation set to Portrait
@@ -135,7 +135,7 @@ Connect the PowerApp to all 10 SharePoint lists required for the audit system.
   - (Optional: AuditEquipment for Phase 2)
 
 - User must have read/write permissions to SharePoint site
-- SharePoint site URL must be known (e.g., `https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit`)
+- SharePoint site URL must be known (e.g., `https://yourtenant.sharepoint.com/sites/REdITrolleyAudit`)
 
 ### Step-by-Step Instructions
 
@@ -147,7 +147,7 @@ Connect the PowerApp to all 10 SharePoint lists required for the audit system.
 4. Select the **SharePoint** connector
 5. Click **Connect**
 6. A dialog appears asking for the SharePoint site URL
-7. Enter your SharePoint site URL: `https://yourtenant.sharepoint.com/sites/RBWHTrolleyAudit`
+7. Enter your SharePoint site URL: `https://yourtenant.sharepoint.com/sites/REdITrolleyAudit`
 8. Click **Connect**
 
 *Expected Result:* You see the SharePoint connector is now active with your site listed
@@ -302,15 +302,15 @@ ClearCollect(
 
 ### Objective
 
-Define colour variables aligned with RBWH branding for consistent UI appearance throughout the app.
+Define colour variables aligned with REdI branding for consistent UI appearance throughout the app.
 
 ### Prerequisites
 
 - Task 1.6.1 completed (app exists)
-- Colour palette provided:
-  - Primary: #005FAD (Queensland Health Blue)
-  - Secondary: #78BE20 (Queensland Health Green)
-  - Accent: #E35205 (Warning Orange)
+- Colour palette provided (REdI Brand Guidelines v1.0):
+  - Primary: #1B3A5F (REdI Navy - Headers, backgrounds)
+  - Accent: #E55B64 (REdI Coral - Primary brand, highlights)
+  - Interactive: #2B9E9E (REdI Teal - Accents, interactive elements)
   - Background: #F5F5F5 (Light Grey)
   - Text Primary: #333333 (Dark Grey)
   - Text Secondary: #666666 (Medium Grey)
@@ -331,17 +331,17 @@ Define colour variables aligned with RBWH branding for consistent UI appearance 
 3. Enter the following formula to initialize all theme colours:
 
 ```powerfx
-Set(PrimaryColor, RGBA(0, 95, 173, 1));
-Set(SecondaryColor, RGBA(120, 190, 32, 1));
-Set(AccentColor, RGBA(227, 82, 5, 1));
+Set(PrimaryColor, RGBA(27, 58, 95, 1));
+Set(AccentColor, RGBA(229, 91, 100, 1));
+Set(InteractiveColor, RGBA(43, 158, 158, 1));
 Set(BackgroundColor, RGBA(245, 245, 245, 1));
 Set(TextPrimary, RGBA(51, 51, 51, 1));
 Set(TextSecondary, RGBA(102, 102, 102, 1));
 Set(BorderColor, RGBA(200, 200, 200, 1));
-Set(ErrorColor, RGBA(229, 61, 61, 1));
-Set(SuccessColor, RGBA(76, 175, 80, 1));
-Set(WarningColor, RGBA(255, 152, 0, 1));
-Set(InfoColor, RGBA(33, 150, 243, 1))
+Set(ErrorColor, RGBA(220, 53, 69, 1));
+Set(SuccessColor, RGBA(40, 167, 69, 1));
+Set(WarningColor, RGBA(255, 193, 7, 1));
+Set(InfoColor, RGBA(23, 162, 184, 1))
 ```
 
 #### Step 3: Verify Global Variables
@@ -355,13 +355,19 @@ Set(InfoColor, RGBA(33, 150, 243, 1))
 Create a reference by adding comments to your OnStart:
 
 ```powerfx
-// RBWH Colour Theme - Initialized at app startup
-// Queensland Health Design System alignment
+// REdI Colour Theme - Initialized at app startup
+// REdI Brand Guidelines v1.0 alignment
 
 // Primary Branding Colours
-Set(PrimaryColor, RGBA(0, 95, 173, 1));         // #005FAD Blue
-Set(SecondaryColor, RGBA(120, 190, 32, 1));    // #78BE20 Green
-Set(AccentColor, RGBA(227, 82, 5, 1));         // #E35205 Orange
+Set(PrimaryColor, RGBA(27, 58, 95, 1));        // #1B3A5F REdI Navy
+Set(AccentColor, RGBA(229, 91, 100, 1));       // #E55B64 REdI Coral
+Set(InteractiveColor, RGBA(43, 158, 158, 1));  // #2B9E9E REdI Teal
+
+// Secondary Colours
+Set(LightTealColor, RGBA(141, 212, 212, 1));   // #8DD4D4 Light Teal
+Set(LimeColor, RGBA(184, 204, 38, 1));         // #B8CC26 Lime Green
+Set(SkyColor, RGBA(93, 173, 226, 1));          // #5DADE2 Sky Blue
+Set(YellowColor, RGBA(244, 208, 63, 1));       // #F4D03F Warm Yellow
 
 // Neutral Colours
 Set(BackgroundColor, RGBA(245, 245, 245, 1));  // #F5F5F5 Light Grey
@@ -369,17 +375,23 @@ Set(TextPrimary, RGBA(51, 51, 51, 1));         // #333333 Dark Grey
 Set(TextSecondary, RGBA(102, 102, 102, 1));    // #666666 Medium Grey
 Set(BorderColor, RGBA(200, 200, 200, 1));      // #C8C8C8 Border Grey
 
-// Status Colours
-Set(ErrorColor, RGBA(229, 61, 61, 1));         // #E53D3D Red
-Set(SuccessColor, RGBA(76, 175, 80, 1));       // #4CAF50 Green
-Set(WarningColor, RGBA(255, 152, 0, 1));       // #FF9800 Amber
-Set(InfoColor, RGBA(33, 150, 243, 1));         // #2196F3 Blue
+// Semantic/Status Colours
+Set(ErrorColor, RGBA(220, 53, 69, 1));         // #DC3545 Alert Red
+Set(SuccessColor, RGBA(40, 167, 69, 1));       // #28A745 Success Green
+Set(WarningColor, RGBA(255, 193, 7, 1));       // #FFC107 Warning Amber
+Set(InfoColor, RGBA(23, 162, 184, 1));         // #17A2B8 Info Blue
 
-// Typography
-Set(FontSizeLarge, 24);
-Set(FontSizeNormal, 14);
-Set(FontSizeSmall, 12);
-Set(FontWeightBold, 600);
+// Typography (Montserrat font family)
+Set(FontSizeH1, 40);       // 2.5rem
+Set(FontSizeH2, 32);       // 2rem
+Set(FontSizeH3, 24);       // 1.5rem
+Set(FontSizeH4, 20);       // 1.25rem
+Set(FontSizeBody, 16);     // 1rem
+Set(FontSizeSmall, 14);    // 0.875rem
+Set(FontSizeCaption, 12);  // 0.75rem
+Set(FontWeightBold, 700);
+Set(FontWeightSemiBold, 600);
+Set(FontWeightMedium, 500);
 Set(FontWeightNormal, 400)
 ```
 
@@ -401,13 +413,14 @@ Create a new **Label** control temporarily:
 2. Set **Visible** to `false`
 3. Set **Text** to:
 ```
-"COLOUR THEME REFERENCE:
-Primary Blue: #005FAD - Headers, Buttons, Links
-Secondary Green: #78BE20 - Success States
-Accent Orange: #E35205 - Warnings, Attention
+"COLOUR THEME REFERENCE (REdI Brand Guidelines v1.0):
+REdI Navy: #1B3A5F - Headers, Navigation, Backgrounds
+REdI Coral: #E55B64 - Primary Brand, Buttons, Highlights
+REdI Teal: #2B9E9E - Accents, Interactive Elements
 Background: #F5F5F5 - Screen Background
 Text Primary: #333333 - Headings, Body Text
-Text Secondary: #666666 - Helper Text, Captions"
+Text Secondary: #666666 - Helper Text, Captions
+Font: Montserrat (400, 500, 600, 700)"
 ```
 
 4. Delete this label after noting colours
@@ -417,13 +430,20 @@ Text Secondary: #666666 - Helper Text, Captions"
 Complete theme initialization formula for App.OnStart:
 
 ```powerfx
-// RBWH Trolley Audit System - Colour Theme Initialization
+// REdI Trolley Audit System - Colour Theme Initialization
 // Execute on app startup to define global colour variables
+// Based on REdI Brand Guidelines v1.0
 
-// Primary Branding (RBWH Queensland Health Design System)
-Set(PrimaryColor, RGBA(0, 95, 173, 1));         // #005FAD - Main brand blue
-Set(SecondaryColor, RGBA(120, 190, 32, 1));    // #78BE20 - Supporting green
-Set(AccentColor, RGBA(227, 82, 5, 1));         // #E35205 - Alert orange
+// Primary Branding (REdI - Resuscitation EDucation Initiative)
+Set(PrimaryColor, RGBA(27, 58, 95, 1));        // #1B3A5F - REdI Navy (headers, backgrounds)
+Set(AccentColor, RGBA(229, 91, 100, 1));       // #E55B64 - REdI Coral (primary brand, highlights)
+Set(InteractiveColor, RGBA(43, 158, 158, 1));  // #2B9E9E - REdI Teal (accents, interactive)
+
+// Secondary Colours
+Set(LightTealColor, RGBA(141, 212, 212, 1));   // #8DD4D4 - Backgrounds, secondary elements
+Set(LimeColor, RGBA(184, 204, 38, 1));         // #B8CC26 - Event branding, callouts
+Set(SkyColor, RGBA(93, 173, 226, 1));          // #5DADE2 - Information, links
+Set(YellowColor, RGBA(244, 208, 63, 1));       // #F4D03F - Warnings, highlights
 
 // Neutral & Background
 Set(BackgroundColor, RGBA(245, 245, 245, 1));  // #F5F5F5 - Page background
@@ -431,17 +451,23 @@ Set(TextPrimary, RGBA(51, 51, 51, 1));         // #333333 - Primary text
 Set(TextSecondary, RGBA(102, 102, 102, 1));    // #666666 - Secondary text
 Set(BorderColor, RGBA(200, 200, 200, 1));      // #C8C8C8 - Dividers & borders
 
-// Status Indicators
-Set(ErrorColor, RGBA(229, 61, 61, 1));         // #E53D3D - Errors
-Set(SuccessColor, RGBA(76, 175, 80, 1));       // #4CAF50 - Success
-Set(WarningColor, RGBA(255, 152, 0, 1));       // #FF9800 - Warnings
-Set(InfoColor, RGBA(33, 150, 243, 1));         // #2196F3 - Information
+// Semantic/Status Indicators (Clinical)
+Set(ErrorColor, RGBA(220, 53, 69, 1));         // #DC3545 - Critical alerts, errors
+Set(SuccessColor, RGBA(40, 167, 69, 1));       // #28A745 - Positive actions, completions
+Set(WarningColor, RGBA(255, 193, 7, 1));       // #FFC107 - Caution, attention needed
+Set(InfoColor, RGBA(23, 162, 184, 1));         // #17A2B8 - Informational content
 
-// Typography (Font Sizes)
-Set(FontSizeLarge, 24);      // Headers
-Set(FontSizeNormal, 14);     // Body text
-Set(FontSizeSmall, 12);      // Captions
-Set(FontWeightBold, 600);    // Bold text
+// Typography (Montserrat type scale)
+Set(FontSizeH1, 40);       // 2.5rem - Bold (700)
+Set(FontSizeH2, 32);       // 2rem - SemiBold (600)
+Set(FontSizeH3, 24);       // 1.5rem - SemiBold (600)
+Set(FontSizeH4, 20);       // 1.25rem - Medium (500)
+Set(FontSizeBody, 16);     // 1rem - Regular (400)
+Set(FontSizeSmall, 14);    // 0.875rem - Regular (400)
+Set(FontSizeCaption, 12);  // 0.75rem - Regular (400)
+Set(FontWeightBold, 700);
+Set(FontWeightSemiBold, 600);
+Set(FontWeightMedium, 500);
 Set(FontWeightNormal, 400)   // Regular text
 ```
 
@@ -449,17 +475,21 @@ Set(FontWeightNormal, 400)   // Regular text
 
 | Colour Variable | Hex Code | RGB Values | Purpose |
 |-----------------|----------|-----------|---------|
-| PrimaryColor | #005FAD | 0,95,173 | Headers, primary buttons, navigation |
-| SecondaryColor | #78BE20 | 120,190,32 | Success states, positive indicators |
-| AccentColor | #E35205 | 227,82,5 | Warnings, attention-required items |
+| PrimaryColor | #1B3A5F | 27,58,95 | REdI Navy - Headers, navigation, backgrounds |
+| AccentColor | #E55B64 | 229,91,100 | REdI Coral - Primary brand, buttons, highlights |
+| InteractiveColor | #2B9E9E | 43,158,158 | REdI Teal - Accents, interactive elements |
+| LightTealColor | #8DD4D4 | 141,212,212 | Backgrounds, secondary elements |
+| LimeColor | #B8CC26 | 184,204,38 | Event branding, callouts |
+| SkyColor | #5DADE2 | 93,173,226 | Information, links |
+| YellowColor | #F4D03F | 244,208,63 | Warnings, highlights |
 | BackgroundColor | #F5F5F5 | 245,245,245 | Screen backgrounds, card backgrounds |
 | TextPrimary | #333333 | 51,51,51 | Headings, body text |
 | TextSecondary | #666666 | 102,102,102 | Helper text, captions, secondary info |
 | BorderColor | #C8C8C8 | 200,200,200 | Dividers, borders, separator lines |
-| ErrorColor | #E53D3D | 229,61,61 | Error messages, failed validations |
-| SuccessColor | #4CAF50 | 76,175,80 | Success messages, completed actions |
-| WarningColor | #FF9800 | 255,152,0 | Warnings, cautions |
-| InfoColor | #2196F3 | 33,150,243 | Information, help text |
+| ErrorColor | #DC3545 | 220,53,69 | Critical alerts, stop actions |
+| SuccessColor | #28A745 | 40,167,69 | Positive actions, completions |
+| WarningColor | #FFC107 | 255,193,7 | Caution, attention needed |
+| InfoColor | #17A2B8 | 23,162,184 | Informational content |
 
 ### Verification Checklist
 
@@ -478,14 +508,14 @@ Set(FontWeightNormal, 400)   // Regular text
 
 ### Objective
 
-Build a reusable navigation header component with RBWH logo, app title, navigation menu, and current user display.
+Build a reusable navigation header component with REdI logo, app title, navigation menu, and current user display.
 
 ### Prerequisites
 
 - Task 1.6.1-1.6.3 completed
 - Colour theme variables initialized (Task 1.6.3)
 - SharePoint connections configured (Task 1.6.2)
-- Logo image file (recommend RBWH logo or Queensland Health logo)
+- Logo image file (redi-logo-primary-rgb.svg or redi-logo-reversed-rgb.svg for dark backgrounds)
 
 ### Step-by-Step Instructions
 
@@ -513,8 +543,8 @@ Build a reusable navigation header component with RBWH logo, app title, navigati
 3. Set **Image** property to your logo file
 4. Optional: Use a placeholder text if logo unavailable:
    - Delete the image
-   - Add a **Label** with text "RBWH"
-   - Set fill color to `SecondaryColor`
+   - Add a **Label** with text "REdI"
+   - Set fill color to `AccentColor`
 
 #### Step 3: Add App Title
 
@@ -555,7 +585,7 @@ Table(
    - **Font:** 12pt, Bold
    - **Color:** White
    - **Padding:** 10px horizontal
-   - **Hover:** Set `Fill` to `SecondaryColor` with semi-transparency
+   - **Hover:** Set `Fill` to `AccentColor` with semi-transparency
 
 #### Step 5: Add User Information Display
 
@@ -711,27 +741,28 @@ If(
 |-----------|----------|-------|
 | Header Rectangle | Width | 1366 |
 | | Height | 80 |
-| | Fill | PrimaryColor (#005FAD) |
+| | Fill | PrimaryColor (#1B3A5F REdI Navy) |
 | | ZIndex | 100 |
 | Logo Image | Width | 60 |
 | | Height | 60 |
-| App Title | Font Size | 28pt |
-| | Font Weight | Bold |
+| | Source | redi-logo-reversed-rgb.svg |
+| App Title | Font | Montserrat, 28pt |
+| | Font Weight | Bold (700) |
 | | Text Color | White |
 | Menu Gallery | Items | colNavigationMenu |
 | | Columns | 5 |
-| Menu Labels | Font Size | 12pt |
-| | Font Weight | Bold |
+| Menu Labels | Font | Montserrat, 12pt |
+| | Font Weight | SemiBold (600) |
 | | Text Color | White |
-| | Hover Fill | SecondaryColor at 80% |
-| User Label | Font Size | 12pt |
+| | Hover Fill | AccentColor (#E55B64) at 80% |
+| User Label | Font | Montserrat, 12pt |
 | | Text Color | White |
 | | Position | Right-aligned |
 
 ### Verification Checklist
 
 - [ ] Header rectangle displays across full app width at top
-- [ ] RBWH logo or placeholder displays in header
+- [ ] REdI logo or placeholder displays in header
 - [ ] App title "Trolley Audit System" visible in header
 - [ ] Navigation menu items display horizontally
 - [ ] All 5 menu items visible: Home, Trolleys, Audit, Issues, Reports
@@ -741,7 +772,7 @@ If(
 - [ ] Clicking menu items navigates to correct screens (after screens are created)
 - [ ] Header remains fixed when scrolling (ZIndex = 100)
 - [ ] No horizontal scrollbar appears at 1366px width
-- [ ] Logo and text colours are legible against blue background
+- [ ] Logo and text colours are legible against navy background
 
 ---
 
@@ -871,7 +902,7 @@ Build the Home screen dashboard structure with sections for KPI cards, recent au
 
    - **Button 2:** "View Trolleys"
      - Text: "View Trolleys"
-     - Fill: `SecondaryColor`
+     - Fill: `InteractiveColor`
      - Text Color: White
      - OnSelect: `Navigate(TrolleysScreen)`
 
@@ -1135,7 +1166,7 @@ Set(
 2. Add a large **Label** for the metric value:
    - **Text:** `"87%"` (placeholder)
    - **Font Size:** 48pt, Bold
-   - **Color:** `SecondaryColor`
+   - **Color:** `InteractiveColor`
    - **Align:** Center
    - **Y:** 10
 
@@ -1319,7 +1350,7 @@ If(
 | Card 1 | Audit Completion Rate | 89% | PrimaryColor | ReportsScreen |
 | Card 2 | Open Issues Count | 12 | AccentColor | IssuesScreen |
 | Card 3 | Overdue Audits | 3 | ErrorColor | TrolleysScreen |
-| Card 4 | Avg Compliance Score | 87% | SecondaryColor | ReportsScreen |
+| Card 4 | Avg Compliance Score | 87% | InteractiveColor | ReportsScreen |
 
 ### Verification Checklist
 
@@ -1358,14 +1389,14 @@ If(
 
 ### Task 1.6.3: Colour Theme
 - [ ] All 11 colour variables initialized
-- [ ] Colours match RBWH design standards
+- [ ] Colours match REdI design standards
 - [ ] App.OnStart executes without errors
 - [ ] Variables verified in Power Apps Monitor
 - [ ] Canvas background displays correct colour
 
 ### Task 1.6.4: Navigation Component
 - [ ] Header displays across full width
-- [ ] Logo/RBWH branding visible
+- [ ] Logo/REdI branding visible
 - [ ] App title displays correctly
 - [ ] 5 navigation menu items visible
 - [ ] Current user name displays
@@ -1393,7 +1424,7 @@ If(
 - [ ] All formulas calculate without errors
 
 ### General Quality Checks
-- [ ] App name documented: RBWH_Trolley_Audit_App
+- [ ] App name documented: REdI_Trolley_Audit_App
 - [ ] All screens accessible from navigation
 - [ ] No hardcoded colours (all use variables)
 - [ ] No console errors or warnings
@@ -1492,8 +1523,8 @@ After completing Phase 1.6, proceed with:
 
 ### Related Documentation
 
-- RBWH Trolley Audit Task List: `RBWH_Trolley_Audit_Task_List.md`
-- RBWH Data Schema: `RBWH_Resuscitation_Trolley_Audit_Schema.md`
+- REdI Trolley Audit Task List: `RBWH_Trolley_Audit_Task_List.md`
+- REdI Data Schema: `RBWH_Resuscitation_Trolley_Audit_Schema.md`
 - SharePoint List Schemas: `sharepoint_schemas/` directory
 
 ### Revision History
