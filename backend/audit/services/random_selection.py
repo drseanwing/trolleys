@@ -38,7 +38,7 @@ class RandomAuditSelector:
         if location.last_audit_date is None:
             return 1000, None
 
-        days_since = (timezone.now().date() - location.last_audit_date).days
+        days_since = (timezone.now().date() - location.last_audit_date.date()).days
 
         base_score = 10  # default for recently audited
         for threshold, score in self.PRIORITY_TIERS:

@@ -440,21 +440,22 @@ class AuditEquipmentView(AuditOwnershipMixin, AuditorRequiredMixin, View):
         equipment_checks = audit.equipment_checks.all()
 
         try:
-            for check in equipment_checks:
-                prefix = f'equip_{check.pk}'
-                check.is_present = request.POST.get(f'{prefix}_present') == 'on'
-                qty_value = request.POST.get(f'{prefix}_qty', '0')
-                try:
-                    check.quantity_found = int(qty_value)
-                except ValueError:
-                    messages.error(
-                        request,
-                        f'Invalid quantity value for {check.equipment.item_name}',
-                    )
-                    return redirect('audit:audit_equipment', pk=audit.pk)
-                check.expiry_ok = request.POST.get(f'{prefix}_expiry') == 'on'
-                check.item_notes = request.POST.get(f'{prefix}_notes', '')
-                check.save()
+            with transaction.atomic():
+                for check in equipment_checks:
+                    prefix = f'equip_{check.pk}'
+                    check.is_present = request.POST.get(f'{prefix}_present') == 'on'
+                    qty_value = request.POST.get(f'{prefix}_qty', '0')
+                    try:
+                        check.quantity_found = int(qty_value)
+                    except ValueError:
+                        messages.error(
+                            request,
+                            f'Invalid quantity value for {check.equipment.item_name}',
+                        )
+                        return redirect('audit:audit_equipment', pk=audit.pk)
+                    check.expiry_ok = request.POST.get(f'{prefix}_expiry') == 'on'
+                    check.item_notes = request.POST.get(f'{prefix}_notes', '')
+                    check.save()
         except Exception as e:
             messages.error(request, f'Error saving equipment checklist: {e}')
             return redirect('audit:audit_equipment', pk=audit.pk)
