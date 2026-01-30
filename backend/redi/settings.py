@@ -151,7 +151,8 @@ SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
 
 
-# Email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Dev: prints to console
+# Email configuration - Power Automate API
+EMAIL_API_ENDPOINT = os.environ.get('EMAIL_API_ENDPOINT', '')
+EMAIL_API_TIMEOUT = int(os.environ.get('EMAIL_API_TIMEOUT', '30'))
 DEFAULT_FROM_EMAIL = 'redi-noreply@health.qld.gov.au'
 EMAIL_SUBJECT_PREFIX = '[REdI] '

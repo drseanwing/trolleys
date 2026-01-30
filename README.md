@@ -50,6 +50,8 @@ After initial design as a SharePoint/Power Platform solution, REdI was re-archit
 | **Static Files** | WhiteNoise | 6.7+ |
 | **Production WSGI** | Gunicorn | 23.0+ |
 | **Task Scheduling** | Cron / APScheduler | - |
+| **Email Delivery** | Power Automate API | - |
+| **Branding** | REdI CSS Stylesheet | - |
 
 ---
 
@@ -561,10 +563,12 @@ python manage.py generate_weekly_selection
 
 ### Optional: Email Notifications
 
-If notifications service is configured:
+If notifications service is configured via Power Automate API:
 - Issue escalation emails
 - Audit completion reminders
 - Weekly selection notification
+
+Email notifications require the `EMAIL_API_ENDPOINT` environment variable to be set. Configure your Power Automate Flow to handle the notification payloads sent by Django.
 
 ---
 
@@ -631,14 +635,20 @@ SECRET_KEY=your-secret-key-here
 ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
 DATABASE_URL=sqlite:///db.sqlite3  # or PostgreSQL in production
 
-# Optional
-EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER=your-email@example.com
-EMAIL_HOST_PASSWORD=your-app-password
+# Email - Power Automate API
+EMAIL_API_ENDPOINT=https://your-power-automate-endpoint-url
+EMAIL_API_TIMEOUT=30
 ```
+
+**Email Configuration:**
+
+The system uses Microsoft Power Automate's HTTP endpoint for email delivery instead of traditional SMTP. This provides:
+- Better integration with Queensland Health's email infrastructure
+- No need for SMTP credentials or email server configuration
+- Centralized email template management in Power Automate
+- Robust retry and delivery tracking
+
+Configure `EMAIL_API_ENDPOINT` to point to your Power Automate Flow's HTTP trigger URL. The timeout value (in seconds) controls how long Django will wait for the API response.
 
 ### WSGI Server
 

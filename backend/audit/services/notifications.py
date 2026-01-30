@@ -8,11 +8,15 @@ Sends notifications for:
 4. SLA breach warning (to assigned person and manager)
 5. Issue escalation (to management chain)
 6. Weekly random selection (to MERT educators)
+
+Uses Power Automate HTTP trigger API for email delivery.
 """
 import logging
+
 from django.conf import settings
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
+from django.utils.html import escape
+
+from .email_backend import PowerAutomateEmailService
 
 logger = logging.getLogger(__name__)
 
@@ -20,112 +24,151 @@ logger = logging.getLogger(__name__)
 class NotificationService:
     """Send email notifications for audit system events."""
 
-    FROM_EMAIL = getattr(settings, 'DEFAULT_FROM_EMAIL', 'redi-noreply@health.qld.gov.au')
+    def __init__(self):
+        self.email_service = PowerAutomateEmailService()
+        self.subject_prefix = getattr(
+            settings, 'EMAIL_SUBJECT_PREFIX', '[REdI] ',
+        )
 
     def notify_audit_completed(self, audit):
         """Notify relevant parties that an audit has been completed."""
-        subject = f'[REdI] Audit Completed: {audit.location.display_name}'
-        context = {
-            'audit': audit,
-            'location': audit.location,
-            'compliance': audit.overall_compliance,
-        }
-        message = (
-            f"Audit completed for {audit.location.display_name}\n"
-            f"Auditor: {audit.auditor_name}\n"
-            f"Overall Compliance: {audit.overall_compliance}%\n"
-            f"Date: {audit.completed_at}\n"
+        subject = f'{self.subject_prefix}Audit Completed: {audit.location.display_name}'
+        body = (
+            f"<h2>Audit Completed</h2>"
+            f"<p><strong>Location:</strong> {escape(audit.location.display_name)}</p>"
+            f"<p><strong>Auditor:</strong> {escape(audit.auditor_name)}</p>"
+            f"<p><strong>Overall Compliance:</strong> {audit.overall_compliance}%</p>"
+            f"<p><strong>Date:</strong> {audit.completed_at}</p>"
         )
 
         if audit.overall_compliance and audit.overall_compliance < 80:
-            message += f"\nWARNING: Compliance below 80% threshold. Follow-up required.\n"
+            body += (
+                f"<p style='color: #DC3545; font-weight: bold;'>"
+                f"WARNING: Compliance below 80% threshold. Follow-up required.</p>"
+            )
 
         recipients = self._get_service_line_contacts(audit.location.service_line)
         if recipients:
-            self._send(subject, message, recipients)
+            self.email_service.send(
+                to=';'.join(recipients),
+                subject=subject,
+                body=body,
+            )
 
     def notify_critical_issue(self, issue):
         """Notify MERT educators of a critical issue."""
         if issue.severity != 'Critical':
             return
 
-        subject = f'[REdI] CRITICAL Issue: {issue.title}'
-        message = (
-            f"Critical issue reported at {issue.location.display_name}\n\n"
-            f"Issue: {issue.issue_number} - {issue.title}\n"
-            f"Category: {issue.issue_category}\n"
-            f"Description: {issue.description}\n"
-            f"Reported by: {issue.reported_by}\n"
-            f"SLA Target: {issue.target_resolution_date}\n"
+        subject = f'{self.subject_prefix}CRITICAL Issue: {issue.title}'
+        body = (
+            f"<h2>Critical Issue Reported</h2>"
+            f"<p><strong>Location:</strong> {escape(issue.location.display_name)}</p>"
+            f"<p><strong>Issue:</strong> {escape(issue.issue_number)} - {escape(issue.title)}</p>"
+            f"<p><strong>Category:</strong> {escape(issue.issue_category)}</p>"
+            f"<p><strong>Description:</strong> {escape(issue.description)}</p>"
+            f"<p><strong>Reported by:</strong> {escape(issue.reported_by)}</p>"
+            f"<p><strong>SLA Target:</strong> {issue.target_resolution_date}</p>"
         )
 
         recipients = self._get_educator_emails()
         if recipients:
-            self._send(subject, message, recipients)
+            self.email_service.send(
+                to=';'.join(recipients),
+                subject=subject,
+                body=body,
+                importance='High',
+            )
 
     def notify_issue_assigned(self, issue):
         """Notify the assigned person about their new issue."""
-        subject = f'[REdI] Issue Assigned: {issue.issue_number} - {issue.title}'
-        message = (
-            f"You have been assigned issue {issue.issue_number}\n\n"
-            f"Location: {issue.location.display_name}\n"
-            f"Severity: {issue.severity}\n"
-            f"Description: {issue.description}\n"
-            f"Target Resolution: {issue.target_resolution_date}\n"
+        subject = f'{self.subject_prefix}Issue Assigned: {issue.issue_number} - {issue.title}'
+        body = (
+            f"<h2>Issue Assigned to You</h2>"
+            f"<p>You have been assigned issue <strong>{escape(issue.issue_number)}</strong></p>"
+            f"<p><strong>Location:</strong> {escape(issue.location.display_name)}</p>"
+            f"<p><strong>Severity:</strong> {issue.severity}</p>"
+            f"<p><strong>Description:</strong> {escape(issue.description)}</p>"
+            f"<p><strong>Target Resolution:</strong> {issue.target_resolution_date}</p>"
         )
 
-        # Try to find the assigned user's email
         from django.contrib.auth import get_user_model
         User = get_user_model()
         try:
             user = User.objects.get(username=issue.assigned_to)
             if user.email:
-                self._send(subject, message, [user.email])
+                self.email_service.send(
+                    to=user.email,
+                    subject=subject,
+                    body=body,
+                )
         except User.DoesNotExist:
-            pass
+            logger.warning(
+                'Cannot notify assigned user: %s not found',
+                issue.assigned_to,
+            )
 
     def notify_sla_warning(self, issue):
         """Send SLA breach warning."""
-        subject = f'[REdI] SLA WARNING: {issue.issue_number} - {issue.title}'
-        message = (
-            f"SLA breach warning for issue {issue.issue_number}\n\n"
-            f"Location: {issue.location.display_name}\n"
-            f"Severity: {issue.severity}\n"
-            f"Status: {issue.status}\n"
-            f"Target Date: {issue.target_resolution_date}\n"
-            f"Escalation Level: {issue.escalation_level}\n"
+        subject = f'{self.subject_prefix}SLA WARNING: {issue.issue_number} - {issue.title}'
+        body = (
+            f"<h2>SLA Breach Warning</h2>"
+            f"<p>SLA breach warning for issue <strong>{escape(issue.issue_number)}</strong></p>"
+            f"<p><strong>Location:</strong> {escape(issue.location.display_name)}</p>"
+            f"<p><strong>Severity:</strong> {issue.severity}</p>"
+            f"<p><strong>Status:</strong> {issue.status}</p>"
+            f"<p><strong>Target Date:</strong> {issue.target_resolution_date}</p>"
+            f"<p><strong>Escalation Level:</strong> {issue.escalation_level}</p>"
         )
 
         recipients = self._get_service_line_contacts(issue.location.service_line)
         recipients.extend(self._get_educator_emails())
-        recipients = list(set(recipients))  # deduplicate
+        recipients = list(set(recipients))
 
         if recipients:
-            self._send(subject, message, recipients)
+            self.email_service.send(
+                to=';'.join(recipients),
+                subject=subject,
+                body=body,
+                importance='High',
+            )
 
     def notify_weekly_selection(self, selection):
         """Notify educators about new weekly selection."""
-        subject = f'[REdI] Weekly Random Selection: {selection.week_start_date} - {selection.week_end_date}'
+        subject = (
+            f'{self.subject_prefix}Weekly Random Selection: '
+            f'{selection.week_start_date} - {selection.week_end_date}'
+        )
 
-        items = selection.items.select_related('location', 'location__service_line').order_by('selection_rank')
-        trolley_list = '\n'.join([
-            f"  {item.selection_rank}. {item.location.display_name} "
-            f"({item.location.service_line.abbreviation}) - "
-            f"Priority: {item.priority_score}"
+        items = selection.items.select_related(
+            'location', 'location__service_line',
+        ).order_by('selection_rank')
+
+        trolley_rows = ''.join([
+            f"<tr><td>{item.selection_rank}</td>"
+            f"<td>{escape(item.location.display_name)}</td>"
+            f"<td>{escape(item.location.service_line.abbreviation)}</td>"
+            f"<td>{item.priority_score}</td></tr>"
             for item in items
         ])
 
-        message = (
-            f"Weekly random audit selection generated\n\n"
-            f"Week: {selection.week_start_date} to {selection.week_end_date}\n"
-            f"Generated by: {selection.generated_by}\n"
-            f"Trolleys selected: {items.count()}\n\n"
-            f"Selection:\n{trolley_list}\n"
+        body = (
+            f"<h2>Weekly Random Audit Selection</h2>"
+            f"<p><strong>Week:</strong> {selection.week_start_date} to {selection.week_end_date}</p>"
+            f"<p><strong>Generated by:</strong> {escape(selection.generated_by)}</p>"
+            f"<p><strong>Trolleys selected:</strong> {items.count()}</p>"
+            f"<table border='1' cellpadding='8' cellspacing='0' style='border-collapse: collapse;'>"
+            f"<thead><tr><th>Rank</th><th>Location</th><th>Service Line</th><th>Priority</th></tr></thead>"
+            f"<tbody>{trolley_rows}</tbody></table>"
         )
 
         recipients = self._get_educator_emails()
         if recipients:
-            self._send(subject, message, recipients)
+            self.email_service.send(
+                to=';'.join(recipients),
+                subject=subject,
+                body=body,
+            )
 
     def _get_service_line_contacts(self, service_line):
         """Get email addresses for a service line."""
@@ -140,20 +183,7 @@ class NotificationService:
         try:
             group = Group.objects.get(name='MERT Educator')
             return list(group.user_set.filter(
-                email__isnull=False
+                email__isnull=False,
             ).exclude(email='').values_list('email', flat=True))
         except Group.DoesNotExist:
             return []
-
-    def _send(self, subject, message, recipients):
-        """Send an email with error handling."""
-        try:
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=self.FROM_EMAIL,
-                recipient_list=recipients,
-                fail_silently=True,
-            )
-        except Exception as e:
-            logger.error("Failed to send email notification: %s", e, exc_info=True)

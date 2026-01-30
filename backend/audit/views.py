@@ -10,6 +10,7 @@ Implements all views for the audit workflow:
 - Reports and CSV export
 """
 
+import logging
 from datetime import date, timedelta
 
 import csv
@@ -42,7 +43,10 @@ from .models import (
 )
 from .services.compliance import ComplianceScorer
 from .services.issue_workflow import InvalidTransitionError, IssueWorkflow
+from .services.notifications import NotificationService
 from .services.random_selection import RandomAuditSelector
+
+logger = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
@@ -595,9 +599,10 @@ class AuditSubmitView(AuditOwnershipMixin, AuditorRequiredMixin, View):
             location.save(update_fields=['last_audit_date', 'last_audit_compliance'])
 
             # Auto-create issues for critical equipment failures
+            critical_issues = []
             for check in audit.equipment_checks.select_related('equipment'):
                 if check.equipment.critical_item and not check.is_present:
-                    Issue.objects.create(
+                    issue = Issue.objects.create(
                         location=location,
                         audit=audit,
                         issue_category='Equipment',
@@ -611,6 +616,7 @@ class AuditSubmitView(AuditOwnershipMixin, AuditorRequiredMixin, View):
                         equipment=check.equipment,
                         reported_by=audit.auditor_name,
                     )
+                    critical_issues.append(issue)
 
             # Low compliance triggers follow-up
             if overall < 80:
@@ -619,6 +625,19 @@ class AuditSubmitView(AuditOwnershipMixin, AuditorRequiredMixin, View):
                 audit.save(
                     update_fields=['requires_follow_up', 'follow_up_due_date'],
                 )
+
+        # Send notifications (never crash on email failure)
+        try:
+            notifications = NotificationService()
+            notifications.notify_audit_completed(audit)
+            for issue in critical_issues:
+                notifications.notify_critical_issue(issue)
+        except Exception:
+            logger.warning(
+                'Failed to send notifications for audit %s',
+                audit.pk,
+                exc_info=True,
+            )
 
         messages.success(
             request,
@@ -694,6 +713,10 @@ class IssueCreateView(AuditorRequiredMixin, CreateView):
         workflow = IssueWorkflow()
         workflow.set_target_resolution_date(self.object)
 
+        # Notify if critical issue
+        notifications = NotificationService()
+        notifications.notify_critical_issue(self.object)
+
         messages.success(
             self.request,
             f'Issue {self.object.issue_number} created.',
@@ -750,6 +773,8 @@ class IssueTransitionView(ManagerRequiredMixin, View):
             if action == 'assign':
                 assigned_to = request.POST.get('assigned_to', '')
                 workflow.assign(issue, assigned_to, user_name)
+                notifications = NotificationService()
+                notifications.notify_issue_assigned(issue)
                 messages.success(
                     request, f'Issue assigned to {assigned_to}.',
                 )
