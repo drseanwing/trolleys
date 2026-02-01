@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: backend/requirements.txt
 
       - name: Install dependencies
         working-directory: backend
@@ -29,7 +31,7 @@ jobs:
 
       - name: Run Django system checks
         working-directory: backend
-        run: python manage.py check --deploy 2>&1 || true
+        run: python manage.py check --deploy
 
       - name: Run migrations
         working-directory: backend
@@ -42,6 +44,14 @@ jobs:
       - name: Check for missing migrations
         working-directory: backend
         run: python manage.py makemigrations --check --dry-run
+
+      - name: Collect static files
+        working-directory: backend
+        run: python manage.py collectstatic --noinput
+
+      - name: Run tests
+        working-directory: backend
+        run: pytest
 
   lint:
     runs-on: ubuntu-latest
@@ -58,4 +68,4 @@ jobs:
 
       - name: Run linter
         working-directory: backend
-        run: ruff check . || true
+        run: ruff check .

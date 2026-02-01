@@ -12,12 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Run pip-audit
         run: |
           pip install pip-audit
-          cd backend && pip install -r requirements.txt && pip-audit || true
+          cd backend && pip install -r requirements.txt && pip-audit
 
       - name: Check for secrets
-        uses: trufflesecurity/trufflehog@main
+        uses: trufflesecurity/trufflehog@v3.87.2
         with:
           extra_args: --only-verified

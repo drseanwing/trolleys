@@ -36,5 +36,35 @@ Thumbs.db
 .env.local
 .env.production
 
+# Docker
+docker-compose.override.yml
+
+# Static collected
+backend/staticfiles/
+
+# Media uploads
+backend/media/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# Node (if frontend tools added later)
+node_modules/
+
+# Pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# Backups
+*.sql
+*.dump
+
+# Local overrides
+*.local
+
 # oh-my-claudecode state
 .omc/
