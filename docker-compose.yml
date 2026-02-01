@@ -34,6 +34,27 @@ services:
       retries: 5
     restart: unless-stopped
 
+  cron:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE=redi.settings
+      - DATABASE_URL=postgres://redi:redi_dev@db:5432/redi
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-change-me-in-production}
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint: []
+    command: >
+      sh -c "
+      echo '0 6 * * 1 cd /app && python manage.py generate_weekly_selection' > /tmp/crontab &&
+      echo '0 8 * * * cd /app && python manage.py check_sla' >> /tmp/crontab &&
+      crontab /tmp/crontab &&
+      crond -f
+      "
+    restart: unless-stopped
+
 volumes:
   postgres_data:
     name: trolleys_postgres_data

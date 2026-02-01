@@ -5,3 +5,7 @@ whitenoise>=6.7
 python-dateutil>=2.9
 gunicorn>=23.0
 requests>=2.31.0
+psycopg[binary]>=3.1
+dj-database-url>=2.1
+coverage>=7.0
+openpyxl>=3.1

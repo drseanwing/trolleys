@@ -19,7 +19,8 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.db.models import Avg, Count, Q
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
+from django.db.models.functions import TruncMonth
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views import View
@@ -29,8 +30,8 @@ from django.views.generic import (
 
 from .forms import (
     AuditChecksForm, AuditConditionForm, AuditDocumentsForm,
-    IssueAssignForm, IssueCommentForm, IssueCreateForm,
-    IssueResolveForm, LocationEditForm,
+    CorrectiveActionForm, IssueAssignForm, IssueCommentForm,
+    IssueCreateForm, IssueEditForm, IssueResolveForm, LocationEditForm,
 )
 from .mixins import (
     AuditorRequiredMixin, EducatorRequiredMixin, ManagerRequiredMixin,
@@ -38,8 +39,9 @@ from .mixins import (
 )
 from .models import (
     Audit, AuditChecks, AuditCondition, AuditDocuments, AuditEquipment,
-    AuditPeriod, Equipment, Issue, Location, LocationEquipment,
-    RandomAuditSelection, ServiceLine,
+    AuditPeriod, CorrectiveAction, Equipment, Issue, Location,
+    LocationEquipment, RandomAuditSelection, RandomAuditSelectionItem,
+    ServiceLine,
 )
 from .services.compliance import ComplianceScorer
 from .services.issue_workflow import InvalidTransitionError, IssueWorkflow
@@ -280,15 +282,35 @@ class AuditStartView(AuditorRequiredMixin, View):
 
     def post(self, request, location_id):
         location = get_object_or_404(Location, pk=location_id)
+
+        # Prevent duplicate in-progress audits for the same location
+        existing = Audit.objects.filter(
+            location=location,
+            submission_status='InProgress',
+        ).first()
+        if existing:
+            messages.info(
+                request,
+                f'An audit is already in progress for {location.display_name}. Resuming existing audit.',
+            )
+            return redirect('audit:audit_documents', pk=existing.pk)
+
         period = AuditPeriod.objects.filter(is_active=True).first()
 
         if not period:
             messages.error(request, 'No active audit period found.')
             return redirect('audit:trolley_detail', pk=location_id)
 
+        # Determine audit type based on context
+        audit_type = 'Monthly'
+        selection_item_id = request.POST.get('selection_item') or request.GET.get('selection_item')
+        if selection_item_id:
+            audit_type = 'Random'
+
         audit = Audit.objects.create(
             location=location,
             period=period,
+            audit_type=audit_type,
             auditor_name=(
                 request.user.get_full_name() or request.user.username
             ),
@@ -385,6 +407,13 @@ class AuditDetailView(ViewerRequiredMixin, DetailView):
             .order_by('equipment__category__sort_order', 'equipment__sort_order')
         )
         ctx['issues'] = audit.issues.all()
+
+        # Check if user is educator for follow-up audit button
+        ctx['is_educator'] = (
+            self.request.user.groups.filter(name__in=['MERT Educator', 'System Admin']).exists()
+            or self.request.user.is_superuser
+        )
+
         return ctx
 
 
@@ -597,6 +626,17 @@ class AuditSubmitView(AuditOwnershipMixin, AuditorRequiredMixin, View):
             location.last_audit_date = audit.completed_at
             location.last_audit_compliance = overall
             location.save(update_fields=['last_audit_date', 'last_audit_compliance'])
+
+            # Mark any related random selection item as completed
+            from .models import RandomAuditSelectionItem
+            RandomAuditSelectionItem.objects.filter(
+                location=location,
+                audit_status='Pending',
+                selection__is_active=True,
+            ).update(
+                audit_status='Completed',
+                audit=audit,
+            )
 
             # Auto-create issues for critical equipment failures
             critical_issues = []
@@ -828,6 +868,40 @@ class IssueCommentView(AuditorRequiredMixin, View):
         return redirect('audit:issue_detail', pk=issue.pk)
 
 
+class CorrectiveActionCreateView(ManagerRequiredMixin, View):
+    """Record a corrective action for an issue (POST only)."""
+
+    def post(self, request, pk):
+        issue = get_object_or_404(Issue, pk=pk)
+        form = CorrectiveActionForm(request.POST)
+        if form.is_valid():
+            action = form.save(commit=False)
+            action.issue = issue
+            action.action_taken_by = (
+                request.user.get_full_name() or request.user.username
+            )
+            # Auto-assign action number
+            last_action = issue.corrective_actions.order_by('-action_number').first()
+            action.action_number = (last_action.action_number + 1) if last_action else 1
+            action.save()
+            messages.success(request, 'Corrective action recorded.')
+        else:
+            messages.error(request, 'Please correct the form errors.')
+        return redirect('audit:issue_detail', pk=issue.pk)
+
+
+class IssueEditView(ManagerRequiredMixin, UpdateView):
+    """Edit an existing issue's title, description, severity, or category."""
+
+    model = Issue
+    form_class = IssueEditForm
+    template_name = 'audit/issue_edit.html'
+
+    def get_success_url(self):
+        messages.success(self.request, 'Issue updated successfully.')
+        return self.object.get_absolute_url()
+
+
 # ---------------------------------------------------------------------------
 # Random Selection views
 # ---------------------------------------------------------------------------
@@ -862,6 +936,28 @@ class GenerateSelectionView(EducatorRequiredMixin, View):
             f'Generated selection with {selection.items.count()} trolleys.',
         )
         return redirect('audit:random_selection')
+
+
+class SelectionDetailView(EducatorRequiredMixin, DetailView):
+    """Detail view for a single random audit selection with item status."""
+
+    model = RandomAuditSelection
+    template_name = 'audit/selection_detail.html'
+    context_object_name = 'selection'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['items'] = (
+            self.object.items
+            .select_related('location', 'location__service_line', 'audit')
+            .order_by('selection_rank')
+        )
+        total = self.object.items.count()
+        completed = self.object.items.filter(audit_status='Completed').count()
+        ctx['completion_pct'] = int(completed / total * 100) if total > 0 else 0
+        ctx['completed_count'] = completed
+        ctx['total_count'] = total
+        return ctx
 
 
 # ---------------------------------------------------------------------------
@@ -927,13 +1023,111 @@ class ComplianceReportView(ViewerRequiredMixin, TemplateView):
         return ctx
 
 
+class ComplianceTrendApiView(ViewerRequiredMixin, View):
+    """JSON API: monthly average compliance over the last 12 months."""
+
+    def get(self, request):
+        twelve_months_ago = timezone.now() - timedelta(days=365)
+        data = (
+            Audit.objects.filter(
+                submission_status='Submitted',
+                completed_at__gte=twelve_months_ago,
+            )
+            .annotate(month=TruncMonth('completed_at'))
+            .values('month')
+            .annotate(avg_compliance=Avg('overall_compliance'))
+            .order_by('month')
+        )
+
+        labels = []
+        values = []
+        for entry in data:
+            labels.append(entry['month'].strftime('%b %Y'))
+            values.append(float(entry['avg_compliance'] or 0))
+
+        return JsonResponse({
+            'labels': labels,
+            'datasets': [{
+                'label': 'Average Compliance %',
+                'data': values,
+            }],
+        })
+
+
+class IssuesBySeverityApiView(ViewerRequiredMixin, View):
+    """JSON API: open issues grouped by severity."""
+
+    def get(self, request):
+        data = (
+            Issue.objects.exclude(status__in=['Closed', 'Resolved'])
+            .values('severity')
+            .annotate(count=Count('id'))
+            .order_by('severity')
+        )
+
+        labels = []
+        values = []
+        colors = {
+            'Critical': '#E55B64',
+            'High': '#FFC107',
+            'Medium': '#FF9800',
+            'Low': '#6C757D',
+        }
+        bg_colors = []
+
+        for entry in data:
+            labels.append(entry['severity'])
+            values.append(entry['count'])
+            bg_colors.append(colors.get(entry['severity'], '#6C757D'))
+
+        return JsonResponse({
+            'labels': labels,
+            'datasets': [{
+                'data': values,
+                'backgroundColor': bg_colors,
+            }],
+        })
+
+
+class AuditVolumeApiView(ViewerRequiredMixin, View):
+    """JSON API: audits per month over the last 12 months."""
+
+    def get(self, request):
+        twelve_months_ago = timezone.now() - timedelta(days=365)
+        data = (
+            Audit.objects.filter(
+                submission_status='Submitted',
+                completed_at__gte=twelve_months_ago,
+            )
+            .annotate(month=TruncMonth('completed_at'))
+            .values('month')
+            .annotate(count=Count('id'))
+            .order_by('month')
+        )
+
+        labels = []
+        values = []
+        for entry in data:
+            labels.append(entry['month'].strftime('%b %Y'))
+            values.append(entry['count'])
+
+        return JsonResponse({
+            'labels': labels,
+            'datasets': [{
+                'label': 'Audits Completed',
+                'data': values,
+            }],
+        })
+
+
 class ExportView(ManagerRequiredMixin, View):
-    """Export audit data as CSV. Supports audits, issues, and locations."""
+    """Export audit data as CSV or Excel. Supports audits, issues, and locations."""
 
     ALLOWED_EXPORT_TYPES = {'audits', 'issues', 'locations'}
 
     def get(self, request):
         export_type = request.GET.get('type', 'audits')
+        export_format = request.GET.get('format', 'csv')
 
         # Validate export type against whitelist
         if export_type not in self.ALLOWED_EXPORT_TYPES:
@@ -941,6 +1135,12 @@ class ExportView(ManagerRequiredMixin, View):
                 f'Invalid export type. Must be one of: {", ".join(self.ALLOWED_EXPORT_TYPES)}',
             )
 
+        if export_format == 'xlsx':
+            return self._export_xlsx(export_type)
+        return self._export_csv(export_type)
+
+    def _export_csv(self, export_type):
+        """Export data as CSV."""
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = (
             f'attachment; filename="redi_{export_type}_{date.today()}.csv"'
@@ -948,15 +1148,76 @@ class ExportView(ManagerRequiredMixin, View):
         writer = csv.writer(response)
 
         if export_type == 'audits':
-            self._export_audits(writer)
+            self._write_audit_rows(writer)
         elif export_type == 'issues':
-            self._export_issues(writer)
+            self._write_issue_rows(writer)
         elif export_type == 'locations':
-            self._export_locations(writer)
+            self._write_location_rows(writer)
 
         return response
 
-    def _export_audits(self, writer):
+    def _export_xlsx(self, export_type):
+        """Export data as Excel."""
+        try:
+            from openpyxl import Workbook
+            from openpyxl.styles import Font, PatternFill
+        except ImportError:
+            return HttpResponseBadRequest('Excel export requires openpyxl.')
+
+        wb = Workbook()
+        ws = wb.active
+        ws.title = export_type.capitalize()
+
+        # Header styling
+        header_font = Font(bold=True, color='FFFFFF')
+        header_fill = PatternFill(start_color='1B3A5F', end_color='1B3A5F', fill_type='solid')
+
+        class XlsxWriter:
+            """Adapter to write rows to openpyxl worksheet."""
+            def __init__(self, worksheet):
+                self.ws = worksheet
+                self.row_num = 0
+
+            def writerow(self, row):
+                self.row_num += 1
+                for col_num, value in enumerate(row, 1):
+                    cell = self.ws.cell(row=self.row_num, column=col_num, value=value)
+                    if self.row_num == 1:
+                        cell.font = header_font
+                        cell.fill = header_fill
+
+        writer = XlsxWriter(ws)
+
+        if export_type == 'audits':
+            self._write_audit_rows(writer)
+        elif export_type == 'issues':
+            self._write_issue_rows(writer)
+        elif export_type == 'locations':
+            self._write_location_rows(writer)
+
+        # Auto-fit column widths
+        for col in ws.columns:
+            max_length = 0
+            for cell in col:
+                if cell.value:
+                    max_length = max(max_length, len(str(cell.value)))
+            ws.column_dimensions[col[0].column_letter].width = min(max_length + 2, 50)
+
+        from io import BytesIO
+        buffer = BytesIO()
+        wb.save(buffer)
+        buffer.seek(0)
+
+        response = HttpResponse(
+            buffer.getvalue(),
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = (
+            f'attachment; filename="redi_{export_type}_{date.today()}.xlsx"'
+        )
+        return response
+
+    def _write_audit_rows(self, writer):
         writer.writerow([
             'Location', 'Service Line', 'Audit Date', 'Auditor',
             'Overall %', 'Documentation %', 'Equipment %',
@@ -975,15 +1236,15 @@ class ExportView(ManagerRequiredMixin, View):
                     if audit.completed_at else ''
                 ),
                 audit.auditor_name,
-                audit.overall_compliance,
-                audit.document_score,
-                audit.equipment_score,
-                audit.condition_score,
-                audit.check_score,
+                float(audit.overall_compliance) if audit.overall_compliance else '',
+                float(audit.document_score) if audit.document_score else '',
+                float(audit.equipment_score) if audit.equipment_score else '',
+                float(audit.condition_score) if audit.condition_score else '',
+                float(audit.check_score) if audit.check_score else '',
                 audit.submission_status,
             ])
 
-    def _export_issues(self, writer):
+    def _write_issue_rows(self, writer):
         writer.writerow([
             'Issue #', 'Location', 'Category', 'Severity',
             'Title', 'Status', 'Reported Date', 'Assigned To',
@@ -1005,7 +1266,7 @@ class ExportView(ManagerRequiredMixin, View):
                 issue.escalation_level,
             ])
 
-    def _export_locations(self, writer):
+    def _write_location_rows(self, writer):
         writer.writerow([
             'Department', 'Display Name', 'Service Line', 'Building',
             'Level', 'Operating Hours', 'Has Paed Box', 'Defib Type',
@@ -1025,6 +1286,6 @@ class ExportView(ManagerRequiredMixin, View):
                     loc.last_audit_date.strftime('%Y-%m-%d')
                     if loc.last_audit_date else 'Never'
                 ),
-                loc.last_audit_compliance or 'N/A',
+                float(loc.last_audit_compliance) if loc.last_audit_compliance else 'N/A',
                 loc.status,
             ])

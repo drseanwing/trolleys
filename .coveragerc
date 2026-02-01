@@ -1,0 +1,14 @@
+[run]
+source = audit
+omit =
+    audit/migrations/*
+    audit/tests/*
+
+[report]
+fail_under = 50
+show_missing = True
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if settings.DEBUG
+    raise NotImplementedError

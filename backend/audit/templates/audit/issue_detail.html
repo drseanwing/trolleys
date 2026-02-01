@@ -1,14 +1,20 @@
 {% extends "audit/base.html" %}
+{% load audit_tags %}
 {% block title %}{{ issue.issue_number }} - {{ issue.title }}{% endblock %}
 {% block content %}
 <div class="page-header d-flex justify-content-between align-items-center">
     <div>
-        <h2>{{ issue.issue_number }}: {{ issue.title }}</h2>
+        <h2>{{ issue.issue_number }}: {{ issue.title }}
+            {% if is_manager %}
+            <a href="{% url 'audit:issue_edit' issue.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+            {% endif %}
+        </h2>
         <p class="text-muted mb-0">
             <span class="badge badge-{{ issue.severity|lower }}">{{ issue.severity }}</span>
             <span class="badge bg-{% if issue.status == 'Closed' or issue.status == 'Resolved' %}success{% elif issue.status == 'Escalated' %}danger{% elif issue.status == 'Open' %}secondary{% else %}warning{% endif %}">
                 {{ issue.get_status_display }}
             </span>
+            <span class="badge {{ issue|sla_badge_class }}">{{ issue|sla_countdown }}</span>
             &bull; {{ issue.location.display_name }}
             &bull; {{ issue.issue_category }}
         </p>
@@ -104,6 +110,50 @@
                 {% endif %}
             </div>
         </div>
+
+        {% if is_manager %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">Record Corrective Action</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'audit:corrective_action_create' issue.pk %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Action Type</label>
+                            <select name="action_type" class="form-select" required>
+                                <option value="">Select type...</option>
+                                <option value="Replacement">Replacement</option>
+                                <option value="Repair">Repair</option>
+                                <option value="Restock">Restock</option>
+                                <option value="ProcessChange">Process Change</option>
+                                <option value="Training">Training</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Action Date</label>
+                            <input type="datetime-local" name="action_date" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Description</label>
+                        <textarea name="description" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Outcome Description</label>
+                        <textarea name="outcome_description" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" name="outcome_successful" class="form-check-input" id="outcome_successful">
+                        <label class="form-check-label" for="outcome_successful">Outcome Successful</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Record Action</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
     <!-- Sidebar -->

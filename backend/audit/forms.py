@@ -11,7 +11,7 @@ from django import forms
 
 from .models import (
     Location, AuditDocuments, AuditCondition, AuditChecks,
-    Issue, IssueComment,
+    Issue, IssueComment, CorrectiveAction,
 )
 
 
@@ -139,3 +139,44 @@ class IssueResolveForm(forms.Form):
     resolution_summary = forms.CharField(
         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
     )
+
+
+class CorrectiveActionForm(forms.ModelForm):
+    """Form for recording a corrective action on an issue."""
+
+    class Meta:
+        model = CorrectiveAction
+        fields = [
+            'action_type', 'description', 'action_date',
+            'outcome_description', 'outcome_successful',
+        ]
+        widgets = {
+            'action_type': forms.Select(attrs={'class': 'form-select'}),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control', 'rows': 3,
+            }),
+            'action_date': forms.DateTimeInput(attrs={
+                'class': 'form-control', 'type': 'datetime-local',
+            }),
+            'outcome_description': forms.Textarea(attrs={
+                'class': 'form-control', 'rows': 2,
+            }),
+        }
+
+
+class IssueEditForm(forms.ModelForm):
+    """Form for editing an existing issue."""
+
+    class Meta:
+        model = Issue
+        fields = [
+            'title', 'description', 'issue_category', 'severity',
+        ]
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control', 'rows': 4,
+            }),
+            'issue_category': forms.Select(attrs={'class': 'form-select'}),
+            'severity': forms.Select(attrs={'class': 'form-select'}),
+        }

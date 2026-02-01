@@ -34,13 +34,21 @@ urlpatterns = [
     path('issues/<uuid:pk>/', views.IssueDetailView.as_view(), name='issue_detail'),
     path('issues/<uuid:pk>/transition/<str:action>/', views.IssueTransitionView.as_view(), name='issue_transition'),
     path('issues/<uuid:pk>/comment/', views.IssueCommentView.as_view(), name='issue_comment'),
+    path('issues/<uuid:pk>/action/', views.CorrectiveActionCreateView.as_view(), name='corrective_action_create'),
+    path('issues/<uuid:pk>/edit/', views.IssueEditView.as_view(), name='issue_edit'),
 
     # Random Selection
     path('selection/', views.RandomSelectionView.as_view(), name='random_selection'),
     path('selection/generate/', views.GenerateSelectionView.as_view(), name='generate_selection'),
+    path('selection/<uuid:pk>/', views.SelectionDetailView.as_view(), name='selection_detail'),
 
     # Reports
     path('reports/', views.ReportsView.as_view(), name='reports'),
     path('reports/compliance/', views.ComplianceReportView.as_view(), name='compliance_report'),
     path('reports/export/', views.ExportView.as_view(), name='export'),
+
+    # Report API endpoints (JSON for Chart.js)
+    path('reports/api/compliance-trend/', views.ComplianceTrendApiView.as_view(), name='api_compliance_trend'),
+    path('reports/api/issues-by-severity/', views.IssuesBySeverityApiView.as_view(), name='api_issues_severity'),
+    path('reports/api/audit-volume/', views.AuditVolumeApiView.as_view(), name='api_audit_volume'),
 ]

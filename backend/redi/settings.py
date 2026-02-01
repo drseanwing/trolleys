@@ -6,6 +6,7 @@ Royal Brisbane and Women's Hospital
 
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,10 +76,10 @@ WSGI_APPLICATION = 'redi.wsgi.application'
 # https://docs.djangoproject.com/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:////' + str(BASE_DIR / 'db.sqlite3'),
+        conn_max_age=600,
+    )
 }
 
 
@@ -122,12 +123,20 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# WhiteNoise static file serving
-STORAGES = {
-    'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
-    },
-}
+# WhiteNoise static file serving (use simple backend for tests)
+import sys
+if 'test' in sys.argv:
+    STORAGES = {
+        'staticfiles': {
+            'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        },
+    }
+else:
+    STORAGES = {
+        'staticfiles': {
+            'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        },
+    }
 
 
 # Default primary key field type
@@ -156,3 +165,88 @@ EMAIL_API_ENDPOINT = os.environ.get('EMAIL_API_ENDPOINT', '')
 EMAIL_API_TIMEOUT = int(os.environ.get('EMAIL_API_TIMEOUT', '30'))
 DEFAULT_FROM_EMAIL = 'redi-noreply@health.qld.gov.au'
 EMAIL_SUBJECT_PREFIX = '[REdI] '
+
+# Email backend configuration
+# Use console backend in development, SMTP or Power Automate in production
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '25'))
+    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'False').lower() in ('true', '1', 'yes')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'audit': {
+            'handlers': ['console'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
+
+# ---------------------------------------------------------------------------
+# Security settings
+# ---------------------------------------------------------------------------
+
+# Session security
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+# CSRF
+CSRF_COOKIE_HTTPONLY = True
+
+# Production-only security settings
+if not DEBUG:
+    # HTTPS enforcement (behind nginx reverse proxy)
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True').lower() in ('true', '1', 'yes')
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+    # Security headers
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
+    # Ensure secret key is not the default in production
+    if SECRET_KEY == 'django-insecure-redi-trolley-audit-dev-key-change-in-production':
+        import sys
+        print(
+            'ERROR: DJANGO_SECRET_KEY must be set to a unique value in production.',
+            file=sys.stderr,
+        )
+        sys.exit(1)

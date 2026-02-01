@@ -145,4 +145,75 @@
         </table>
     </div>
 </div>
+
+<!-- Charts Row -->
+<div class="row mt-4">
+    <div class="col-md-8 mb-4">
+        <div class="card">
+            <div class="card-header"><h5 class="mb-0">Compliance Trend</h5></div>
+            <div class="card-body">
+                <canvas id="complianceTrendChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-header"><h5 class="mb-0">Open Issues by Severity</h5></div>
+            <div class="card-body">
+                <canvas id="issuesSeverityChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Compliance Trend Chart
+    fetch('{% url "audit:api_compliance_trend" %}')
+        .then(r => r.json())
+        .then(data => {
+            new Chart(document.getElementById('complianceTrendChart'), {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: data.datasets[0].label,
+                        data: data.datasets[0].data,
+                        borderColor: '#1B3A5F',
+                        backgroundColor: 'rgba(27, 58, 95, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { min: 0, max: 100, title: { display: true, text: 'Compliance %' } }
+                    }
+                }
+            });
+        });
+
+    // Issues by Severity Chart
+    fetch('{% url "audit:api_issues_severity" %}')
+        .then(r => r.json())
+        .then(data => {
+            new Chart(document.getElementById('issuesSeverityChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        data: data.datasets[0].data,
+                        backgroundColor: data.datasets[0].backgroundColor,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+        });
+</script>
 {% endblock %}

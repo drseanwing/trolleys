@@ -1,0 +1,41 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# Django
+db.sqlite3
+*.sqlite3
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules
+
+# Documentation
+docs/
+*.md
+!requirements.txt
+
+# Development
+.vscode
+.idea
+.devcontainer
+
+# CI/CD
+.github/
+
+# Project management
+.omc/

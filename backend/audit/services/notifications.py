@@ -9,12 +9,13 @@ Sends notifications for:
 5. Issue escalation (to management chain)
 6. Weekly random selection (to MERT educators)
 
-Uses Power Automate HTTP trigger API for email delivery.
+Supports Power Automate HTTP trigger API and Django SMTP fallback.
 """
 import logging
 
 from django.conf import settings
-from django.utils.html import escape
+from django.core.mail import send_mail
+from django.utils.html import escape, strip_tags
 
 from .email_backend import PowerAutomateEmailService
 
@@ -25,10 +26,64 @@ class NotificationService:
     """Send email notifications for audit system events."""
 
     def __init__(self):
-        self.email_service = PowerAutomateEmailService()
         self.subject_prefix = getattr(
             settings, 'EMAIL_SUBJECT_PREFIX', '[REdI] ',
         )
+        endpoint = getattr(settings, 'EMAIL_API_ENDPOINT', '')
+        if endpoint:
+            self._backend = 'power_automate'
+            self._pa_service = PowerAutomateEmailService()
+        else:
+            self._backend = 'django'
+            self._pa_service = None
+
+    def _send_email(self, to, subject, body, importance='Normal'):
+        """
+        Send email using configured backend.
+
+        Args:
+            to: Recipient(s) - semicolon-separated string for Power Automate,
+                or list of strings for Django mail.
+            subject: Email subject.
+            body: HTML email body.
+            importance: Email importance level.
+        """
+        if self._backend == 'power_automate' and self._pa_service:
+            return self._pa_service.send(
+                to=to if isinstance(to, str) else ';'.join(to),
+                subject=subject,
+                body=body,
+                importance=importance,
+            )
+        else:
+            # Use Django's send_mail with SMTP/console backend
+            recipient_list = (
+                to.split(';') if isinstance(to, str) else to
+            )
+            recipient_list = [r.strip() for r in recipient_list if r.strip()]
+            if not recipient_list:
+                logger.warning('No recipients for email: %s', subject)
+                return False
+            try:
+                send_mail(
+                    subject=subject,
+                    message=strip_tags(body),
+                    from_email=getattr(
+                        settings, 'DEFAULT_FROM_EMAIL',
+                        'redi-noreply@health.qld.gov.au',
+                    ),
+                    recipient_list=recipient_list,
+                    html_message=body,
+                    fail_silently=False,
+                )
+                logger.info('Email sent via Django: %s -> %s', subject, recipient_list)
+                return True
+            except Exception:
+                logger.error(
+                    'Failed to send email via Django: %s', subject,
+                    exc_info=True,
+                )
+                return False
 
     def notify_audit_completed(self, audit):
         """Notify relevant parties that an audit has been completed."""
@@ -49,7 +104,7 @@ class NotificationService:
 
         recipients = self._get_service_line_contacts(audit.location.service_line)
         if recipients:
-            self.email_service.send(
+            self._send_email(
                 to=';'.join(recipients),
                 subject=subject,
                 body=body,
@@ -73,7 +128,7 @@ class NotificationService:
 
         recipients = self._get_educator_emails()
         if recipients:
-            self.email_service.send(
+            self._send_email(
                 to=';'.join(recipients),
                 subject=subject,
                 body=body,
@@ -97,7 +152,7 @@ class NotificationService:
         try:
             user = User.objects.get(username=issue.assigned_to)
             if user.email:
-                self.email_service.send(
+                self._send_email(
                     to=user.email,
                     subject=subject,
                     body=body,
@@ -126,7 +181,7 @@ class NotificationService:
         recipients = list(set(recipients))
 
         if recipients:
-            self.email_service.send(
+            self._send_email(
                 to=';'.join(recipients),
                 subject=subject,
                 body=body,
@@ -164,7 +219,7 @@ class NotificationService:
 
         recipients = self._get_educator_emails()
         if recipients:
-            self.email_service.send(
+            self._send_email(
                 to=';'.join(recipients),
                 subject=subject,
                 body=body,

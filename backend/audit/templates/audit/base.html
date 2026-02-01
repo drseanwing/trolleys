@@ -104,7 +104,28 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Configure HTMX to include CSRF token in all requests
+        document.body.addEventListener('htmx:configRequest', function(evt) {
+            var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+            if (csrfToken) {
+                evt.detail.headers['X-CSRFToken'] = csrfToken.value;
+            } else {
+                // Fallback: read from cookie
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.startsWith('csrftoken=')) {
+                        evt.detail.headers['X-CSRFToken'] = cookie.substring('csrftoken='.length);
+                        break;
+                    }
+                }
+            }
+        });
+    </script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
