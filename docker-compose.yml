@@ -48,10 +48,17 @@ services:
     entrypoint: []
     command: >
       sh -c "
-      echo '0 6 * * 1 cd /app && python manage.py generate_weekly_selection' > /tmp/crontab &&
-      echo '0 8 * * * cd /app && python manage.py check_sla' >> /tmp/crontab &&
-      crontab /tmp/crontab &&
-      crond -f
+      while true; do
+        HOUR=$$(date +%%H)
+        DOW=$$(date +%%u)
+        if [ \"$$HOUR\" = \"06\" ] && [ \"$$DOW\" = \"1\" ]; then
+          python manage.py generate_weekly_selection 2>&1 || true
+        fi
+        if [ \"$$HOUR\" = \"08\" ]; then
+          python manage.py check_sla 2>&1 || true
+        fi
+        sleep 3600
+      done
       "
     restart: unless-stopped
 

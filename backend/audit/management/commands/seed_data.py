@@ -40,16 +40,23 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        # Resolve the seed_data directory (two levels up from manage.py -> repo root)
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        )))
-        seed_dir = os.path.join(base_dir, 'seed_data')
+        from django.conf import settings
 
-        if not os.path.isdir(seed_dir):
+        # Try multiple candidate paths for seed_data directory
+        candidates = [
+            os.path.join(str(settings.BASE_DIR), 'seed_data'),        # /app/seed_data (Docker)
+            os.path.join(str(settings.BASE_DIR.parent), 'seed_data'), # repo_root/seed_data (local dev)
+        ]
+        seed_dir = None
+        for candidate in candidates:
+            if os.path.isdir(candidate):
+                seed_dir = candidate
+                break
+
+        if seed_dir is None:
             raise CommandError(
-                f"Seed data directory not found at: {seed_dir}\n"
-                "Make sure you are running from the backend/ directory."
+                f"Seed data directory not found. Checked:\n"
+                + "\n".join(f"  - {c}" for c in candidates)
             )
 
         self.stdout.write(f"Seed data directory: {seed_dir}")

@@ -2,20 +2,34 @@
 set -e
 
 echo "Waiting for PostgreSQL to be ready..."
-until python -c "
-import socket, os, sys
-host = os.environ.get('DB_HOST', 'db')
-port = int(os.environ.get('DB_PORT', '5432'))
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-try:
-    s.connect((host, port))
-    s.close()
-    sys.exit(0)
-except:
-    sys.exit(1)
-" 2>/dev/null; do
-  sleep 1
-done
+python << 'PYEOF'
+import socket, os, sys, time
+from urllib.parse import urlparse
+
+database_url = os.environ.get('DATABASE_URL', '')
+if database_url:
+    parsed = urlparse(database_url)
+    host = parsed.hostname or 'db'
+    port = parsed.port or 5432
+else:
+    host = 'db'
+    port = 5432
+
+for i in range(30):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(5)
+        s.connect((host, port))
+        s.close()
+        print(f"PostgreSQL is ready at {host}:{port}")
+        sys.exit(0)
+    except Exception:
+        print(f"Attempt {i+1}: waiting for {host}:{port}...")
+        time.sleep(2)
+
+print("ERROR: Could not connect to PostgreSQL after 30 attempts", file=sys.stderr)
+sys.exit(1)
+PYEOF
 
 echo "Running database migrations..."
 python manage.py migrate --noinput

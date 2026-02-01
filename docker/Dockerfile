@@ -21,6 +21,9 @@ COPY seed_data/ /app/seed_data/
 COPY docker/entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
+# Create volume mount points with correct ownership
+RUN mkdir -p /app/staticfiles /app/media
+
 # Set ownership
 RUN chown -R app:app /app
 
